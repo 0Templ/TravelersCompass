@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lodestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:lodestone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "travelerscompass:travelerscompass"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lodestone",
+      "has_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "travelerscompass:travelerscompass"
+    ]
+  }
+}
