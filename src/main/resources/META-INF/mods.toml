@@ -5,7 +5,7 @@ license="${mod_license}"
 [[mods]]
 
 modId="${mod_id}"
-version="2.0.2"
+version="2.0.4"
 displayName="${mod_name}"
 authors="${mod_authors}"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/travelers-compass"

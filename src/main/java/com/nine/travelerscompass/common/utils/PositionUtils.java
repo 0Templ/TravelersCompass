@@ -226,15 +226,17 @@ public class PositionUtils {
                 .filter(foundPos -> {
                     BlockEntity blockEntity = level.getBlockEntity(foundPos);
                     if (blockEntity!=null) {
-                        if (blockEntity instanceof ILootBlockEntity lootEntity && player instanceof ServerPlayer serverPlayer) {
-                            if (ConfigUtils.hasLootr()){
-                                if ((lootEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
-                                    SpecialChestInventory inventory = DataStorage.getInventory(level, lootEntity.getTileId(), lootEntity.getPosition(), serverPlayer, (RandomizableContainerBlockEntity) lootEntity, lootEntity::unpackLootTable);
-                                    if (inventory != null) {
-                                        for (int index = 0; index < inventory.getContainerSize(); index++) {
-                                            ItemStack stackInSlot = inventory.getItem(index);
-                                            if (searchItems.contains(stackInSlot.getItem()) && !(hasAnyFavorite && !favoriteList.contains(stackInSlot.getItem()))) {
-                                                return searchItems.contains(stackInSlot.getItem());
+                        if (ConfigUtils.hasLootr()){
+                            if (blockEntity instanceof ILootBlockEntity lootEntity && player instanceof ServerPlayer serverPlayer) {
+                                if (ConfigUtils.hasLootr()) {
+                                    if ((lootEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
+                                        SpecialChestInventory inventory = DataStorage.getInventory(level, lootEntity.getTileId(), lootEntity.getPosition(), serverPlayer, (RandomizableContainerBlockEntity) lootEntity, lootEntity::unpackLootTable);
+                                        if (inventory != null) {
+                                            for (int index = 0; index < inventory.getContainerSize(); index++) {
+                                                ItemStack stackInSlot = inventory.getItem(index);
+                                                if (searchItems.contains(stackInSlot.getItem()) && !(hasAnyFavorite && !favoriteList.contains(stackInSlot.getItem()))) {
+                                                    return searchItems.contains(stackInSlot.getItem());
+                                                }
                                             }
                                         }
                                     }
@@ -392,7 +394,6 @@ public class PositionUtils {
                         }
                     }
                     if (ConfigUtils.hasLootr()){
-
                         if (entityJ instanceof Container container_ && container_ instanceof LootrChestMinecartEntity minecartEntity && player instanceof ServerPlayer serverPlayer) {
                             if ((minecartEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
                                 SpecialChestInventory inventory = DataStorage.getInventory(level, minecartEntity, serverPlayer, minecartEntity::addLoot);

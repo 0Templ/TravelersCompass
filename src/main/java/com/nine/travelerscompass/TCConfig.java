@@ -12,6 +12,7 @@ public class TCConfig {
     public static final ForgeConfigSpec COMMON;
 
 
+
     public static ForgeConfigSpec.IntValue entitySearchRadius;
     public static ForgeConfigSpec.IntValue blockSearchRadius;
     public static ForgeConfigSpec.IntValue containersSearchRadius;
@@ -33,8 +34,9 @@ public class TCConfig {
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredItemList;
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredTagItemList;
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredModList;
-    public static ForgeConfigSpec.ConfigValue<List<String>> filteredEntityList;
-    public static ForgeConfigSpec.ConfigValue<List<String>> filteredEntityByModIDList;
+    public static ForgeConfigSpec.ConfigValue<List<String>> filteredModListEntities;
+    public static ForgeConfigSpec.ConfigValue<List<String>> filteredModListItems;
+    public static ForgeConfigSpec.ConfigValue<List<String>> filteredEntities;
     public static ForgeConfigSpec.BooleanValue REICompatibility;
     public static ForgeConfigSpec.BooleanValue JEICompatibility;
     public static ForgeConfigSpec.BooleanValue LootrCompatibility;
@@ -105,15 +107,18 @@ public class TCConfig {
         filteredTagItemList = builder.
                 comment("Items and blocks in this list will be filtered based on their tags.\nExample: [\"forge:stone\"]").
                 define("filter_by_tags",  new ArrayList<>());
-        filteredModList = builder.
-                comment("Items and blocks in this list will be filtered based on their mod Name.\nExample: [\"alexscaves\", \"ae2\", \"minecraft\"]").
-                define("filter_by_mods",  new ArrayList<>());
-        filteredEntityList = builder.
+        filteredEntities = builder.
                 comment("Entities in this list will be filtered based on their names.\nExample: [\"entity.minecraft.trader_llama\", \"entity.mowziesmobs.foliaath\"]").
-                define("filter_entity",  new ArrayList<>());
-        filteredEntityByModIDList = builder.
+                define("filter_entities",  new ArrayList<>());
+        filteredModListItems = builder.
+                comment("All items and blocks will (not) be searched if the mod they belong to is in the list below").
+                define("mods_filter_items",  new ArrayList<>());
+        filteredModListEntities = builder.
                 comment("Entities in this list will be filtered based on what mod they are from.\nExample: [\"creeperoverhaul\", \"deeperdarker\", \"minecraft\"]").
-                define("filter_entity_by_mods",  new ArrayList<>());
+                define("mods_filter_entities",  new ArrayList<>());
+        filteredModList = builder.
+                comment("Anything related to the mods in the list below will (not) be searched by compass.\nExample: [\"alexscaves\", \"ae2\", \"minecraft\"]").
+                define("mods_filter",  new ArrayList<>());
         builder.pop();
         builder.push("compass-compatibility");
         builder.comment("JEI/REI interaction -> drag and drop items from the JEI/REI panel to the compass inventory");
@@ -134,5 +139,6 @@ public class TCConfig {
                 define("top_compatibility", true);
         COMMON = builder.build();
     }
+
 
 }

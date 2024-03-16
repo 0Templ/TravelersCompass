@@ -34,10 +34,10 @@ public class ItemStackMixin {
         if (player.containerMenu instanceof CompassMenu menu && player.getMainHandItem().getItem() instanceof TravelersCompassItem compassItem){
             ItemStack stack = (ItemStack) (Object) this;
             Component forbidenComponent = Component.translatable("options.travelerscompass.tooltip.forbidden").withStyle(ChatFormatting.RED);
-            MutableComponent favoriteComponent = Component.empty();
+        /*    MutableComponent favoriteComponent = Component.empty();
             if (Screen.hasShiftDown()){
                 favoriteComponent.append(Component.translatable("options.travelerscompass.tooltip.favorite").withStyle(ChatFormatting.GRAY));
-            }
+            }*/
             List<Component> list = Lists.newArrayList();
             MutableComponent mutablecomponent = (Component.literal("").append(stack.getHoverName()).withStyle(stack.getRarity().getStyleModifier()));
             if (stack.hasCustomHoverName()) {

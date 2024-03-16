@@ -86,7 +86,7 @@ public class TravelersCompassItem extends Item {
             CompassContainer compassContainer = CompassContainer.container(stack);
             if (player.isShiftKeyDown() && living instanceof Mob mob && ForgeSpawnEggItem.fromEntityType(mob.getType()) != null) {
                 ItemStack eggStack = Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(mob.getType())).getDefaultInstance();
-                if (!compassContainer.hasAny(eggStack) && ConfigUtils.isAllowedToSearch(eggStack)) {
+                if (!compassContainer.hasAny(eggStack) && ConfigUtils.isAllowedToSearch(eggStack) && ConfigUtils.isAllowedToSearch(living)) {
                     compassContainer.setItem(compassContainer.getFirstEmptySlot(), eggStack);
                     player.level().playSound((Player) null, player.getOnPos(), SoundEvents.LODESTONE_COMPASS_LOCK, SoundSource.PLAYERS, 1.0F, 1.0F);
                     return InteractionResult.SUCCESS;
