@@ -44,7 +44,7 @@
   "options.travelerscompass.tooltip.villagers.info": "\n§7▶Будет искать жителей оснывываясь на их товарах",
   "options.travelerscompass.tooltip.spawners.info": "\n§7▶Будет искать спавнеры основываясь на их яйцах призыва",
   "options.travelerscompass.tooltip.mobs_inv.info": "\n§7▶Будет искать существ (включая игроков) по содержиому их инвентарей",
-  "options.travelerscompass.tooltip.drops.info": "\n§7▶Будет искать сущетсв основываясь на том что они могут дропнуть после смерти",
+  "options.travelerscompass.tooltip.drops.info": "\n§7▶Будет искать существ по содержимому их лутпула. Не будет искать то, что не предусмотренно лутпулом для выпадения из моба (например трезубец из утопленника или яйцо края из дракона)",
   "options.travelerscompass.tooltip.forbidden.block": "Вы не можете искать этот блок",
   "options.travelerscompass.tooltip.forbidden.entity": "Вы не можете искать этого моба",
   "options.travelerscompass.tooltip.shift.block": "Шифт + ЛКМ для поиска этого блока",

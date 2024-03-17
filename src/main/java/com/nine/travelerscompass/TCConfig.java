@@ -18,7 +18,6 @@ public class TCConfig {
     public static ForgeConfigSpec.IntValue containersSearchRadius;
     public static ForgeConfigSpec.IntValue searchRate;
     public static ForgeConfigSpec.IntValue xpCost;
-    public static ForgeConfigSpec.DoubleValue xpDrainDistanceMultiplier;
     public static ForgeConfigSpec.IntValue xpDrainRate;
     public static ForgeConfigSpec.BooleanValue xpDrain;
     public static ForgeConfigSpec.BooleanValue enableMobSearch;
@@ -63,40 +62,37 @@ public class TCConfig {
         xpCost = builder.
                 comment("How much XP will be drained from player when Compass is active?").
                 defineInRange("xp_cost", 2, 0, Integer.MAX_VALUE);
-        xpDrainDistanceMultiplier = builder.
-                comment("The amount of experience spent will depend on the distance to the found object.").
-                defineInRange("xp_drain_from_distance_multiplier", 0.01D, 0, Double.MAX_VALUE);
         xpDrainRate = builder.
                 comment("How often experience will be spent for using the compass?").
                 defineInRange("xp_drain_rate", 300, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("compass-functions");
         enableBlockSearch = builder.
-                comment("Prevents players from searching for blocks.").
+                comment("Allows players to search for blocks.").
                 define("block_search", true);
         enableContainerSearch = builder.
-                comment("Prevents players from searching containers (chests, furnaces, etc.) based on their contents.").
+                comment("Allows players to search for containers (chests, furnaces, etc.) based on their contents.").
                 define("container_search", true);
         enableMobSearch = builder.
-                comment("Prevents players from searching mobs based on their Spawn Eggs.").
+                comment("Allows players to search for mobs based on their Spawn Eggs.").
                 define("mob_search", true);
         enableDropSearch = builder.
-                comment("Prevents players from searching mobs based on their Spawn Eggs.").
+                comment("Allows players to search for mobs based on their drop.").
                 define("drop_search", true);
         enableVillagersSearch = builder.
-                comment("Prevents players from searching Villagers based on their trade items.").
+                comment("Allows players to search for Villagers based on their trade items.").
                 define("villager_search", true);
         enableItemEntitiesSearch = builder.
-                comment("Prevents players from searching items lying on the ground.").
+                comment("Allows players to search for items lying on the ground.").
                 define("item_entity_search", true);
         enableFluidSearch = builder.
-                comment("Prevents players from searching fluids based on their buckets.").
+                comment("Allows players to search for fluids based on their buckets.").
                 define("mob_fluid_search", true);
         enableSpawnerSearch = builder.
-                comment("Prevents players from searching spawners.").
+                comment("Allows players to search for spawners.").
                 define("mob_spawner_search", true);
         enableMobsInventorySearch = builder.
-                comment("Prevents players from searching entities based on their inventories (Minecarts).").
+                comment("Allows players to search for entities based on their inventories.").
                 define("mob_inventory_search", true);
         blackListFilter = builder.
                 comment("Setting the value to true will make the compass search for all objects except those specified in the list.\nSetting it to false will make the compass search only for objects listed in the list.").
