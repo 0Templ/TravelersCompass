@@ -14,29 +14,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TOPBlockComponentProvider implements IProbeInfoProvider {
+
     @Override
     public ResourceLocation getID() {
         return new ResourceLocation(TravelersCompass.MODID, "block_info");
     }
 
-
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo info, Player player, Level level, BlockState state, IProbeHitData data) {
         ItemStack stack = data.getPickBlock();
-        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.TheOneProbeCompatibility.get()){
+        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.TheOneProbeCompatibility.get()) {
             return;
         }
-        if (probeMode == ProbeMode.EXTENDED && !player.isShiftKeyDown()){
+        if (probeMode == ProbeMode.EXTENDED && !player.isShiftKeyDown()) {
             return;
         }
-        if (!ConfigUtils.isAllowedToSearch(stack)){
+        if (!ConfigUtils.isAllowedToSearch(stack)) {
             info.text(CompoundText.create().style(TextStyleClass.ERROR)
                     .text(Component.translatable("options.travelerscompass.tooltip.forbidden.block"))
                     .style(TextStyleClass.ERROR));
-        }
-        else {
+        } else {
             CompassContainer compassContainer = CompassContainer.container(player.getMainHandItem());
-            if(!compassContainer.getList().contains(stack.getItem())) {
+            if (!compassContainer.getList().contains(stack.getItem())) {
                 info.text(CompoundText.create().style(TextStyleClass.LABEL)
                         .text(Component.translatable("options.travelerscompass.tooltip.shift.block"))
                         .style(TextStyleClass.LABEL));

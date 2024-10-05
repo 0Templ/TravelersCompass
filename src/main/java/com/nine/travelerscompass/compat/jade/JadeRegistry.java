@@ -8,9 +8,11 @@ import snownee.jade.api.WailaPlugin;
 
 @WailaPlugin
 public class JadeRegistry implements IWailaPlugin {
+
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(BlocksComponentProvider.INSTANCE, Block.class);
         registration.registerEntityComponent(EntitiesComponentProvider.INSTANCE, LivingEntity.class);
     }
+
 }

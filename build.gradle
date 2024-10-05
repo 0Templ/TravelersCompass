@@ -82,19 +82,19 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     //LOOTR
-    compileOnly fg.deobf("curse.maven:lootr-361276:5173339")
+    implementation fg.deobf("curse.maven:lootr-361276:5173339")
     //JADE
     implementation fg.deobf("curse.maven:jade-324717:5072729")
     //TOP
     compileOnly fg.deobf("curse.maven:the-one-probe-245211:4629624")
     //JEI
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     //REI
-    compileOnly fg.deobf("curse.maven:architectury-api-419699:5137938")
-    compileOnly fg.deobf("curse.maven:cloth-config-348521:4973441")
-    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.0.634")
+    implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
+    implementation fg.deobf("curse.maven:cloth-config-348521:4973441")
+    implementation fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:12.0.634")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }

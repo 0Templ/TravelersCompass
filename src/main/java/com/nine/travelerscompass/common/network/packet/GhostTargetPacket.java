@@ -10,8 +10,9 @@ import java.util.function.Supplier;
 
 public class GhostTargetPacket {
 
-    private int slotIndex;
-    private ItemStack stack;
+    private final int slotIndex;
+    private final ItemStack stack;
+
     public GhostTargetPacket(int slot, ItemStack stack) {
         this.slotIndex = slot;
         this.stack = stack;
@@ -29,7 +30,7 @@ public class GhostTargetPacket {
 
     public void onMessage(Supplier<NetworkEvent.Context> ctx) {
         Player player = ctx.get().getSender();
-        if (player == null){
+        if (player == null) {
             return;
         }
         if (player.containerMenu instanceof CompassMenu menu)

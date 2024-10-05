@@ -15,40 +15,44 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 
 public class CompassMenu extends AbstractContainerMenu {
+
     public static final int CONTAINER_SIZE = 9;
 
     public CompassMenu(int id, Inventory playerInventory, CompassContainer container) {
         super(MenuRegistry.COMPASS_MENU.get(), id);
-        for (int i = 0; i < CONTAINER_SIZE/3; i++) {
-            addSlot(new Slot(container, i, 62 + (i * 18), 50 - 18*2) {
+        for (int i = 0; i < CONTAINER_SIZE / 3; i++) {
+            addSlot(new Slot(container, i, 72 + (i * 18), 50 - 18 * 2) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return !(stack.getItem() instanceof TravelersCompassItem);
                 }
+
                 @Override
                 public boolean mayPickup(Player CompassMenuIn) {
                     return false;
                 }
             });
         }
-        for (int i = 0; i < CONTAINER_SIZE/3; i++) {
-            addSlot(new Slot(container, i+3, 62 + (i * 18), 50 - 18) {
+        for (int i = 0; i < CONTAINER_SIZE / 3; i++) {
+            addSlot(new Slot(container, i + 3, 72 + (i * 18), 50 - 18) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return !(stack.getItem() instanceof TravelersCompassItem);
                 }
+
                 @Override
                 public boolean mayPickup(Player player) {
                     return false;
                 }
             });
         }
-        for (int i = 0; i < CONTAINER_SIZE/3; i++) {
-            addSlot(new Slot(container, i+6, 62 + (i * 18), 50) {
+        for (int i = 0; i < CONTAINER_SIZE / 3; i++) {
+            addSlot(new Slot(container, i + 6, 72 + (i * 18), 50) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return !(stack.getItem() instanceof TravelersCompassItem);
                 }
+
                 @Override
                 public boolean mayPickup(Player player) {
                     return false;
@@ -58,7 +62,7 @@ public class CompassMenu extends AbstractContainerMenu {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, i * 18 + 90){
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, i * 18 + 90) {
                     @Override
                     public boolean mayPlace(ItemStack stack) {
                         return !(stack.getItem() instanceof TravelersCompassItem);
@@ -68,7 +72,7 @@ public class CompassMenu extends AbstractContainerMenu {
         }
 
         for (int i = 0; i < 9; i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 148){
+            addSlot(new Slot(playerInventory, i, 8 + i * 18, 148) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return !(stack.getItem() instanceof TravelersCompassItem);
@@ -86,18 +90,37 @@ public class CompassMenu extends AbstractContainerMenu {
     @Nonnull
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
+        Slot slot = slots.get(index);
+        ItemStack itemstack;
+        if (index > 8 && slot != null && slot.hasItem()) {
+            ItemStack exactStack = slot.getItem();
+            int s = -999;
+            for (int i = 9; i >= 0; i--) {
+                ItemStack stack = slots.get(i).getItem();
+                if (stack.isEmpty()) {
+                    s = i;
+                }
+                if (exactStack.getItem() == stack.getItem()) {
+                    return ItemStack.EMPTY;
+                }
+            }
+            if (s != 999) {
+                itemstack = exactStack.copy();
+                itemstack.setCount(1);
+                slots.get(s).set(itemstack);
+            }
+        }
         return ItemStack.EMPTY;
     }
 
 
     @Override
     public void clicked(int slot, int dragType, ClickType clickType, Player player) {
-        if(slot  >= 0 && slot < CONTAINER_SIZE && !(getSlot(slot).getItem().getItem() instanceof TravelersCompassItem)){
-            if (player.getMainHandItem().getItem() instanceof TravelersCompassItem travelersCompassItem && clickType == ClickType.QUICK_MOVE){
+        if (slot >= 0 && slot < CONTAINER_SIZE && !(getSlot(slot).getItem().getItem() instanceof TravelersCompassItem)) {
+            if (player.getMainHandItem().getItem() instanceof TravelersCompassItem travelersCompassItem && clickType == ClickType.QUICK_MOVE) {
                 player.playSound(SoundEvents.UI_BUTTON_CLICK.get());
-                travelersCompassItem.addFavoriteSlot(player.getMainHandItem(),slot);
-            }
-            else {
+                travelersCompassItem.addFavoriteSlot(player.getMainHandItem(), slot);
+            } else {
                 if (this.getCarried().isEmpty() || this.getCarried().is(ItemRegistry.TRAVELERS_COMPASS.get()))
                     slots.get(slot).set(ItemStack.EMPTY);
                 else {
@@ -115,6 +138,5 @@ public class CompassMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return true;
-
     }
 }

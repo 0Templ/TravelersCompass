@@ -13,24 +13,26 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import snownee.jade.api.*;
+import snownee.jade.api.EntityAccessor;
+import snownee.jade.api.IEntityComponentProvider;
+import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 public enum EntitiesComponentProvider implements IEntityComponentProvider {
 
     INSTANCE;
+
     @Override
     public void appendTooltip(ITooltip tooltip, EntityAccessor entityAccessor, IPluginConfig pluginConfig) {
         Entity entity = entityAccessor.getEntity();
         Player player = entityAccessor.getPlayer();
-        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.JadeCompatibility.get()){
+        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.JadeCompatibility.get()) {
             return;
         }
-        if (entity instanceof LivingEntity livingEntity){
+        if (entity instanceof LivingEntity livingEntity) {
             if (!ConfigUtils.isAllowedToSearch(livingEntity)) {
                 tooltip.add(Component.translatable("options.travelerscompass.tooltip.forbidden.entity").withStyle(ChatFormatting.RED));
-            }
-            else {
+            } else {
                 CompassContainer compassContainer = CompassContainer.container(player.getMainHandItem());
                 if (livingEntity instanceof Mob mob
                         && ForgeSpawnEggItem.fromEntityType(mob.getType()) != null

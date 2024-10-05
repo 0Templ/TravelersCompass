@@ -12,28 +12,31 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(TravelersCompass.MODID)
-public class TravelersCompass
-{
+public class TravelersCompass {
     public static final String MODID = "travelerscompass";
 
-    public TravelersCompass()
-    {
+    public TravelersCompass() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TCConfig.COMMON);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, TCConfig.CLIENT);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerNetwork);
         CreativeTabRegistry.TAB.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         MenuRegistry.MENUS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::imeRegistry);
+    }
 
+    private void registerNetwork(FMLCommonSetupEvent event) {
         NetworkHandler.regiser();
     }
+
     public void imeRegistry(InterModEnqueueEvent evt) {
         if (ModList.get().isLoaded("theoneprobe")) {
             InterModComms.sendTo("theoneprobe", "getTheOneProbe", TheOneProbeRegistry::new);

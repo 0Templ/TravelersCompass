@@ -18,12 +18,13 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
     private final CompassWobble wobble = new CompassWobble();
     private final CompassWobble wobbleRandom = new CompassWobble();
     public final CompassTarget compassTarget;
+
     public CustomCompassItemPropertyFunction(CompassTarget pCompassTarget) {
         this.compassTarget = pCompassTarget;
     }
 
     public float unclampedCall(ItemStack pStack, @Nullable ClientLevel pLevel, @Nullable LivingEntity pEntity, int pSeed) {
-        Entity entity = (Entity)(pEntity != null ? pEntity : pStack.getEntityRepresentation());
+        Entity entity = pEntity != null ? pEntity : pStack.getEntityRepresentation();
         if (entity == null) {
             return 0.0F;
         } else {
@@ -35,7 +36,7 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
     private float getCompassRotation(ItemStack pStack, ClientLevel pLevel, int pSeed, Entity pEntity) {
         BlockPos pos = this.compassTarget.getPos(pLevel, pStack, pEntity);
         long i = pLevel.getGameTime();
-        return !this.isValidCompassTargetPos(pEntity, pos) ? this.getRandomlySpinningRotation(pSeed, i) : this.getRotationTowardsCompassTarget(pEntity, i, pos);
+        return !this.isValidCompassTargetPos(pEntity, pos) ? 0 : this.getRotationTowardsCompassTarget(pEntity, i, pos);
     }
 
     private float getRandomlySpinningRotation(int pSeed, long pTicks) {
@@ -43,9 +44,10 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
             this.wobbleRandom.update(pTicks, Math.random());
         }
 
-        double d0 = this.wobbleRandom.rotation + (double)((float)this.hash(pSeed) / (float)Integer.MAX_VALUE);
-        return Mth.positiveModulo((float)d0, 1.0F);
+        double d0 = this.wobbleRandom.rotation + (double) ((float) this.hash(pSeed) / (float) Integer.MAX_VALUE);
+        return Mth.positiveModulo((float) d0, 1.0F);
     }
+
 
     private float getRotationTowardsCompassTarget(Entity pEntity, long pTicks, BlockPos pPos) {
         double d0 = this.getAngleFromEntityToPos(pEntity, pPos);
@@ -57,17 +59,17 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
                 }
 
                 double d3 = d0 + this.wobble.rotation;
-                return Mth.positiveModulo((float)d3, 1.0F);
+                return Mth.positiveModulo((float) d3, 1.0F);
             }
         }
 
         double d2 = 0.5D - (d1 - 0.25D - d0);
-        return Mth.positiveModulo((float)d2, 1.0F);
+        return Mth.positiveModulo((float) d2, 1.0F);
     }
 
     @Nullable
     private ClientLevel tryFetchLevelIfMissing(Entity pEntity, @Nullable ClientLevel pLevel) {
-        return pLevel == null && pEntity.level() instanceof ClientLevel ? (ClientLevel)pEntity.level() : pLevel;
+        return pLevel == null && pEntity.level() instanceof ClientLevel ? (ClientLevel) pEntity.level() : pLevel;
     }
 
     private boolean isValidCompassTargetPos(Entity pEntity, @Nullable BlockPos pPos) {
@@ -76,11 +78,11 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
 
     private double getAngleFromEntityToPos(Entity pEntity, BlockPos pPos) {
         Vec3 vec3 = Vec3.atCenterOf(pPos);
-        return Math.atan2(vec3.z() - pEntity.getZ(), vec3.x() - pEntity.getX()) / (double)((float)Math.PI * 2F);
+        return Math.atan2(vec3.z() - pEntity.getZ(), vec3.x() - pEntity.getX()) / (double) ((float) Math.PI * 2F);
     }
 
     private double getWrappedVisualRotationY(Entity pEntity) {
-        return Mth.positiveModulo((double)(pEntity.getVisualRotationYInDegrees() / 360.0F), 1.0D);
+        return Mth.positiveModulo(pEntity.getVisualRotationYInDegrees() / 360.0F, 1.0D);
     }
 
     private int hash(int pValue) {
@@ -93,6 +95,7 @@ public class CustomCompassItemPropertyFunction implements ClampedItemPropertyFun
         @Nullable
         BlockPos getPos(ClientLevel pLevel, ItemStack pStack, Entity pEntity);
     }
+
     @OnlyIn(Dist.CLIENT)
     static class CompassWobble {
         double rotation;

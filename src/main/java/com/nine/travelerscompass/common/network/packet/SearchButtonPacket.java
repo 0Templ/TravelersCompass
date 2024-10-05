@@ -1,6 +1,6 @@
 package com.nine.travelerscompass.common.network.packet;
 
-import com.nine.travelerscompass.common.item.CompassMode;
+import com.nine.travelerscompass.common.item.CompassData;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class SearchButtonPacket {
+
     private final int ID;
 
     public SearchButtonPacket(int value) {
@@ -28,22 +29,22 @@ public class SearchButtonPacket {
     public void onMessage(Supplier<NetworkEvent.Context> ctx) {
         Player player = ctx.get().getSender();
         ItemStack stack = Objects.requireNonNull(player).getMainHandItem();
-        if (stack.getItem() instanceof TravelersCompassItem travelersCompassItem){
+        if (stack.getItem() instanceof TravelersCompassItem travelersCompassItem) {
             switch (this.ID) {
                 case (1):
-                    travelersCompassItem.writeCompassData(stack, CompassMode.SEARCHING_MOBS);
+                    travelersCompassItem.writeCompassData(stack, CompassData.SEARCHING_MOBS);
                     break;
                 case (2):
-                    travelersCompassItem.writeCompassData(stack, CompassMode.SEARCHING_CONTAINERS);
+                    travelersCompassItem.writeCompassData(stack, CompassData.SEARCHING_CONTAINERS);
                     break;
                 case (3):
-                    travelersCompassItem.writeCompassData(stack, CompassMode.SEARCHING_BLOCKS);
+                    travelersCompassItem.writeCompassData(stack, CompassData.SEARCHING_BLOCKS);
                     break;
                 case (4):
-                    travelersCompassItem.setConfigMode(stack,true);
+                    travelersCompassItem.setConfigMode(stack, true);
                     break;
                 case (5):
-                    travelersCompassItem.setConfigMode(stack,false);
+                    travelersCompassItem.setConfigMode(stack, false);
                     break;
             }
         }

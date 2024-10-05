@@ -12,7 +12,6 @@ public class ItemRegistry {
             DeferredRegister.create(ForgeRegistries.ITEMS, TravelersCompass.MODID);
 
 
-
-    public static final RegistryObject<Item> TRAVELERS_COMPASS = ITEMS.register("travelerscompass", () -> new TravelersCompassItem( new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> TRAVELERS_COMPASS = ITEMS.register("travelerscompass", () -> new TravelersCompassItem(new Item.Properties().stacksTo(1)));
 
 }

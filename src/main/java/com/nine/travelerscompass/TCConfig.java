@@ -11,11 +11,10 @@ public class TCConfig {
 
     public static final ForgeConfigSpec COMMON;
 
-
-
     public static ForgeConfigSpec.IntValue entitySearchRadius;
     public static ForgeConfigSpec.IntValue blockSearchRadius;
-    public static ForgeConfigSpec.IntValue containersSearchRadius;
+    public static ForgeConfigSpec.IntValue containerSearchRadius;
+    public static ForgeConfigSpec.IntValue wideSearchRadius;
     public static ForgeConfigSpec.IntValue searchRate;
     public static ForgeConfigSpec.IntValue xpCost;
     public static ForgeConfigSpec.IntValue xpDrainRate;
@@ -29,7 +28,10 @@ public class TCConfig {
     public static ForgeConfigSpec.BooleanValue enableFluidSearch;
     public static ForgeConfigSpec.BooleanValue enableSpawnerSearch;
     public static ForgeConfigSpec.BooleanValue enableMobsInventorySearch;
+    public static ForgeConfigSpec.BooleanValue enableWiderSearch;
     public static ForgeConfigSpec.BooleanValue blackListFilter;
+    public static ForgeConfigSpec.BooleanValue forcedLazySearchMode;
+    public static ForgeConfigSpec.BooleanValue enableHud;
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredItemList;
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredTagItemList;
     public static ForgeConfigSpec.ConfigValue<List<String>> filteredModList;
@@ -41,21 +43,25 @@ public class TCConfig {
     public static ForgeConfigSpec.BooleanValue LootrCompatibility;
     public static ForgeConfigSpec.BooleanValue TheOneProbeCompatibility;
     public static ForgeConfigSpec.BooleanValue JadeCompatibility;
+
     static {
         final var builder = new ForgeConfigSpec.Builder();
         builder.push("compass-behavior");
         blockSearchRadius = builder.
-                comment("Block search radius (in blocks). Large values may result in lag issues.").
-                defineInRange("blocks_search_radius", 40, 1, Integer.MAX_VALUE);
-        containersSearchRadius = builder.
-                comment("Containers search radius (in blocks). Large values may result in lag issues.").
-                defineInRange("containers_search_radius", 40, 1, Integer.MAX_VALUE);
+                comment("Maximum search radius of blocks (in blocks). Large values may result in lag issues.").
+                defineInRange("blockSearchRadiusLimit", 70, 1, Integer.MAX_VALUE);
+        containerSearchRadius = builder.
+                comment("Maximum search radius of containers (in blocks). Large values may result in lag issues.").
+                defineInRange("containersSearchRadiusLimit", 70, 1, Integer.MAX_VALUE);
         entitySearchRadius = builder.
-                comment("Mobs search radius (in blocks).").
-                defineInRange("entities_search_radius", 120, 1, Integer.MAX_VALUE);
+                comment("Maximum radius of search for entities").
+                defineInRange("entitySearchRadiusLimit", 200, 1, Integer.MAX_VALUE);
+        wideSearchRadius = builder.
+                comment("Maximum wide search radius (in blocks). Large values may result in serious lag issues.").
+                defineInRange("wideSearchRadiusLimit", 200, 1, Integer.MAX_VALUE);
         searchRate = builder.
                 comment("How often the compass search target will be updated. Low values can cause SERIOUS performance problems.").
-                defineInRange("search_rate", 50, 1, Integer.MAX_VALUE);
+                defineInRange("search_rate", 60, 1, Integer.MAX_VALUE);
         xpDrain = builder.
                 comment("Will experience be drained for using the compass?").
                 define("xp_drain", false);
@@ -87,34 +93,43 @@ public class TCConfig {
                 define("item_entity_search", true);
         enableFluidSearch = builder.
                 comment("Allows players to search for fluids based on their buckets.").
-                define("mob_fluid_search", true);
+                define("fluid_search", true);
         enableSpawnerSearch = builder.
                 comment("Allows players to search for spawners.").
                 define("mob_spawner_search", true);
         enableMobsInventorySearch = builder.
                 comment("Allows players to search for entities based on their inventories.").
                 define("mob_inventory_search", true);
+        enableWiderSearch = builder.
+                comment("Allows the player to use a search function that has a wider search radius.").
+                define("enableWiderSearch", true);
         blackListFilter = builder.
                 comment("Setting the value to true will make the compass search for all objects except those specified in the list.\nSetting it to false will make the compass search only for objects listed in the list.").
                 define("black_list_filter_type", true);
+        forcedLazySearchMode = builder.
+                comment("Enables the slow search mode forcibly. It cannot be disabled in the game").
+                define("forcedLazySearchMode", false);
+        enableHud = builder.
+                comment("Will the player in the game be able to access the HUD that displays information about the found object?").
+                define("enableHud", true);
         filteredItemList = builder.
                 comment("Items and blocks in this list will be filtered based on the filtering mode set above.\nExample: [\"minecraft.diamond_block\", \"minecraft.carrot\", \"twilightforest.cicada\"]").
-                define("filter_by_names",  new ArrayList<>());
+                define("filter_by_names", new ArrayList<>());
         filteredTagItemList = builder.
                 comment("Items and blocks in this list will be filtered based on their tags.\nExample: [\"forge:stone\"]").
-                define("filter_by_tags",  new ArrayList<>());
+                define("filter_by_tags", new ArrayList<>());
         filteredEntities = builder.
                 comment("Entities in this list will be filtered based on their names.\nExample: [\"entity.minecraft.trader_llama\", \"entity.mowziesmobs.foliaath\"]").
-                define("filter_entities",  new ArrayList<>());
+                define("filter_entities", new ArrayList<>());
         filteredModListItems = builder.
                 comment("All items and blocks will (not) be searched if the mod they belong to is in the list below").
-                define("mods_filter_items",  new ArrayList<>());
+                define("mods_filter_items", new ArrayList<>());
         filteredModListEntities = builder.
                 comment("Entities in this list will be filtered based on what mod they are from.\nExample: [\"creeperoverhaul\", \"deeperdarker\", \"minecraft\"]").
-                define("mods_filter_entities",  new ArrayList<>());
+                define("mods_filter_entities", new ArrayList<>());
         filteredModList = builder.
                 comment("Anything related to the mods in the list below will (not) be searched by compass.\nExample: [\"alexscaves\", \"ae2\", \"minecraft\"]").
-                define("mods_filter",  new ArrayList<>());
+                define("mods_filter", new ArrayList<>());
         builder.pop();
         builder.push("compass-compatibility");
         builder.comment("JEI/REI interaction -> drag and drop items from the JEI/REI panel to the compass inventory");
@@ -135,6 +150,5 @@ public class TCConfig {
                 define("top_compatibility", true);
         COMMON = builder.build();
     }
-
 
 }

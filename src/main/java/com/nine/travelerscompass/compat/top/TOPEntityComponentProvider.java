@@ -22,19 +22,17 @@ public class TOPEntityComponentProvider implements IProbeInfoEntityProvider {
         return new ResourceLocation(TravelersCompass.MODID, "mob_info").toString();
     }
 
-
     @Override
     public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo info, Player player, Level level, Entity entity, IProbeHitEntityData iProbeHitEntityData) {
-        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.TheOneProbeCompatibility.get()){
+        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.TheOneProbeCompatibility.get()) {
             return;
         }
-        if (entity instanceof LivingEntity livingEntity){
+        if (entity instanceof LivingEntity livingEntity) {
             if (!ConfigUtils.isAllowedToSearch(livingEntity)) {
                 info.text(CompoundText.create().style(TextStyleClass.ERROR)
                         .text(Component.translatable("options.travelerscompass.tooltip.forbidden.entity"))
                         .style(TextStyleClass.ERROR));
-            }
-            else {
+            } else {
                 CompassContainer compassContainer = CompassContainer.container(player.getMainHandItem());
                 if (livingEntity instanceof Mob mob
                         && ForgeSpawnEggItem.fromEntityType(mob.getType()) != null

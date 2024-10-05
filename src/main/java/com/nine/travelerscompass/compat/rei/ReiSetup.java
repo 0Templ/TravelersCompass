@@ -11,14 +11,17 @@ import net.minecraft.network.chat.Component;
 
 @REIPluginClient
 public class ReiSetup implements REIClientPlugin {
+
     @Override
     public void registerScreens(ScreenRegistry registry) {
         registry.registerDraggableStackVisitor(new ReiGhostTargetHandler());
     }
+
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         registerDescriptions(registry);
     }
+
     private void registerDescriptions(DisplayRegistry registry) {
         DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(EntryStacks.of(ItemRegistry.TRAVELERS_COMPASS.get()),
                 ItemRegistry.TRAVELERS_COMPASS.get().asItem().getDescription());

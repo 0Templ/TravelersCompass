@@ -5,6 +5,7 @@ import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
@@ -44,7 +45,7 @@ import java.util.stream.Stream;
 public class PositionUtils {
 
     @Nullable
-    public static Map<BlockPos, Boolean> getNearestBlockFromList(Level level, Entity entity, List<Item> searchBlocks, ItemStack stack, TravelersCompassItem travelersCompassItem) {
+    public static LocationData getNearestBlockFromList(Level level, Entity entity, List<Item> searchBlocks, ItemStack stack, TravelersCompassItem travelersCompassItem, boolean wideSearch) {
         if (!(entity instanceof Player player) || searchBlocks == null) {
             return null;
         }
@@ -64,21 +65,20 @@ public class PositionUtils {
         for (Item item : searchBlocks) {
             if (item instanceof BucketItem bucketItem && travelersCompassItem.isSearchingFluids(stack)) {
                 fluids.add(bucketItem.getFluid());
-                if (favoriteList.contains(bucketItem)){
+                if (favoriteList.contains(bucketItem)) {
                     fluidsFavorite.add(bucketItem.getFluid());
                 }
             }
             if (item instanceof SpawnEggItem spawnEggItem && travelersCompassItem.isSearchingSpawners(stack)) {
                 entityTypes.add(spawnEggItem.getType(null));
-                if (favoriteList.contains(spawnEggItem)){
+                if (favoriteList.contains(spawnEggItem)) {
                     entityTypesFavorite.add(spawnEggItem.getType(null));
                 }
             }
         }
-        Map<BlockPos,Boolean> map = new HashMap<>();
-        AABB aabb = new AABB(px, py, pz, px + 1, py + 1, pz + 1).inflate(TCConfig.blockSearchRadius.get());
+        AABB aabb = new AABB(px, py, pz, px + 1, py + 1, pz + 1).inflate(wideSearch ? travelersCompassItem.wideSearchRadius(stack) : travelersCompassItem.blockSearchRadius(stack));
         boolean hasAnyFavorite;
-        if (!favoriteList.isEmpty()) {
+        if (!favoriteList.isEmpty() && travelersCompassItem.priorityMode(stack)) {
             if (TCConfig.enableBlockSearch.get() && travelersCompassItem.isSearchingBlocks(stack)) {
                 blocks_list = BlockPos.betweenClosedStream(aabb)
                         .map(blockPos -> {
@@ -96,7 +96,7 @@ public class PositionUtils {
                             if (block instanceof SpawnerBlock) {
                                 BlockEntity blockEntity = level.getBlockEntity(blockPos);
                                 if (blockEntity instanceof SpawnerBlockEntity spawnerBlockEntity) {
-                                    SpawnData spawndata = null;
+                                    SpawnData spawndata = spawnerBlockEntity.getSpawner().nextSpawnData;
                                     if (spawndata != null) {
                                         CompoundTag compoundtag = spawndata.getEntityToSpawn();
                                         Optional<EntityType<?>> optional = EntityType.by(compoundtag);
@@ -125,8 +125,7 @@ public class PositionUtils {
                         .toList();
             }
             hasAnyFavorite = blocks_list.stream().anyMatch(favoriteList::contains) || fluids_list.stream().anyMatch(fluidsFavorite::contains) || spawners_list.stream().anyMatch(entityTypesFavorite::contains);
-        }
-        else {
+        } else {
             hasAnyFavorite = false;
         }
         BlockPos blockPos = BlockPos.betweenClosedStream(aabb)
@@ -140,12 +139,12 @@ public class PositionUtils {
                     if (!entityTypes.isEmpty() && block instanceof SpawnerBlock && travelersCompassItem.isSearchingSpawners(stack) && TCConfig.enableSpawnerSearch.get()) {
                         BlockEntity blockEntity = level.getBlockEntity(foundPos);
                         if (blockEntity instanceof SpawnerBlockEntity spawnerBlockEntity) {
-                            SpawnData spawndata = null;
+                            SpawnData spawndata = spawnerBlockEntity.getSpawner().nextSpawnData;
                             if (spawndata != null) {
                                 CompoundTag compoundtag = spawndata.getEntityToSpawn();
                                 Optional<EntityType<?>> optional = EntityType.by(compoundtag);
                                 if (optional.isPresent()) {
-                                    if (hasAnyFavorite && !entityTypesFavorite.contains(optional.get())){
+                                    if (hasAnyFavorite && !entityTypesFavorite.contains(optional.get())) {
                                         return false;
                                     }
                                     return entityTypes.contains(optional.get());
@@ -154,7 +153,7 @@ public class PositionUtils {
                         }
                     }
                     if (!fluids.isEmpty() && block instanceof LiquidBlock liquidBlock && travelersCompassItem.isSearchingFluids(stack)) {
-                        if (hasAnyFavorite && !fluidsFavorite.contains(liquidBlock.getFluid().getSource())){
+                        if (hasAnyFavorite && !fluidsFavorite.contains(liquidBlock.getFluid().getSource())) {
                             return false;
                         }
                         return fluids.contains(liquidBlock.getFluid().getSource());
@@ -166,30 +165,53 @@ public class PositionUtils {
                 })
                 .min(Comparator.comparingDouble(foundPos -> foundPos.distSqr(userPos)))
                 .orElse(null);
-        map.put(blockPos,hasAnyFavorite);
-        return map;
+        if (blockPos != null) {
+            return new LocationData(blockPos, hasAnyFavorite, level.getBlockState(blockPos).getBlock().getName().getString());
+        }
+        return null;
     }
 
+/*    public static List<ItemStack> getAllPossibleBlockLoot(Block block, ServerLevel level, BlockPos pos) {
+        ResourceLocation lootTableLocation = block.getLootTable();
+        LootTable lootTable = level.getServer().getLootData().getLootTable(lootTableLocation);
+
+        LootParams.Builder paramsBuilder = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .withParameter(LootContextParams.BLOCK_STATE, level.getBlockState(pos))
+                .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
+                .withOptionalParameter(LootContextParams.THIS_ENTITY, null)
+                .withOptionalParameter(LootContextParams.BLOCK_ENTITY, level.getBlockEntity(pos));
+        LootParams lootParams = paramsBuilder.create(LootContextParamSets.BLOCK);
+
+        List<ItemStack> allPossibleLoot = new ArrayList<>();
+        lootTable.getRandomItems(lootParams, item -> {
+            if (!allPossibleLoot.contains(item)) {
+                allPossibleLoot.add(item);
+            }
+        });
+
+        return allPossibleLoot;
+    }*/
+
     @Nullable
-    public static Map<BlockPos, Boolean> getNearestContainerFromList(Level level, Entity entity, List<Item> searchItems,ItemStack stack, TravelersCompassItem travelersCompassItem){
+    public static LocationData getNearestContainerFromList(Level level, Entity entity, List<Item> searchItems, ItemStack stack, TravelersCompassItem travelersCompassItem, boolean wideSearch) {
         if (!(entity instanceof Player player) || searchItems == null) {
             return null;
         }
-        BlockPos userPos = player.getOnPos();
+        BlockPos userPos = player.blockPosition();
         double px = player.getX();
         double py = player.getY();
         double pz = player.getZ();
-        AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(TCConfig.containersSearchRadius.get());
+        AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(wideSearch ? travelersCompassItem.wideSearchRadius(stack) : travelersCompassItem.containerSearchRadius(stack));
         boolean hasAnyFavorite;
         CompassContainer container = CompassContainer.container(stack);
         List<Item> favoriteList = container.getFavoriteList(travelersCompassItem, stack);
-        Map<BlockPos,Boolean> map = new HashMap<>();
-        if (!favoriteList.isEmpty()) {
+        if (!favoriteList.isEmpty() && travelersCompassItem.priorityMode(stack)) {
             List<Item> containersItemList = BlockPos.betweenClosedStream(aabb)
                     .flatMap(blockPos -> {
                         BlockEntity blockEntity = level.getBlockEntity(blockPos);
                         if (blockEntity != null) {
-                            if (ConfigUtils.hasLootr()){
+                            if (ConfigUtils.hasLootr()) {
                                 if (blockEntity instanceof ILootBlockEntity lootEntity && player instanceof ServerPlayer serverPlayer) {
                                     if ((lootEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
                                         SpecialChestInventory inventory = DataStorage.getInventory(level, lootEntity.getTileId(), lootEntity.getPosition(), serverPlayer, (RandomizableContainerBlockEntity) lootEntity, lootEntity::unpackLootTable);
@@ -197,7 +219,7 @@ public class PositionUtils {
                                             return IntStream.range(0, inventory.getContainerSize())
                                                     .mapToObj(index -> {
                                                         ItemStack stackInSlot = inventory.getItem(index);
-                                                        if (searchItems.contains(stackInSlot.getItem())/* && favoriteList.contains(stackInSlot.getItem())*/) {
+                                                        if (searchItems.contains(stackInSlot.getItem()) && favoriteList.contains(stackInSlot.getItem())) {
                                                             return stackInSlot.getItem();
                                                         }
                                                         return null;
@@ -218,15 +240,15 @@ public class PositionUtils {
                     .filter(Objects::nonNull)
                     .toList();
             hasAnyFavorite = containersItemList.stream().anyMatch(favoriteList::contains);
-        }else {
+        } else {
             hasAnyFavorite = false;
         }
         BlockPos blockPos = BlockPos.betweenClosedStream(aabb)
                 .map(BlockPos::immutable)
                 .filter(foundPos -> {
                     BlockEntity blockEntity = level.getBlockEntity(foundPos);
-                    if (blockEntity!=null) {
-                        if (ConfigUtils.hasLootr()){
+                    if (blockEntity != null) {
+                        if (ConfigUtils.hasLootr()) {
                             if (blockEntity instanceof ILootBlockEntity lootEntity && player instanceof ServerPlayer serverPlayer) {
                                 if (ConfigUtils.hasLootr()) {
                                     if ((lootEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
@@ -259,30 +281,48 @@ public class PositionUtils {
                 })
                 .min(Comparator.comparingDouble(foundPos -> foundPos.distSqr(userPos)))
                 .orElse(null);
-
-        map.put(blockPos,hasAnyFavorite);
-        return map;
+        if (blockPos != null) {
+            return new LocationData(blockPos, hasAnyFavorite, level.getBlockState(blockPos).getBlock().getName().getString());
+        }
+        return null;
     }
+
     @Nullable
-    public static Map<BlockPos, Boolean> getNearestEntity(Level level, Entity entity, List<Item> compassItems, ItemStack stack, TravelersCompassItem travelersCompassItem){
+    public static LocationData getNearestEntity(Level level, Entity entity, List<Item> compassItems, ItemStack stack, TravelersCompassItem travelersCompassItem, boolean wideSearch) {
         if (entity instanceof Player player) {
             BlockPos userPos = player.getOnPos();
             double px = player.getX();
             double py = player.getY();
             double pz = player.getZ();
 
-            AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(TCConfig.entitySearchRadius.get());
+            AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(wideSearch ? travelersCompassItem.wideSearchRadius(stack) : travelersCompassItem.entitySearchRadius(stack));
             List<Entity> list = entity.level().getEntitiesOfClass(Entity.class, aabb);
             List<Entity> good_list = new ArrayList<>();
 
             CompassContainer container = CompassContainer.container(stack);
             List<Item> favoriteList = container.getFavoriteList(travelersCompassItem, stack);
             List<Item> allItems = new ArrayList<>();
-            Map<BlockPos,Boolean> map = new HashMap<>();
+            boolean vG = !travelersCompassItem.isSearchingVillagersGoods(stack);
+            boolean vC = !travelersCompassItem.isSearchingVillagersCost(stack);
             boolean hasAnyFavorite;
             for (Entity entityJ : list) {
-                if (travelersCompassItem.isSearchingMobsInv(stack)) {
-                    if (entityJ instanceof Container container_) {
+                if (travelersCompassItem.isSearchingEntitiesInv(stack)) {
+                    if (entityJ instanceof LivingEntity living && !living.is(player) && ((living instanceof Player && !travelersCompassItem.isSearchingPlayersInv(stack) || (!(living instanceof Player) && !travelersCompassItem.isSearchingMobsInv(stack))))) {
+                        List<Item> entityInventory = living.getCapability(ForgeCapabilities.ITEM_HANDLER, null)
+                                .map(itemHandler -> IntStream.range(0, itemHandler.getSlots())
+                                        .mapToObj(itemHandler::getStackInSlot)
+                                        .flatMap(itemStack -> {
+                                            if (!itemStack.isEmpty()) {
+                                                return Stream.of(itemStack.getItem());
+                                            } else {
+                                                return Stream.empty();
+                                            }
+                                        })
+                                        .collect(Collectors.toList()))
+                                .orElse(Collections.emptyList());
+                        allItems.addAll(entityInventory);
+                    }
+                    if (entityJ instanceof Container container_ && !travelersCompassItem.isSearchingMinecartsInv(stack)) {
                         for (int index = 0; index < container_.getContainerSize(); index++) {
                             Item item = container_.getItem(index).getItem();
                             allItems.add(item);
@@ -300,24 +340,9 @@ public class PositionUtils {
                             }
                         }
                     }
-                    if (entityJ instanceof LivingEntity living && !living.is(player)) {
-                        List<Item> entityInventory = living.getCapability(ForgeCapabilities.ITEM_HANDLER, null)
-                                .map(itemHandler -> IntStream.range(0, itemHandler.getSlots())
-                                        .mapToObj(itemHandler::getStackInSlot)
-                                        .flatMap(itemStack -> {
-                                            if (!itemStack.isEmpty()) {
-                                                return Stream.of(itemStack.getItem());
-                                            } else {
-                                                return Stream.empty();
-                                            }
-                                        })
-                                        .collect(Collectors.toList()))
-                                .orElse(Collections.emptyList());
-                        allItems.addAll(entityInventory);
-                    }
                 }
                 if (entityJ instanceof ItemEntity itemEntity && travelersCompassItem.isSearchingItemEntities(stack)) {
-                    if (compassItems.contains(itemEntity.getItem().getItem())){
+                    if (compassItems.contains(itemEntity.getItem().getItem())) {
                         if (favoriteList.contains(itemEntity.getItem().getItem())) {
                             allItems.add(itemEntity.getItem().getItem());
                         }
@@ -330,20 +355,30 @@ public class PositionUtils {
                         allItems.addAll(dropList);
                     }
                 }
-                if (entityJ instanceof Villager villager && travelersCompassItem.isSearchingVillagers(stack)){
-                    for (MerchantOffer merchantOffer : villager.getOffers()){
-                        if (compassItems.contains(merchantOffer.getBaseCostA().getItem()) || compassItems.contains(merchantOffer.getCostB().getItem())){
-                            if (favoriteList.contains(merchantOffer.getBaseCostA().getItem())){
-                                allItems.add(merchantOffer.getBaseCostA().getItem());
+                if (entityJ instanceof Villager villager && travelersCompassItem.isSearchingVillagers(stack)) {
+                    for (MerchantOffer merchantOffer : villager.getOffers()) {
+                        if (vG) {
+                            if (compassItems.contains(merchantOffer.getResult().getItem())) {
+                                if (favoriteList.contains(merchantOffer.getResult().getItem())) {
+                                    allItems.add(merchantOffer.getResult().getItem());
+                                }
                             }
-                            if (favoriteList.contains(merchantOffer.getCostB().getItem())){
-                                allItems.add(merchantOffer.getCostB().getItem());
+                        }
+                        if (vC) {
+                            if (compassItems.contains(merchantOffer.getCostA().getItem()) || compassItems.contains(merchantOffer.getCostB().getItem())) {
+                                if (favoriteList.contains(merchantOffer.getCostA().getItem())) {
+                                    allItems.add(merchantOffer.getCostA().getItem());
+                                }
+                                if (favoriteList.contains(merchantOffer.getCostB().getItem())) {
+                                    allItems.add(merchantOffer.getCostB().getItem());
+                                }
                             }
                         }
                     }
                 }
             }
-            hasAnyFavorite = allItems.stream().anyMatch(favoriteList::contains) || allItems.stream().anyMatch(favoriteList::contains) || allItems.stream().anyMatch(favoriteList::contains);
+            hasAnyFavorite = allItems.stream().anyMatch(favoriteList::contains);
+            hasAnyFavorite = hasAnyFavorite && travelersCompassItem.priorityMode(stack);
             for (Entity entityJ : list) {
                 if (entityJ instanceof LivingEntity living) {
                     if (living.level().getServer() != null && !(entityJ instanceof Player) && ConfigUtils.isAllowedToSearch(living) && travelersCompassItem.isSearchingDrops(stack)) {
@@ -359,8 +394,8 @@ public class PositionUtils {
                         }
                     }
                 }
-                if (travelersCompassItem.isSearchingMobsInv(stack)) {
-                    if (entityJ instanceof LivingEntity living && !living.is(player)) {
+                if (travelersCompassItem.isSearchingEntitiesInv(stack)) {
+                    if (entityJ instanceof LivingEntity living && !living.is(player) && ((living instanceof Player && !travelersCompassItem.isSearchingPlayersInv(stack) || (!(living instanceof Player) && !travelersCompassItem.isSearchingMobsInv(stack))))) {
                         List<Item> entityInventory = living.getCapability(ForgeCapabilities.ITEM_HANDLER, null)
                                 .map(itemHandler -> IntStream.range(0, itemHandler.getSlots())
                                         .mapToObj(itemHandler::getStackInSlot)
@@ -373,7 +408,7 @@ public class PositionUtils {
                                         })
                                         .collect(Collectors.toList()))
                                 .orElse(Collections.emptyList());
-                        for (Item item : entityInventory){
+                        for (Item item : entityInventory) {
                             if (hasAnyFavorite && favoriteList.contains(item) && compassItems.contains(item)) {
                                 good_list.add(entityJ);
                             }
@@ -382,7 +417,7 @@ public class PositionUtils {
                             }
                         }
                     }
-                    if (entityJ instanceof Container c){
+                    if (entityJ instanceof Container c && !travelersCompassItem.isSearchingMinecartsInv(stack)) {
                         for (int index = 0; index < c.getContainerSize(); index++) {
                             Item item = c.getItem(index).getItem();
                             if (hasAnyFavorite && favoriteList.contains(item) && compassItems.contains(item)) {
@@ -393,8 +428,8 @@ public class PositionUtils {
                             }
                         }
                     }
-                    if (ConfigUtils.hasLootr()){
-                        if (entityJ instanceof Container container_ && container_ instanceof LootrChestMinecartEntity minecartEntity && player instanceof ServerPlayer serverPlayer) {
+                    if (ConfigUtils.hasLootr()) {
+                        if (entityJ instanceof Container container_ && container_ instanceof LootrChestMinecartEntity minecartEntity && player instanceof ServerPlayer serverPlayer && !travelersCompassItem.isSearchingMinecartsInv(stack)) {
                             if ((minecartEntity.getOpeners().contains(player.getUUID()) && !TCConfig.LootrCompatibility.get() || TCConfig.LootrCompatibility.get())) {
                                 SpecialChestInventory inventory = DataStorage.getInventory(level, minecartEntity, serverPlayer, minecartEntity::addLoot);
                                 if (inventory != null) {
@@ -413,26 +448,35 @@ public class PositionUtils {
                     }
                 }
                 if (entityJ instanceof ItemEntity itemEntity && travelersCompassItem.isSearchingItemEntities(stack)) {
-                    if (compassItems.contains(itemEntity.getItem().getItem())){
+                    if (compassItems.contains(itemEntity.getItem().getItem())) {
                         if (hasAnyFavorite && favoriteList.contains(itemEntity.getItem().getItem())) {
                             good_list.add(itemEntity);
                         }
-                        if (!hasAnyFavorite){
+                        if (!hasAnyFavorite) {
                             good_list.add(itemEntity);
-                        }
-                        else if (favoriteList.contains(itemEntity.getItem().getItem())) {
+                        } else if (favoriteList.contains(itemEntity.getItem().getItem())) {
                             good_list.add(itemEntity);
                         }
                     }
                 }
-                if (entityJ instanceof Villager villager && travelersCompassItem.isSearchingVillagers(stack)){
-                    for (MerchantOffer merchantOffer : villager.getOffers()){
-                        if (compassItems.contains(merchantOffer.getBaseCostA().getItem()) || compassItems.contains(merchantOffer.getCostB().getItem())){
-                            if (hasAnyFavorite && (favoriteList.contains(merchantOffer.getBaseCostA().getItem()) ||favoriteList.contains(merchantOffer.getCostB().getItem()))) {
-                                good_list.add(villager);
+                if (entityJ instanceof Villager villager && travelersCompassItem.isSearchingVillagers(stack)) {
+                    for (MerchantOffer merchantOffer : villager.getOffers()) {
+                        if (vG) {
+                            if (compassItems.contains(merchantOffer.getResult().getItem())) {
+                                if (!hasAnyFavorite) {
+                                    good_list.add(villager);
+                                } else if (favoriteList.contains(merchantOffer.getResult().getItem())) {
+                                    good_list.add(villager);
+                                }
                             }
-                            if (!hasAnyFavorite){
-                                good_list.add(villager);
+                        }
+                        if (vC) {
+                            if (compassItems.contains(merchantOffer.getCostA().getItem()) || compassItems.contains(merchantOffer.getCostB().getItem())) {
+                                if (!hasAnyFavorite) {
+                                    good_list.add(villager);
+                                } else if (favoriteList.contains(merchantOffer.getCostA().getItem()) || favoriteList.contains(merchantOffer.getCostB().getItem())) {
+                                    good_list.add(villager);
+                                }
                             }
                         }
                     }
@@ -442,13 +486,23 @@ public class PositionUtils {
                     .map(Entity::getOnPos)
                     .min(Comparator.comparingDouble(ent -> ent.distSqr(userPos)))
                     .orElse(null);
-            map.put(blockPos,hasAnyFavorite);
-            return map;
+            String name = null;
+            if (blockPos != null) {
+                name = String.valueOf(good_list.stream()
+                        .filter(ent -> ent.getOnPos().equals(blockPos))
+                        .map(Entity::getName)
+                        .map(Component::getString)
+                        .findFirst()
+                        .orElse(null));
+            }
+            if (blockPos != null) {
+                return new LocationData(blockPos, hasAnyFavorite, name);
+            }
         }
         return null;
     }
-    @Nullable
-    public static Map<BlockPos, Boolean> getNearestMobFromEggItem(Entity entity, List<Item> spawnItems, ItemStack stack, TravelersCompassItem travelersCompassItem){
+
+    public static @Nullable LocationData getNearestMobFromEggItem(Entity entity, List<Item> spawnItems, ItemStack stack, TravelersCompassItem travelersCompassItem, boolean wideSearch) {
         if (entity instanceof Player player) {
             BlockPos userPos = player.getOnPos();
 
@@ -458,9 +512,8 @@ public class PositionUtils {
             CompassContainer container = CompassContainer.container(stack);
 
             List<Item> favoriteList = container.getFavoriteList(travelersCompassItem, stack);
-            Map<BlockPos,Boolean> map = new HashMap<>();
             boolean hasAnyFavorite;
-            AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(TCConfig.entitySearchRadius.get());
+            AABB aabb = new AABB(px, py, pz, (px + 1), (py + 1), (pz + 1)).inflate(wideSearch ? travelersCompassItem.wideSearchRadius(stack) : travelersCompassItem.entitySearchRadius(stack));
             List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, aabb);
             List<Item> favoriteEList = new ArrayList<>();
             List<LivingEntity> good_list = new ArrayList<>();
@@ -475,16 +528,16 @@ public class PositionUtils {
                         }
                         if (spawnItem instanceof MobBucketItem && entityJ instanceof Bucketable bucketable) {
                             ItemStack bucketItemStack = bucketable.getBucketItemStack();
-                            if (bucketItemStack.getItem().equals(spawnItem) && favoriteList.contains(spawnItem)){
+                            if (bucketItemStack.getItem().equals(spawnItem) && favoriteList.contains(spawnItem)) {
                                 favoriteEList.add(spawnItem);
                             }
                         }
                     }
                 }
             }
-            hasAnyFavorite = !favoriteEList.isEmpty();
+            hasAnyFavorite = !favoriteEList.isEmpty() && travelersCompassItem.priorityMode(stack);
             for (LivingEntity entityJ : list) {
-                    if (!(entityJ instanceof Player) && ConfigUtils.isAllowedToSearch(entityJ) && travelersCompassItem.isSearchingMobs(stack)) {
+                if (!(entityJ instanceof Player) && ConfigUtils.isAllowedToSearch(entityJ) && travelersCompassItem.isSearchingMobs(stack)) {
                     for (Item spawnItem : spawnItems) {
                         if (spawnItem instanceof SpawnEggItem spawnEggItem) {
                             EntityType<?> entityType = spawnEggItem.getType(null);
@@ -499,7 +552,7 @@ public class PositionUtils {
                         }
                         if (spawnItem instanceof MobBucketItem bucketItem && entityJ instanceof Bucketable bucketable) {
                             ItemStack bucketItemStack = bucketable.getBucketItemStack();
-                            if (bucketItemStack.getItem().equals(bucketItem)){
+                            if (bucketItemStack.getItem().equals(bucketItem)) {
                                 if (!hasAnyFavorite) {
                                     good_list.add(entityJ);
                                 }
@@ -515,52 +568,52 @@ public class PositionUtils {
                     .map(LivingEntity::getOnPos)
                     .min(Comparator.comparingDouble(ent -> ent.distSqr(userPos)))
                     .orElse(null);
-            map.put(blockPos,hasAnyFavorite);
-            return map;
+            String name = null;
+            if (blockPos != null) {
+                name = String.valueOf(good_list.stream()
+                        .filter(ent -> ent.getOnPos().equals(blockPos))
+                        .map(LivingEntity::getName)
+                        .map(Component::getString)
+                        .findFirst()
+                        .orElse(null));
+            }
+            if (blockPos != null) {
+                return new LocationData(blockPos, hasAnyFavorite, name);
+            }
         }
         return null;
     }
 
-
-    public static BlockPos getClosestPosFromList(List<Map<BlockPos, Boolean>> positions, Entity entity, ItemStack stack, TravelersCompassItem travelersCompassItem) {
+    public static LocationData getClosestLocationFromList(List<LocationData> positions, Entity entity, ItemStack stack, TravelersCompassItem travelersCompassItem) {
         BlockPos playerPos = entity.blockPosition();
-        BlockPos closestPos = null;
+        LocationData closestPos = null;
         double closestDistanceSq = Double.MAX_VALUE;
         boolean hasTrueValue = false;
-        for (Map<BlockPos, Boolean> map : positions) {
-            for (boolean value : map.values()) {
-                if (value) {
-                    hasTrueValue = true;
-                    break;
-                }
-            }
-            if (hasTrueValue) {
-                break;
+        for (LocationData location : positions) {
+            if (location != null && location.hasAnyFavorite()) {
+                hasTrueValue = true;
             }
         }
+
         if (hasTrueValue) {
-            for (Map<BlockPos, Boolean> map : positions) {
-                for (Map.Entry<BlockPos, Boolean> entry : map.entrySet()) {
-                    BlockPos pos = entry.getKey();
-                    boolean value = entry.getValue();
-                    if (pos != null && value) {
-                        double distanceSq = pos.distSqr(playerPos);
-                        if (distanceSq < closestDistanceSq) {
-                            closestDistanceSq = distanceSq;
-                            closestPos = pos;
-                        }
+            for (LocationData location : positions) {
+                if (location != null && location.hasAnyFavorite()) {
+                    BlockPos pos = location.getBlockPos();
+                    double distanceSq = pos.distSqr(playerPos);
+                    if (distanceSq < closestDistanceSq) {
+                        closestDistanceSq = distanceSq;
+                        closestPos = location;
                     }
                 }
             }
         } else {
-            for (Map<BlockPos, Boolean> map : positions) {
-                for (BlockPos pos : map.keySet()) {
-                    if (pos != null) {
-                        double distanceSq = pos.distSqr(playerPos);
-                        if (distanceSq < closestDistanceSq) {
-                            closestDistanceSq = distanceSq;
-                            closestPos = pos;
-                        }
+            for (LocationData location : positions) {
+                if (location != null) {
+                    BlockPos pos = location.getBlockPos();
+                    double distanceSq = pos.distSqr(playerPos);
+                    if (distanceSq < closestDistanceSq) {
+                        closestDistanceSq = distanceSq;
+                        closestPos = location;
                     }
                 }
             }
@@ -568,13 +621,14 @@ public class PositionUtils {
         travelersCompassItem.markFavoriteItem(stack, hasTrueValue);
         return closestPos;
     }
-    public static BlockPos getNearestPos(Level level, Entity entity, TravelersCompassItem travelersCompassItem, CompassContainer compassContainer, ItemStack stack){
-        if (travelersCompassItem.isPaused(stack)){
+
+    public static LocationData getNearestLocation(Level level, Entity entity, TravelersCompassItem travelersCompassItem, CompassContainer compassContainer, ItemStack stack, boolean wideSearch) {
+        if (travelersCompassItem.isPaused(stack) && !wideSearch) {
             return null;
         }
-        List<Map<BlockPos,Boolean>> blockPosList = new ArrayList<>();
+        List<LocationData> blockPosList = new ArrayList<>();
         boolean searchingForMobs = (travelersCompassItem.isSearchingMobs(stack) && TCConfig.enableMobSearch.get())
-                || (travelersCompassItem.isSearchingMobsInv(stack) && TCConfig.enableMobsInventorySearch.get())
+                || (travelersCompassItem.isSearchingEntitiesInv(stack) && TCConfig.enableMobsInventorySearch.get())
                 || (travelersCompassItem.isSearchingVillagers(stack) && TCConfig.enableVillagersSearch.get())
                 || (travelersCompassItem.isSearchingItemEntities(stack) && TCConfig.enableItemEntitiesSearch.get())
                 || (travelersCompassItem.isSearchingDrops(stack) && TCConfig.enableDropSearch.get());
@@ -582,16 +636,40 @@ public class PositionUtils {
                 || (travelersCompassItem.isSearchingFluids(stack) && TCConfig.enableFluidSearch.get())
                 || (travelersCompassItem.isSearchingSpawners(stack) && TCConfig.enableSpawnerSearch.get());
         boolean searchingContainers = (travelersCompassItem.isSearchingContainers(stack) && TCConfig.enableContainerSearch.get());
-        if (searchingForMobs){
-            blockPosList.add(PositionUtils.getNearestMobFromEggItem(entity, compassContainer.getList(),stack,travelersCompassItem));
-            blockPosList.add(PositionUtils.getNearestEntity(level,entity, compassContainer.getList(),stack,travelersCompassItem));
+        if (searchingForMobs) {
+            blockPosList.add(PositionUtils.getNearestMobFromEggItem(entity, compassContainer.getList(), stack, travelersCompassItem, wideSearch));
+            blockPosList.add(PositionUtils.getNearestEntity(level, entity, compassContainer.getList(), stack, travelersCompassItem, wideSearch));
         }
-        if (searchingBlocks){
-            blockPosList.add(PositionUtils.getNearestBlockFromList(level,entity,compassContainer.getList(),stack,travelersCompassItem));
+        if (searchingBlocks) {
+            blockPosList.add(PositionUtils.getNearestBlockFromList(level, entity, compassContainer.getList(), stack, travelersCompassItem, wideSearch));
         }
-        if (searchingContainers){
-            blockPosList.add(PositionUtils.getNearestContainerFromList(level,entity,compassContainer.getList(),stack,travelersCompassItem));
+        if (searchingContainers) {
+            blockPosList.add(PositionUtils.getNearestContainerFromList(level, entity, compassContainer.getList(), stack, travelersCompassItem, wideSearch));
         }
-        return PositionUtils.getClosestPosFromList(blockPosList,entity,stack,travelersCompassItem);
+        return PositionUtils.getClosestLocationFromList(blockPosList, entity, stack, travelersCompassItem);
+    }
+
+    public static class LocationData {
+        private final BlockPos blockPos;
+        private final boolean hasAnyFavorite;
+        private final String name;
+
+        public LocationData(BlockPos blockPos, boolean hasAnyFavorite, String additionalData) {
+            this.blockPos = blockPos;
+            this.hasAnyFavorite = hasAnyFavorite;
+            this.name = additionalData;
+        }
+
+        public BlockPos getBlockPos() {
+            return blockPos;
+        }
+
+        public boolean hasAnyFavorite() {
+            return hasAnyFavorite;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }

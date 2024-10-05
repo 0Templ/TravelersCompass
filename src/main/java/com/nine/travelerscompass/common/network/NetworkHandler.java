@@ -3,6 +3,7 @@ package com.nine.travelerscompass.common.network;
 import com.nine.travelerscompass.TravelersCompass;
 import com.nine.travelerscompass.common.network.packet.ConfigButtonPacket;
 import com.nine.travelerscompass.common.network.packet.GhostTargetPacket;
+import com.nine.travelerscompass.common.network.packet.HUDButtonPacket;
 import com.nine.travelerscompass.common.network.packet.SearchButtonPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
@@ -20,11 +21,12 @@ public class NetworkHandler {
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-    public static void regiser() {
-        int packetId  = 0;
-        CHANNEL.registerMessage(packetId ++, SearchButtonPacket.class, SearchButtonPacket::encode, SearchButtonPacket::new, SearchButtonPacket::onMessage);
-        CHANNEL.registerMessage(packetId ++, ConfigButtonPacket.class, ConfigButtonPacket::encode, ConfigButtonPacket::new, ConfigButtonPacket::onMessage);
-        CHANNEL.registerMessage(packetId ++, GhostTargetPacket.class, GhostTargetPacket::encode, GhostTargetPacket::new, GhostTargetPacket::onMessage);
 
+    public static void regiser() {
+        int packetId = 0;
+        CHANNEL.registerMessage(packetId++, SearchButtonPacket.class, SearchButtonPacket::encode, SearchButtonPacket::new, SearchButtonPacket::onMessage);
+        CHANNEL.registerMessage(packetId++, HUDButtonPacket.class, HUDButtonPacket::encode, HUDButtonPacket::new, HUDButtonPacket::onMessage);
+        CHANNEL.registerMessage(packetId++, ConfigButtonPacket.class, ConfigButtonPacket::encode, ConfigButtonPacket::new, ConfigButtonPacket::onMessage);
+        CHANNEL.registerMessage(packetId++, GhostTargetPacket.class, GhostTargetPacket::encode, GhostTargetPacket::new, GhostTargetPacket::onMessage);
     }
 }

@@ -18,19 +18,19 @@ import snownee.jade.api.config.IPluginConfig;
 public enum BlocksComponentProvider implements IBlockComponentProvider {
 
     INSTANCE;
+
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig pluginConfig) {
         Block block = blockAccessor.getBlock();
         Player player = blockAccessor.getPlayer();
-        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.JadeCompatibility.get()){
+        if (!(player.getMainHandItem().getItem() instanceof TravelersCompassItem) || !TCConfig.JadeCompatibility.get()) {
             return;
         }
-        if (!ConfigUtils.isAllowedToSearch(block.asItem().getDefaultInstance())){
+        if (!ConfigUtils.isAllowedToSearch(block.asItem().getDefaultInstance())) {
             tooltip.add(Component.translatable("options.travelerscompass.tooltip.forbidden.block").withStyle(ChatFormatting.RED));
-        }
-        else {
+        } else {
             CompassContainer compassContainer = CompassContainer.container(player.getMainHandItem());
-            if(!compassContainer.getList().contains(block.asItem())) {
+            if (!compassContainer.getList().contains(block.asItem())) {
                 tooltip.add(Component.translatable("options.travelerscompass.tooltip.shift.block").withStyle(ChatFormatting.GRAY));
             }
 

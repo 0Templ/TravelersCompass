@@ -1,4 +1,3 @@
-
 package com.nine.travelerscompass.compat.jei;
 
 
@@ -22,12 +21,13 @@ public class JeiSetup implements IModPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addGhostIngredientHandler(CompassScreen.class, new JeiGhostTargetHandler());
-
     }
+
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-            registration.addIngredientInfo(new ItemStack(ItemRegistry.TRAVELERS_COMPASS.get()), VanillaTypes.ITEM_STACK, Component.translatable("options.travelerscompass.tooltip.item.info"));
-       }
+        registration.addIngredientInfo(new ItemStack(ItemRegistry.TRAVELERS_COMPASS.get()), VanillaTypes.ITEM_STACK, Component.translatable("options.travelerscompass.tooltip.item.info"));
+    }
+
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(TravelersCompass.MODID, TravelersCompass.MODID);

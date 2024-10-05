@@ -23,15 +23,16 @@ public class CompassContainer implements Container {
     private CompassContainer(ItemStack containerStack, int inventorySize, int maxStackSize) {
         this.containerStack = containerStack;
         this.maxStackSize = maxStackSize;
-        inventory = NonNullList.<ItemStack>withSize(inventorySize, ItemStack.EMPTY);
+        inventory = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
         load(containerStack.getOrCreateTag());
     }
-    public ArrayList<Item> getFavoriteList(TravelersCompassItem containerStack, ItemStack stack){
+
+    public ArrayList<Item> getFavoriteList(TravelersCompassItem containerStack, ItemStack stack) {
         ArrayList<Integer> list1 = containerStack.favoriteSlots(stack);
         ArrayList<Item> list2 = new ArrayList<>();
         for (int i : list1) {
             Item item = this.getItem(i).getItem();
-            if (!(item instanceof AirItem)){
+            if (!(item instanceof AirItem)) {
                 list2.add(item);
             }
         }
@@ -41,32 +42,36 @@ public class CompassContainer implements Container {
     public static CompassContainer container(ItemStack containerHolder) {
         return new CompassContainer(containerHolder, 9, 1);
     }
-    public List<Item> getList(){
+
+    public List<Item> getList() {
         List<Item> list = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             Item item = this.getItem(i).getItem();
-            if (!(item instanceof AirItem)){
+            if (!(item instanceof AirItem)) {
                 list.add(item);
             }
         }
         return list;
     }
-    public boolean hasAny(ItemStack itemStack){
-        for(int i = 0; i < 9; ++i) {
-            if (itemStack.is(this.getItem(i).getItem())){
+
+    public boolean hasAny(ItemStack itemStack) {
+        for (int i = 0; i < 9; ++i) {
+            if (itemStack.is(this.getItem(i).getItem())) {
                 return true;
             }
         }
         return false;
     }
-    public int getFirstEmptySlot(){
-        for(int i = 0; i < 9; ++i) {
-            if (this.getItem(i).is(ItemStack.EMPTY.getItem())){
+
+    public int getFirstEmptySlot() {
+        for (int i = 0; i < 9; ++i) {
+            if (this.getItem(i).is(ItemStack.EMPTY.getItem())) {
                 return i;
             }
         }
         return 0;
     }
+
     @Override
     public int getContainerSize() {
         return inventory.size();
@@ -114,8 +119,7 @@ public class CompassContainer implements Container {
             if (stack.getCount() > size) {
                 stack = stack.split(size);
                 setChanged();
-            }
-            else {
+            } else {
                 setItem(index, ItemStack.EMPTY);
             }
         stack.setCount(0);
@@ -132,21 +136,20 @@ public class CompassContainer implements Container {
 
     @Override
     public void setItem(int index, ItemStack stack) {
-
-        if (stack.getItem() instanceof TravelersCompassItem){
-        return;
+        if (stack.getItem() instanceof TravelersCompassItem) {
+            return;
         }
-        if (stack == ItemStack.EMPTY){
+        if (stack == ItemStack.EMPTY) {
             inventory.set(index, stack);
             if (!stack.isEmpty() && stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
             setChanged();
         }
-        if (!ConfigUtils.isAllowedToSearch(stack)){
+        if (!ConfigUtils.isAllowedToSearch(stack)) {
             return;
         }
         inventory.set(index, stack);
-            if (!stack.isEmpty() && stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
-            setChanged();
+        if (!stack.isEmpty() && stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
+        setChanged();
     }
 
     @Override
@@ -165,14 +168,17 @@ public class CompassContainer implements Container {
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        System.out.println(player.getMainHandItem() == containerStack);
+        return player.getMainHandItem() == containerStack;
     }
 
     @Override
-    public void startOpen(Player player) {}
+    public void startOpen(Player player) {
+    }
 
     @Override
-    public void stopOpen(Player player) {}
+    public void stopOpen(Player player) {
+    }
 
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
