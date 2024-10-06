@@ -168,8 +168,7 @@ public class CompassContainer implements Container {
 
     @Override
     public boolean stillValid(Player player) {
-        System.out.println(player.getMainHandItem() == containerStack);
-        return player.getMainHandItem() == containerStack;
+        return true;
     }
 
     @Override

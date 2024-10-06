@@ -137,6 +137,7 @@ public class CompassMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        return player.getMainHandItem().getItem().equals(ItemRegistry.TRAVELERS_COMPASS.get());
     }
+
 }
