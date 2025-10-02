@@ -1,0 +1,103 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev.legacyforge'
+}
+
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
+}
+
+legacyForge {
+    version = "${minecraft_version}-${forge_version}"
+
+    validateAccessTransformers = true
+
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers = ["src/main/resources/META-INF/accesstransformer.cfg"]
+    }
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+    runs {
+        client {
+            client()
+        }
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+        server {
+            server()
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+dependencies {
+    compileOnly project(":common")
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+
+    //JEI
+    compileOnly ("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    compileOnly ("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly ("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+
+    //REI
+    modImplementation ("curse.maven:architectury-api-${architectury_api_curse_project_id}:${architectury_api_forge_curse_file_id}")
+    modImplementation ("curse.maven:cloth-config-${cloth_config_curse_project_id}:${cloth_config_forge_curse_file_id}")
+    compileOnly ("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}")
+
+    //EMI
+    modImplementation "dev.emi:emi-xplat-mojmap:${emi_version}+${minecraft_version}:api"
+
+    switch (nei) {
+        case "JEI":
+            modImplementation ("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+            break
+        case "REI":
+            modImplementation ("me.shedaniel:RoughlyEnoughItems-forge:${rei_version}")
+            break
+    }
+
+    //Jade
+    compileOnly ("maven.modrinth:jade:${jade_forge_version}")
+
+    //Top
+    compileOnly ("curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_forge_file_id}")
+
+    switch (waila) {
+        case "JADE":
+            modImplementation ("maven.modrinth:jade:${jade_forge_version}")
+            break
+        case "TOP":
+            modImplementation ("curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_forge_file_id}")
+            break
+    }
+
+    //Configured
+    modImplementation ("curse.maven:configured-${configured_curse_project_id}:${configured_forge_curse_file_id}")
+
+    //LOOTR
+    modImplementation ("curse.maven:lootr-${lootr_forge_curse_project_id}:${lootr_forge_curse_file_id}")
+
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+}
+
+jar {
+    finalizedBy('reobfJar')
+    manifest.attributes([
+            "MixinConfigs": "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+    ])
+}

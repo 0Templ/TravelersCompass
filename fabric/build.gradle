@@ -1,0 +1,92 @@
+plugins {
+    id 'multiloader-loader'
+    id 'com.github.johnrengelman.shadow'
+    id 'fabric-loom'
+}
+
+fabricApi {
+    configureDataGeneration()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+
+    //Mod Menu
+    modImplementation "curse.maven:modmenu-${modmenu_curse_project_id}:${modmenu_fabric_curse_file_id}"
+
+    //JEI
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    //REI
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    //EMI
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}+${minecraft_version}:api"
+
+    switch (nei) {
+        case "JEI":
+            modLocalRuntime "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+            break
+        case "REI":
+            modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+            break
+        case "EMI":
+            modLocalRuntime "dev.emi:emi-fabric:${emi_version}+${minecraft_version}"
+            break
+    }
+
+    //Jade
+    modImplementation ("maven.modrinth:jade:${jade_fabric_version}")
+
+    //Lootr
+    modImplementation "curse.maven:lootr-fabric-${lootr_fabric_curse_project_id}:${lootr_fabric_curse_file_id}"
+
+    //Cloth config
+    modImplementation "curse.maven:cloth-config-${cloth_config_curse_project_id}:${cloth_config_fabric_curse_file_id}"
+
+    // NightConfig
+    implementation 'com.electronwill.night-config:core:3.6.6'
+    implementation 'com.electronwill.night-config:toml:3.6.6'
+    shadow 'com.electronwill.night-config:core:3.6.6'
+    shadow 'com.electronwill.night-config:toml:3.6.6'
+
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    implementation project(":common")
+}
+
+shadowJar {
+    dependsOn jar
+    configurations = [project.configurations.shadow]
+    destinationDirectory.set(file("${project.layout.buildDirectory.get()}/devlibs"))
+    archiveClassifier.set("dev")
+    relocate "com.electronwill.nightconfig", "${group}.shadow.nightconfig"
+}
+remapJar.dependsOn(shadowJar)
+
+loom {
+    if (project(":common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
+        accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+        server {
+            server()
+            setConfigName("Fabric Server")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
