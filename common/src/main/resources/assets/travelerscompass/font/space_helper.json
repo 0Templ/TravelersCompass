@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        "\uF820": 1,
+        "\uF821": 2
+      }
+    }
+  ]
+}

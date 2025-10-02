@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:compass"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "minecraft:lodestone"
+    }
+  },
+  "pattern": [
+    "III",
+    "ICI",
+    "ILI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "travelerscompass:travelerscompass"
+  }
+}

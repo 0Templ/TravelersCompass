@@ -1,0 +1,35 @@
+plugins {
+    // see https://fabricmc.net/develop/ for new versions
+    id 'fabric-loom' version '1.8-SNAPSHOT' apply false
+    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
+    id 'net.neoforged.moddev' version '2.0.49-beta' apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply(false)
+}
+allprojects {
+    repositories {
+        maven {
+            url = "https://modmaven.dev"
+        }
+        maven {
+            url 'https://maven.blamejared.com/'
+            content {
+                includeGroup 'noobanidus.mods.lootr'
+            }
+        }
+        maven {
+            url "https://maven.shedaniel.me"
+        }
+        maven {
+            url "https://api.modrinth.com/maven"
+        }
+        maven {
+            url = "https://maven.terraformersmc.com/"
+        }
+        maven {
+            url "https://www.cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+    }
+}

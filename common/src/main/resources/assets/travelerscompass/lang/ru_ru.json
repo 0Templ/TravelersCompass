@@ -1,0 +1,203 @@
+{
+  "item.travelerscompass.travelerscompass": "Компас путешественника",
+  "itemgroup.travelerscompass": "Traveler's Compass",
+
+  "tooltip.travelerscompass.search_mode.blocks": "Поиск блоков",
+  "tooltip.travelerscompass.search_mode.blocks.desc": "Поиск любых размещаемых блоков в мире",
+
+  "tooltip.travelerscompass.search_mode.mobs": "Поиск мобов",
+  "tooltip.travelerscompass.search_mode.mobs.desc": "Поиск мобов по их яйцам призыва",
+
+  "tooltip.travelerscompass.search_mode.drop": "Поиск по дропу",
+  "tooltip.travelerscompass.search_mode.drop.desc": "Поиск мобов по предметам, которые выпдают при смерти",
+
+  "tooltip.travelerscompass.search_mode.spawners": "Поиск спавнеров",
+  "tooltip.travelerscompass.search_mode.spawners.desc": "Поиск спавнеров по типу моба",
+
+  "tooltip.travelerscompass.search_mode.item_entities": "Поиск выброшенных предметов",
+  "tooltip.travelerscompass.search_mode.item_entities.desc": "Поиск предметов, лежащих на земле",
+
+  "tooltip.travelerscompass.search_mode.inventories": "Поиск в инвентарях существ",
+  "tooltip.travelerscompass.search_mode.inventories.desc": "Поиск существ по содержимому их инвентаря",
+
+  "tooltip.travelerscompass.search_mode.fluids": "Поиск жидкостей",
+  "tooltip.travelerscompass.search_mode.fluids.desc": "Поиск блоков жидкостей по вёдрам",
+
+  "tooltip.travelerscompass.search_mode.containers": "Поиск контейнеров",
+  "tooltip.travelerscompass.search_mode.containers.desc": "Поиск контейнеров по их содержимому",
+
+  "tooltip.travelerscompass.search_mode.villagers": "Поиск жителей",
+  "tooltip.travelerscompass.search_mode.villagers.desc": "Поиск жителей по их торговым предложениям",
+
+  "tooltip.travelerscompass.wide_search": "Широкий поиск",
+  "tooltip.travelerscompass.wide_search.desc": "Сканирование всех чанков в радиусе. Приостанавливает автоматический поиск.",
+  "tooltip.travelerscompass.wide_search.cancel": "%s для отмены",
+
+  "tooltip.travelerscompass.toggle_element.disabled": "Отключено",
+  "tooltip.travelerscompass.toggle_element.enabled": "Включено",
+  "tooltip.travelerscompass.toggle_element.villagers_buys": "Товары",
+  "tooltip.travelerscompass.toggle_element.villagers_buys.desc": "Поиск жителей, продающих определённые предметы",
+  "tooltip.travelerscompass.toggle_element.villagers_sells": "Плата",
+  "tooltip.travelerscompass.toggle_element.villagers_sells.desc": "Поиск жителей, покупающих определённые предметы",
+  "tooltip.travelerscompass.toggle_element.minecarts": "Вагонетки",
+  "tooltip.travelerscompass.toggle_element.minecarts.desc": "Поиск предметов в вагонетках с сундуком",
+  "tooltip.travelerscompass.toggle_element.containers_chests": "Блоки-контейнеры",
+  "tooltip.travelerscompass.toggle_element.containers_chests.desc": "Поиск сундуков, бочек, шалкеров и других блокоподобных хранилищ",
+  "tooltip.travelerscompass.toggle_element.lootr": "Поиск Lootr",
+  "tooltip.travelerscompass.toggle_element.lootr.both": "Все",
+  "tooltip.travelerscompass.toggle_element.lootr.closed": "Только закрытые",
+  "tooltip.travelerscompass.toggle_element.lootr.opened": "Только открытые",
+  "tooltip.travelerscompass.toggle_element.lootr.off": "Отключено",
+  "tooltip.travelerscompass.toggle_element.lootr.both.desc": "Искать все контейнеры",
+  "tooltip.travelerscompass.toggle_element.lootr.closed.desc": "Искать только неоткрытые контейнеры",
+  "tooltip.travelerscompass.toggle_element.lootr.opened.desc": "Искать только открытые контейнеры",
+  "tooltip.travelerscompass.toggle_element.lootr.off.desc": "Исключить Lootr-контейнеры из поиска",
+  "tooltip.travelerscompass.toggle_element.inv_players": "Инвентари игроков",
+  "tooltip.travelerscompass.toggle_element.inv_players.desc": "Поиск игроков по содержимому их инвентаря",
+  "tooltip.travelerscompass.toggle_element.inv_mobs": "Инвентари мобов",
+  "tooltip.travelerscompass.toggle_element.inv_mobs.desc": "Поиск мобов по содержимому их инвентаря",
+
+  "tooltip.travelerscompass.disabled_config": "Отключено в конфиге",
+  "tooltip.travelerscompass.disabled": "Отключено",
+  "tooltip.travelerscompass.enabled": "Включено",
+  "tooltip.travelerscompass.inverted": "Инвертировано",
+  "tooltip.travelerscompass.inactive": "Неактивно",
+
+  "tooltip.travelerscompass.warning.empty": "Компас пуст",
+  "tooltip.travelerscompass.warning.empty.desc": "Добавьте предметы в инвентарь компаса для начала поиска",
+  "tooltip.travelerscompass.warning.inactive": "Нет активных режимов поиска",
+  "tooltip.travelerscompass.warning.inactive.desc": "Включите хотя бы один режим поиска",
+  "tooltip.travelerscompass.warning.paused": "Компас на паузе",
+  "tooltip.travelerscompass.warning.paused.desc": "Возобновите для продолжения автоматического поиска",
+
+  "tooltip.travelerscompass.settings": "Настройки",
+  "tooltip.travelerscompass.search": "Поиск",
+
+  "tooltip.travelerscompass.settings.priority_mode": "Режим приоритета",
+  "tooltip.travelerscompass.settings.priority_mode.desc.off": "Игнорирование приоритета, поиск исключительно по расстоянию",
+  "tooltip.travelerscompass.settings.priority_mode.desc.normal": "Поиск приоритетных предметов в первую очередь",
+  "tooltip.travelerscompass.settings.priority_mode.desc.inverted": "Поиск неприоритетных предметов в первую очередь",
+
+  "tooltip.travelerscompass.settings.reset": "Сброс настроек",
+  "tooltip.travelerscompass.settings.reset.desc": "Восстановление стандартных настроек",
+
+  "tooltip.travelerscompass.settings.attitude_marker": "Индикатор высоты",
+  "tooltip.travelerscompass.settings.attitude_marker.desc": "Отображение вертикального направления к цели (выше/ниже)",
+  "tooltip.travelerscompass.settings.sound_ping": "Звуковой сигнал",
+  "tooltip.travelerscompass.settings.sound_ping.desc": "Воспроизводение звука при обнаружении новой цели",
+  "tooltip.travelerscompass.settings.pause": "Пауза",
+  "tooltip.travelerscompass.settings.pause.desc": "Остановить автоматическое сканирование",
+  "tooltip.travelerscompass.settings.resume": "Возобновить",
+  "tooltip.travelerscompass.settings.resume.desc": "Продолжить автоматическое сканирование",
+  "tooltip.travelerscompass.settings.resume.warning": "Возобновление отменит расширенный поиск",
+
+  "tooltip.travelerscompass.settings.force_chunks_load": "Принудительная загрузка чанков",
+  "tooltip.travelerscompass.settings.force_chunks_load.desc": "Прогрузка/генерация незагруженных чанков при возможности",
+
+  "tooltip.travelerscompass.settings.target_validation": "Валидация целей",
+  "tooltip.travelerscompass.settings.target_validation.desc": "Отсеивание не существуюющих целей",
+
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range": "Радиус поиска блоков",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.desc": "Радиус поиска блоков в чанках",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.value": "%s чанков",
+
+  "tooltip.travelerscompass.settings.wide_search_range": "Радиус расширенного поиска",
+  "tooltip.travelerscompass.settings.wide_search_range.desc": "Радиус широкого поиска",
+  "tooltip.travelerscompass.settings.wide_search_range.value": "%s чанков",
+
+  "tooltip.travelerscompass.settings.entities_search_range": "Радиус поиска существ",
+  "tooltip.travelerscompass.settings.entities_search_range.desc": "Максимальный радиус поиска существ в блоках",
+  "tooltip.travelerscompass.settings.entities_search_range.value": "%s блоков",
+
+  "tooltip.travelerscompass.settings.modification.hold_to_decrease": "Удерживайте [%s] для уменьшения",
+  "tooltip.travelerscompass.settings.modification.hold_to_change_faster": "Удерживайте [%s] для быстрого изменения",
+
+  "tooltip.travelerscompass.settings.modification.shift": "Shift",
+  "tooltip.travelerscompass.settings.modification.ctrl": "Ctrl",
+  "tooltip.travelerscompass.settings.modification.shift_click": "Shift+Клик",
+
+  "tooltip.travelerscompass.settings.info": "Информация",
+  "tooltip.travelerscompass.settings.info.status": "Статус: %s",
+  "tooltip.travelerscompass.settings.info.status.searching": "Поиск (%s)",
+  "tooltip.travelerscompass.settings.info.status.scanning": "Сканирование (%s)",
+  "tooltip.travelerscompass.settings.info.status.progress": "Прогресс: %s",
+  "tooltip.travelerscompass.settings.info.status.paused": "Пауза",
+  "tooltip.travelerscompass.settings.info.status.idle": "Ожидание",
+  "tooltip.travelerscompass.settings.info.target": "Цель: %s",
+  "tooltip.travelerscompass.settings.info.position": "Позиция: %s",
+  "tooltip.travelerscompass.settings.info.progress": "Прогресс: %s",
+
+  "tooltip.travelerscompass.settings.hud": "Отображение HUD",
+  "tooltip.travelerscompass.settings.hud.desc": "Настройка отображения информации о цели",
+  "tooltip.travelerscompass.settings.hud.enabled": "Всегда видимый",
+  "tooltip.travelerscompass.settings.hud.requires_hand": "Только в руке",
+
+  "tooltip.travelerscompass.settings.hud.alignment": "Выравнивание текста",
+  "tooltip.travelerscompass.settings.hud.alignment.desc": "Точка привязки текста: %s",
+  "tooltip.travelerscompass.settings.hud.alignment.center": "По центру",
+  "tooltip.travelerscompass.settings.hud.alignment.right": "Справа",
+  "tooltip.travelerscompass.settings.hud.alignment.left": "Слева",
+
+  "tooltip.travelerscompass.settings.hud.type": "Стиль отображения",
+  "tooltip.travelerscompass.settings.hud.type.desc": "Выберите стиль HUD",
+  "tooltip.travelerscompass.settings.hud.type.compact": "Компактный",
+  "tooltip.travelerscompass.settings.hud.type.extended": "Подробный",
+
+  "tooltip.travelerscompass.settings.hud.position.x": "Горизонтальное смещение",
+  "tooltip.travelerscompass.settings.hud.position.y": "Вертикальное смещение",
+  "tooltip.travelerscompass.settings.hud.position.value": "Смещение: %s пикс.",
+  "tooltip.travelerscompass.settings.hud.position.desc": "Смещение по оси %s от %s",
+  "tooltip.travelerscompass.settings.hud.position.alignment.center": "центра",
+  "tooltip.travelerscompass.settings.hud.position.alignment.right": "правого края",
+  "tooltip.travelerscompass.settings.hud.position.alignment.left": "левого края",
+
+  "tooltip.travelerscompass.settings.hud_scale": "Масштаб HUD",
+  "tooltip.travelerscompass.settings.hud_scale.desc": "Настройка размера отображения",
+  "tooltip.travelerscompass.settings.hud_scale.value": "Масштаб: %s",
+
+  "tooltip.travelerscompass.settings.hud_height": "Высота отображения",
+  "tooltip.travelerscompass.settings.hud_height.desc": "Вертикальное пространство для элементов HUD",
+  "tooltip.travelerscompass.settings.hud_width": "Ширина отображения",
+  "tooltip.travelerscompass.settings.hud_width.desc": "Максимальная ширина до обрезки текста",
+  "tooltip.travelerscompass.settings.hud_width.value": "Ширина: %s пикс.",
+  "tooltip.travelerscompass.settings.hud_height.value": "Высота: %s пикс.",
+
+  "tooltip.travelerscompass.settings.hud_with_chat": "Показывать с чатом",
+  "tooltip.travelerscompass.settings.hud_with_chat.desc": "Оставлять HUD видимым при открытом чате",
+
+  "tooltip.travelerscompass.settings.hud.reset": "Сбросить HUD",
+  "tooltip.travelerscompass.settings.hud.reset.desc": "Восстановить стандартные настройки HUD",
+
+  "hud.travelerscompass.compact.state": "Статус: %s",
+  "hud.travelerscompass.compact.state.idle": "Ожидание",
+  "hud.travelerscompass.compact.state.found": "Найдено",
+  "hud.travelerscompass.compact.state.pause": "Пауза",
+  "hud.travelerscompass.compact.state.searching": "Поиск",
+  "hud.travelerscompass.compact.target": "Цель: %s",
+  "hud.travelerscompass.compact.position": "Позиция: %s",
+  "hud.travelerscompass.compact.position_short": "Поз-ия: %s",
+  "hud.travelerscompass.compact.distance": "Расстояние: %s",
+  "hud.travelerscompass.number.kilo": "к",
+  "hud.travelerscompass.number.mega": "М",
+  "hud.travelerscompass.extended.state": "Статус",
+  "hud.travelerscompass.extended.target": "Цель",
+  "hud.travelerscompass.extended.position": "Позиция",
+  "hud.travelerscompass.extended.distance": "Расстояние",
+
+  "tooltip.travelerscompass.config.filter_reason.mod": "Поиск предметов из %s недоступен",
+  "tooltip.travelerscompass.config.filter_reason.item": "Поиск этого предмета недоступен",
+  "tooltip.travelerscompass.config.filter_reason.tag": "Поиск предметов с тегом '%s' недоступен",
+  "tooltip.travelerscompass.config.filter_reason.entity": "Поиск этого сущетсва недоступен",
+  "tooltip.travelerscompass.config.search_cost.requirement_level": "Требуемый уровень: %s",
+  "tooltip.travelerscompass.config.search_cost.cost": "Стоимость поиска: %s уровень",
+  "tooltip.travelerscompass.config.search_cost.cost_plural": "Стоимость поиска: %s уровней",
+
+  "waila.travelerscompass.forbidden_block": "Вы не можете искать этот блок",
+  "waila.travelerscompass.forbidden_entity": "Вы не можете искать это существо",
+  "waila.travelerscompass.info.block": "Shift + ПКМ — начать поиск этого блока",
+  "waila.travelerscompass.info.entity": "Shift + ПКМ — начать поиск этого существа",
+
+  "nei.travelerscompass.info": "Этот компас может искать блоки, существ (по яйцам призыва, дропу или содержимому инвентаря), жителей (по товарам), спавнеры, жидкости (по ведрам), предметы на земле и контейнеры (по содержимому).",
+
+  "config.jade.plugin_minecraft.travelerscompass": "Compass search info"
+}

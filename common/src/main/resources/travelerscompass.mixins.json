@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.nine.travelerscompass.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "accessor.BaseSpawnerAccessor",
+    "accessor.BucketItemAccessor",
+    "accessor.LiquidBlockAccessor",
+    "accessor.LootItemAccessor",
+    "accessor.LootPoolAccessor",
+    "accessor.LootTableAccessor"
+  ],
+  "client": [
+    "client.GuiMixin",
+    "client.ItemMixin",
+    "client.accessor.ItemPropertiesAccessor"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+
