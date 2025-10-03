@@ -1,0 +1,203 @@
+{
+  "item.travelerscompass.travelerscompass": "旅行者指南针",
+  "itemgroup.travelerscompass": "旅行者指南针",
+
+  "tooltip.travelerscompass.search_mode.blocks": "方块搜索",
+  "tooltip.travelerscompass.search_mode.blocks.desc": "搜索世界中所有的可放置方块",
+
+  "tooltip.travelerscompass.search_mode.mobs": "生物搜索",
+  "tooltip.travelerscompass.search_mode.mobs.desc": "根据刷怪蛋搜索生物",
+
+  "tooltip.travelerscompass.search_mode.drop": "掉落物搜索",
+  "tooltip.travelerscompass.search_mode.drop.desc": "根据掉落物搜索生物",
+
+  "tooltip.travelerscompass.search_mode.spawners": "刷怪笼搜索",
+  "tooltip.travelerscompass.search_mode.spawners.desc": "根据生物类型搜索刷怪笼",
+
+  "tooltip.travelerscompass.search_mode.item_entities": "物品实体搜索",
+  "tooltip.travelerscompass.search_mode.item_entities.desc": "搜索掉落在地上的物品",
+
+  "tooltip.travelerscompass.search_mode.inventories": "实体物品栏搜索",
+  "tooltip.travelerscompass.search_mode.inventories.desc": "根据实体物品栏中的物品搜索实体",
+
+  "tooltip.travelerscompass.search_mode.fluids": "流体搜索",
+  "tooltip.travelerscompass.search_mode.fluids.desc": "根据桶搜索流体方块",
+
+  "tooltip.travelerscompass.search_mode.containers": "容器搜索",
+  "tooltip.travelerscompass.search_mode.containers.desc": "根据容器内的物品搜索容器",
+
+  "tooltip.travelerscompass.search_mode.villagers": "村民搜索",
+  "tooltip.travelerscompass.search_mode.villagers.desc": "根据村民的可交易物搜索村民",
+
+  "tooltip.travelerscompass.wide_search": "广域搜索",
+  "tooltip.travelerscompass.wide_search.desc": "扫描范围内的所有区块，将暂停被动搜索",
+  "tooltip.travelerscompass.wide_search.cancel": "按 %s 取消",
+
+  "tooltip.travelerscompass.toggle_element.disabled": "禁用",
+  "tooltip.travelerscompass.toggle_element.enabled": "启用",
+  "tooltip.travelerscompass.toggle_element.villagers_buys": "村民收购物",
+  "tooltip.travelerscompass.toggle_element.villagers_buys.desc": "搜索收购指定物品的村民",
+  "tooltip.travelerscompass.toggle_element.villagers_sells": "村民出售物",
+  "tooltip.travelerscompass.toggle_element.villagers_sells.desc": "搜索出售指定物品的村民",
+  "tooltip.travelerscompass.toggle_element.minecarts": "矿车",
+  "tooltip.travelerscompass.toggle_element.minecarts.desc": "搜索运输矿车内的物品",
+  "tooltip.travelerscompass.toggle_element.containers_chests": "方块容器",
+  "tooltip.travelerscompass.toggle_element.containers_chests.desc": "包括箱子、桶、潜影盒等用于存储的方块",
+  "tooltip.travelerscompass.toggle_element.lootr": "战利品搜索",
+  "tooltip.travelerscompass.toggle_element.lootr.both": "全部",
+  "tooltip.travelerscompass.toggle_element.lootr.closed": "仅未开启过",
+  "tooltip.travelerscompass.toggle_element.lootr.opened": "仅开启过",
+  "tooltip.travelerscompass.toggle_element.lootr.off": "禁用",
+  "tooltip.travelerscompass.toggle_element.lootr.both.desc": "搜索所有战利品容器",
+  "tooltip.travelerscompass.toggle_element.lootr.closed.desc": "仅搜索未开启过的战利品容器",
+  "tooltip.travelerscompass.toggle_element.lootr.opened.desc": "仅搜索开启过的战利品容器",
+  "tooltip.travelerscompass.toggle_element.lootr.off.desc": "从搜索中排除战利品容器",
+  "tooltip.travelerscompass.toggle_element.inv_players": "玩家物品栏",
+  "tooltip.travelerscompass.toggle_element.inv_players.desc": "将其他玩家的物品栏纳入搜索",
+  "tooltip.travelerscompass.toggle_element.inv_mobs": "生物物品栏",
+  "tooltip.travelerscompass.toggle_element.inv_mobs.desc": "将生物的物品栏纳入搜索",
+
+  "tooltip.travelerscompass.disabled_config": "已于配置文件中禁用",
+  "tooltip.travelerscompass.disabled": "禁用",
+  "tooltip.travelerscompass.enabled": "启用",
+  "tooltip.travelerscompass.inverted": "反转",
+  "tooltip.travelerscompass.inactive": "未激活",
+
+  "tooltip.travelerscompass.warning.empty": "指南针是空的",
+  "tooltip.travelerscompass.warning.empty.desc": "添加物品到指南针物品栏中以开始搜索",
+  "tooltip.travelerscompass.warning.inactive": "未启用任何搜索模式",
+  "tooltip.travelerscompass.warning.inactive.desc": "启用至少一个搜索模式以开始搜索",
+  "tooltip.travelerscompass.warning.paused": "指南针已暂停",
+  "tooltip.travelerscompass.warning.paused.desc": "继续以执行自动搜索",
+
+  "tooltip.travelerscompass.settings": "设置",
+  "tooltip.travelerscompass.search": "搜索",
+
+  "tooltip.travelerscompass.settings.priority_mode": "优先级模式",
+  "tooltip.travelerscompass.settings.priority_mode.desc.off": "忽略优先级, 仅按距离排序",
+  "tooltip.travelerscompass.settings.priority_mode.desc.normal": "优先搜索高优先级的物品",
+  "tooltip.travelerscompass.settings.priority_mode.desc.inverted": "优先搜索非高优先级的物品",
+
+  "tooltip.travelerscompass.settings.reset": "重置设定",
+  "tooltip.travelerscompass.settings.reset.desc": "将指南针的所有设置重置为默认值",
+
+  "tooltip.travelerscompass.settings.attitude_marker": "高度标记",
+  "tooltip.travelerscompass.settings.attitude_marker.desc": "显示到目标的垂直方向 (上方/下方)",
+  "tooltip.travelerscompass.settings.sound_ping": "音效提示",
+  "tooltip.travelerscompass.settings.sound_ping.desc": "找到新目标时发出提示音",
+  "tooltip.travelerscompass.settings.pause": "暂停",
+  "tooltip.travelerscompass.settings.pause.desc": "停止自动搜索",
+  "tooltip.travelerscompass.settings.resume": "继续",
+  "tooltip.travelerscompass.settings.resume.desc": "继续自动搜索",
+  "tooltip.travelerscompass.settings.resume.warning": "继续自动搜索将会取消广域搜索",
+
+  "tooltip.travelerscompass.settings.force_chunks_load": "强制区块加载",
+  "tooltip.travelerscompass.settings.force_chunks_load.desc": "如果可能，加载已卸载的区块",
+
+  "tooltip.travelerscompass.settings.target_validation": "目标验证",
+  "tooltip.travelerscompass.settings.target_validation.desc": "在指向目标前先验证目标是否存在",
+
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range": "方块搜索范围",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.desc": "搜索方块的半径，单位为区块",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.value": "%s 区块",
+
+  "tooltip.travelerscompass.settings.wide_search_range": "广域搜索范围",
+  "tooltip.travelerscompass.settings.wide_search_range.desc": "广域搜索的半径",
+  "tooltip.travelerscompass.settings.wide_search_range.value": "%s 区块",
+
+  "tooltip.travelerscompass.settings.entities_search_range": "实体搜索范围",
+  "tooltip.travelerscompass.settings.entities_search_range.desc": "搜索实体时的最大搜索半径，单位为方块",
+  "tooltip.travelerscompass.settings.entities_search_range.value": "%s 方块",
+
+  "tooltip.travelerscompass.settings.modification.hold_to_decrease": "按住 [%s] 以减小",
+  "tooltip.travelerscompass.settings.modification.hold_to_change_faster": "按住 [%s] 以更快调整",
+
+  "tooltip.travelerscompass.settings.modification.shift": "Shift",
+  "tooltip.travelerscompass.settings.modification.ctrl": "Ctrl",
+  "tooltip.travelerscompass.settings.modification.shift_click": "Shift-鼠标左键",
+
+  "tooltip.travelerscompass.settings.info": "信息",
+  "tooltip.travelerscompass.settings.info.status": "状态: %s",
+  "tooltip.travelerscompass.settings.info.status.searching": "搜索中 (%s)",
+  "tooltip.travelerscompass.settings.info.status.scanning": "扫描中 (%s)",
+  "tooltip.travelerscompass.settings.info.status.progress": "进度: %s",
+  "tooltip.travelerscompass.settings.info.status.paused": "已暂停",
+  "tooltip.travelerscompass.settings.info.status.idle": "闲置",
+  "tooltip.travelerscompass.settings.info.target": "目标: %s",
+  "tooltip.travelerscompass.settings.info.position": "位置: %s",
+  "tooltip.travelerscompass.settings.info.progress": "进度: %s",
+
+  "tooltip.travelerscompass.settings.hud": "HUD 显示",
+  "tooltip.travelerscompass.settings.hud.desc": "配置目标信息显示",
+  "tooltip.travelerscompass.settings.hud.enabled": "总是可见",
+  "tooltip.travelerscompass.settings.hud.requires_hand": "仅手持时",
+
+  "tooltip.travelerscompass.settings.hud.alignment": "文本对齐",
+  "tooltip.travelerscompass.settings.hud.alignment.desc": "文本锚点: %s",
+  "tooltip.travelerscompass.settings.hud.alignment.center": "居中",
+  "tooltip.travelerscompass.settings.hud.alignment.right": "右",
+  "tooltip.travelerscompass.settings.hud.alignment.left": "左",
+
+  "tooltip.travelerscompass.settings.hud.type": "显示风格",
+  "tooltip.travelerscompass.settings.hud.type.desc": "选择 HUD 布局风格",
+  "tooltip.travelerscompass.settings.hud.type.compact": "紧凑",
+  "tooltip.travelerscompass.settings.hud.type.extended": "扩展",
+
+  "tooltip.travelerscompass.settings.hud.position.x": "水平偏移",
+  "tooltip.travelerscompass.settings.hud.position.y": "垂直偏移",
+  "tooltip.travelerscompass.settings.hud.position.value": "偏移: %s px",
+  "tooltip.travelerscompass.settings.hud.position.desc": "沿 %s 轴自 %s 的偏移量",
+  "tooltip.travelerscompass.settings.hud.position.alignment.center": "中心",
+  "tooltip.travelerscompass.settings.hud.position.alignment.right": "右边缘",
+  "tooltip.travelerscompass.settings.hud.position.alignment.left": "左边缘",
+
+  "tooltip.travelerscompass.settings.hud_scale": "HUD 缩放",
+  "tooltip.travelerscompass.settings.hud_scale.desc": "调整显示缩放",
+  "tooltip.travelerscompass.settings.hud_scale.value": "缩放: %s",
+
+  "tooltip.travelerscompass.settings.hud_height": "显示高度",
+  "tooltip.travelerscompass.settings.hud_height.desc": "HUD 显示区域的高度",
+  "tooltip.travelerscompass.settings.hud_width": "显示宽度",
+  "tooltip.travelerscompass.settings.hud_width.desc": "文本最大宽度，超出宽度的部分将被截断",
+  "tooltip.travelerscompass.settings.hud_width.value": "宽度: %s px",
+  "tooltip.travelerscompass.settings.hud_height.value": "高度: %s px",
+
+  "tooltip.travelerscompass.settings.hud_with_chat": "与聊天框一同显示",
+  "tooltip.travelerscompass.settings.hud_with_chat.desc": "当聊天框打开时保持 HUD 可见",
+
+  "tooltip.travelerscompass.settings.hud.reset": "重置 HUD",
+  "tooltip.travelerscompass.settings.hud.reset.desc": "重置 HUD 设置为默认值",
+
+  "hud.travelerscompass.compact.state": "状态: %s",
+  "hud.travelerscompass.compact.state.idle": "闲置",
+  "hud.travelerscompass.compact.state.found": "已找到",
+  "hud.travelerscompass.compact.state.pause": "暂停",
+  "hud.travelerscompass.compact.state.searching": "搜索中",
+  "hud.travelerscompass.compact.target": "目标: %s",
+  "hud.travelerscompass.compact.position": "位置: %s",
+  "hud.travelerscompass.compact.position_short": "位置: %s",
+  "hud.travelerscompass.compact.distance": "距离: %s",
+  "hud.travelerscompass.number.kilo": "k",
+  "hud.travelerscompass.number.mega": "M",
+  "hud.travelerscompass.extended.state": "状态",
+  "hud.travelerscompass.extended.target": "目标",
+  "hud.travelerscompass.extended.position": "位置",
+  "hud.travelerscompass.extended.distance": "距离",
+
+  "tooltip.travelerscompass.config.filter_reason.mod": "在 %s 中搜索物品不可用",
+  "tooltip.travelerscompass.config.filter_reason.item": "对此物品的搜索不可用",
+  "tooltip.travelerscompass.config.filter_reason.tag": "对含有标签 '%s' 的物品的搜索不可用",
+  "tooltip.travelerscompass.config.filter_reason.entity": "对此实体的搜索不可用",
+  "tooltip.travelerscompass.config.search_cost.requirement_level": "需求等级 %s",
+  "tooltip.travelerscompass.config.search_cost.cost": "搜索花费: %s 级",
+  "tooltip.travelerscompass.config.search_cost.cost_plural": "搜索花费: %s 级",
+
+  "waila.travelerscompass.forbidden_block": "你无法搜索此方块",
+  "waila.travelerscompass.forbidden_entity": "你无法搜索此实体",
+  "waila.travelerscompass.info.block": "按 Shift + 鼠标右键 以搜索此方块",
+  "waila.travelerscompass.info.entity": "按 Shift + 鼠标右键 以搜索此实体",
+
+  "nei.travelerscompass.info": "此指南针可以搜索方块、实体 (通过刷怪蛋, 掉落物或物品栏), 村民 (通过交易物), 刷怪笼, 流体 (通过桶), 掉落物以及容器 (通过内容物).",
+
+  "config.jade.plugin_minecraft.travelerscompass": "指南针搜索信息"
+}
