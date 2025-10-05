@@ -1,6 +1,5 @@
 package com.nine.travelerscompass.platform;
 
-import com.mojang.datafixers.util.Unit;
 import com.mojang.serialization.Codec;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.data.DataStorage;
@@ -13,14 +12,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

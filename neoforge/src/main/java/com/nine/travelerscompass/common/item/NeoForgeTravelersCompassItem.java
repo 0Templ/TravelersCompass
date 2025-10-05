@@ -1,6 +1,5 @@
 package com.nine.travelerscompass.common.item;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 

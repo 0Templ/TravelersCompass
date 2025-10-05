@@ -1,9 +1,6 @@
 package com.nine.travelerscompass.platform;
 
-import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.config.*;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.ArrayList;

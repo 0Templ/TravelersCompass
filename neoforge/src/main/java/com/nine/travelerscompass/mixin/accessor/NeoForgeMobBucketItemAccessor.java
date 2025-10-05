@@ -6,8 +6,6 @@ import net.minecraft.world.item.MobBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.function.Supplier;
-
 @Mixin(MobBucketItem.class)
 public abstract class NeoForgeMobBucketItemAccessor implements MobBucketItemAccessor {
 

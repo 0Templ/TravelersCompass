@@ -1,6 +1,5 @@
 package com.nine.travelerscompass.platform;
 
-import com.mojang.datafixers.util.Unit;
 import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.common.container.menu.CompassMenu;
 import com.nine.travelerscompass.init.MenuRegistry;
@@ -12,9 +11,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

@@ -1,7 +1,5 @@
 package com.nine.travelerscompass.config;
 
-import static com.nine.travelerscompass.platform.Platform.PLATFORM_CONFIG;
-
 //Forge specific config values
 public class ForgeTCConfig {
 

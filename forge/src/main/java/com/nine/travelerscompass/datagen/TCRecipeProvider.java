@@ -12,7 +12,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class TCRecipeProvider extends RecipeProvider implements IConditionBuilder {
 

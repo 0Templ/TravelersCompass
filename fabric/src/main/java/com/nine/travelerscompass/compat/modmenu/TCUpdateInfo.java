@@ -4,7 +4,6 @@ package com.nine.travelerscompass.compat.modmenu;
 import com.terraformersmc.modmenu.api.UpdateChannel;
 import com.terraformersmc.modmenu.api.UpdateInfo;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
 
 public class TCUpdateInfo implements UpdateInfo {
 

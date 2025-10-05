@@ -1,6 +1,5 @@
 package com.nine.travelerscompass;
 
-import com.nine.travelerscompass.client.hud.HudRenderer;
 import com.nine.travelerscompass.client.screen.CompassScreen;
 import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.common.search.SearchManager;
@@ -11,18 +10,13 @@ import com.nine.travelerscompass.init.PropertiesRegistry;
 import com.nine.travelerscompass.network.ForgeNetworkHandler;
 import com.nine.travelerscompass.platform.ForgePlatformConfigHelper;
 import com.nine.travelerscompass.platform.ForgePlatformRegistryHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;

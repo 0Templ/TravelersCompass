@@ -11,7 +11,6 @@ import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class TCRecipeProvider extends RecipeProvider {
 
