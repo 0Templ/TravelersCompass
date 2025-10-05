@@ -1,7 +1,6 @@
 package com.nine.travelerscompass.common.data;
 
 import com.mojang.serialization.Codec;
-import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.data.codec.MoreCodecs;
 import com.nine.travelerscompass.common.utils.*;
 import com.nine.travelerscompass.compat.lootr.LootrSearchMode;
@@ -12,7 +11,6 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 

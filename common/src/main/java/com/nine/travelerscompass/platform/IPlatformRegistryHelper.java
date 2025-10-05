@@ -1,20 +1,16 @@
 package com.nine.travelerscompass.platform;
 
 import com.mojang.serialization.Codec;
-import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.common.data.DataStorage;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.init.RegistryProvider;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
-import javax.swing.plaf.PanelUI;
 import java.util.function.Function;
 import java.util.function.Supplier;
 

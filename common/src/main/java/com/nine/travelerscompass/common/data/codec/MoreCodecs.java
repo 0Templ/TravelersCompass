@@ -1,15 +1,8 @@
 package com.nine.travelerscompass.common.data.codec;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import com.nine.travelerscompass.common.utils.HudSize;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-
-import java.util.UUID;
 
 public class MoreCodecs {
 

@@ -25,7 +25,6 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class SearchManager {
 
@@ -323,9 +322,6 @@ public class SearchManager {
     }
 
     public static void validatePriority(ItemStack stack){
-        if (true){
-            return;
-        }
         UUID uuid = CompassProperties.COMPASS_UUID.get(stack);
         if (!FOUND_DATA_CACHE.containsKey(uuid)){
             return;

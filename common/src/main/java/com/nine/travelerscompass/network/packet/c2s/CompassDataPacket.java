@@ -5,14 +5,12 @@ import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.common.data.DataStorage;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public record CompassDataPacket<T>(UUID compassUUID, DataStorage<T> dataStorage, T value) implements C2SPacket {

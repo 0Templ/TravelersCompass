@@ -3,7 +3,6 @@ package com.nine.travelerscompass.network;
 import com.nine.travelerscompass.network.packet.PacketHolder;
 import com.nine.travelerscompass.network.packet.c2s.*;
 import com.nine.travelerscompass.network.packet.s2c.*;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

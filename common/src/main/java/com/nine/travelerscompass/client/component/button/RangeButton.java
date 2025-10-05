@@ -5,7 +5,6 @@ import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.IconTexture;
 import com.nine.travelerscompass.client.utils.RangeUtils;
 import com.nine.travelerscompass.client.utils.TextureData;
-import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;

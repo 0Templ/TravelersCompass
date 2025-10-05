@@ -3,15 +3,11 @@ package com.nine.travelerscompass.network.packet.s2c;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.client.ClientData;
 import com.nine.travelerscompass.client.utils.SearchProgress;
-import com.nine.travelerscompass.common.search.SearchOptions;
-import com.nine.travelerscompass.config.ConfigSyncManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public record SearchProgressSyncPacket(SearchProgress searchProgress, UUID uuid) implements S2CPacket {

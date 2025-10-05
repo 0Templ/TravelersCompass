@@ -4,7 +4,6 @@ import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.client.ClientData;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.location.codec.LocationCodecs;
-import com.nine.travelerscompass.config.ConfigSyncManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

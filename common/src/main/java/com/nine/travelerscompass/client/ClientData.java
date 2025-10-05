@@ -5,6 +5,7 @@ import com.nine.travelerscompass.client.utils.ButtonTextures;
 import com.nine.travelerscompass.client.utils.IconTexture;
 import com.nine.travelerscompass.client.utils.SearchProgress;
 import com.nine.travelerscompass.client.utils.TextureData;
+import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 
 import java.util.HashMap;
 import java.util.Map;

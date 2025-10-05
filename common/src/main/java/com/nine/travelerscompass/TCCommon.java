@@ -3,7 +3,6 @@ package com.nine.travelerscompass;
 import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.config.cost.SearchCostHelper;
 import com.nine.travelerscompass.config.filter.FilterManager;
-import com.nine.travelerscompass.network.TCNetworkManager;
 import com.nine.travelerscompass.network.packet.s2c.CompletePacket;
 import com.nine.travelerscompass.network.packet.s2c.ConfigSyncPacket;
 import com.nine.travelerscompass.network.packet.s2c.NetworkSyncPacket;

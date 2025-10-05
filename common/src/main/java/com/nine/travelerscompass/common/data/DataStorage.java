@@ -1,17 +1,9 @@
 package com.nine.travelerscompass.common.data;
 
-import com.mojang.datafixers.types.Func;
-import com.mojang.serialization.Codec;
 import com.nine.travelerscompass.init.RegistryProvider;
-import com.nine.travelerscompass.network.packet.c2s.C2SPacket;
 import com.nine.travelerscompass.network.packet.c2s.CompassDataPacket;
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
