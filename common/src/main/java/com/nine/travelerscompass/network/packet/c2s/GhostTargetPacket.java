@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.network.packet.c2s;
 
 import com.nine.travelerscompass.TCCommon;
+import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.common.container.menu.CompassMenu;
 import com.nine.travelerscompass.compat.NEI;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -41,7 +42,9 @@ public record GhostTargetPacket(int slotIndex, ItemStack stack, NEI nei) impleme
     public void handle(ServerPlayer player) {
         if (player.containerMenu instanceof CompassMenu menu){
             if (nei.allowed()) {
-                menu.slots.get(slotIndex).set(stack);
+				if (menu.slots.get(slotIndex).container instanceof CompassContainer container){
+					container.setItem(slotIndex, stack, player);
+				}
             }
         }
     }

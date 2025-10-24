@@ -1,9 +1,12 @@
 package com.nine.travelerscompass.compat;
 
 import com.nine.travelerscompass.client.screen.CompassScreen;
+import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.network.packet.c2s.GhostTargetPacket;
 import com.nine.travelerscompass.platform.Platform;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,8 +30,11 @@ public class BaseGhostTargetHandler {
     }
 
     protected void applyGhostStack(Slot slot, ItemStack stack, NEI nei) {
-        slot.set(stack);
-        Platform.PLATFORM_NETWORK.sendToServer(new GhostTargetPacket(slot.index, stack, nei));
+		Player player = Minecraft.getInstance().player;
+        if (slot.container instanceof CompassContainer container){
+			container.setItem(slot.index, stack, player);
+			Platform.PLATFORM_NETWORK.sendToServer(new GhostTargetPacket(slot.index, stack, nei));
+		}
     }
 
     protected Optional<Slot> slotUnderMouse(CompassScreen screen, int mouseX, int mouseY) {

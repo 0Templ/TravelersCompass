@@ -117,6 +117,7 @@ public class CompassContainer implements Container {
             inventory.set(index, stack);
             if (!stack.isEmpty() && stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
             setChanged();
+			return;
         }
         FilterReason reason = FilterManager.getFilterReason(stack.getItem());
         if (reason instanceof FilterReason.Allowed) {
