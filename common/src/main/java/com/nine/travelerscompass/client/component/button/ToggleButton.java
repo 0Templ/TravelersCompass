@@ -16,11 +16,6 @@ public class ToggleButton extends BaseButton implements Toggleable {
         this.buttonTextures = buttonTextures;
     }
 
-    public ToggleButton(int x, int y, int width, int height, ButtonTextures buttonTextures, OnPress onPress) {
-        super(x, y, width, height, onPress);
-        this.buttonTextures = buttonTextures;
-    }
-
     @Override
     public void setToggled(boolean toggled) {
         this.toggled = toggled;
