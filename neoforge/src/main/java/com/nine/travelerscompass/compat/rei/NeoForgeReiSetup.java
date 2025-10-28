@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.rei;
 
 import com.nine.travelerscompass.config.TCConfig;
@@ -30,3 +31,4 @@ public class NeoForgeReiSetup implements REIClientPlugin {
         }
     }
 }
+*/

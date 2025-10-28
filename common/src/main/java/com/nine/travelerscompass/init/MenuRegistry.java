@@ -13,28 +13,34 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 
 public class MenuRegistry {
-    public record EmptyScreenData(String label) {
-        public static final StreamCodec<RegistryFriendlyByteBuf, EmptyScreenData> PACKET_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8,
-                EmptyScreenData::label, EmptyScreenData::new
-        );
-    }
-    public static RegistryProvider<MenuType<CompassMenu>> COMPASS_MENU = Platform.PLATFORM_REGISTRY.registerMenu(
-            "compass_menu", ((i, inventory) -> new CompassMenu(i, inventory,
-                    CompassContainer.container(findCompass(inventory.player)))));
-
-    public static ItemStack findCompass(Player player) {
-        Inventory inventory = player.getInventory();
-        return inventory.getSelected().is(ItemRegistry.TRAVELERS_COMPASS.get()) ? inventory.getSelected() :
-                inventory.offhand.getFirst().is(ItemRegistry.TRAVELERS_COMPASS.get()) ? inventory.offhand.getFirst() :
-                        ItemStack.EMPTY;
-    }
-
-    public interface CommonMenuFactory<T extends AbstractContainerMenu> {
-        T create(int id, Inventory inventory);
-    }
-
-    public static void init(){
-
-    }
-
+	
+	public record EmptyScreenData(String label) {
+		
+		public static final StreamCodec<RegistryFriendlyByteBuf, EmptyScreenData> PACKET_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8,
+				EmptyScreenData::label, EmptyScreenData::new
+		);
+		
+	}
+	
+	public static RegistryProvider<MenuType<CompassMenu>> COMPASS_MENU = Platform.PLATFORM_REGISTRY.registerMenu(
+			"compass_menu", ((i, inventory) -> new CompassMenu(i, inventory,
+					CompassContainer.container(findCompass(inventory.player)))));
+	
+	public static ItemStack findCompass(Player player) {
+		Inventory inventory = player.getInventory();
+		return inventory.getSelectedItem().is(ItemRegistry.TRAVELERS_COMPASS.get()) ? inventory.getSelectedItem() :
+				player.getOffhandItem().is(ItemRegistry.TRAVELERS_COMPASS.get()) ? player.getOffhandItem() :
+						ItemStack.EMPTY;
+	}
+	
+	public interface CommonMenuFactory<T extends AbstractContainerMenu> {
+		
+		T create(int id, Inventory inventory);
+		
+	}
+	
+	public static void init() {
+	
+	}
+	
 }

@@ -8,13 +8,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(MobBucketItem.class)
 public abstract class FabricMobBucketItemAccessor implements MobBucketItemAccessor {
-
-    @Accessor("type")
-    abstract EntityType<?> travelerscompass$type();
-
-    @Override
-    public EntityType<?> travelerscompass$getType() {
-        return travelerscompass$type();
-    }
-
+	
+	@Accessor("type")
+	abstract EntityType<?> travelerscompass$type();
+	
+	@Override
+	public EntityType<?> travelerscompass$getType() {
+		return travelerscompass$type();
+	}
+	
 }

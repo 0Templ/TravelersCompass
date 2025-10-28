@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.top;
 
 import com.nine.travelerscompass.TCCommon;
@@ -50,4 +51,4 @@ public class TOPEntityComponentProvider implements IProbeInfoEntityProvider {
     public String getID() {
         return ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "mob_info").toString();
     }
-}
+}*/

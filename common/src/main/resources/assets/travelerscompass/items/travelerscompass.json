@@ -1,0 +1,574 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "travelerscompass:state",
+    "scale": 1.0,
+    "entries": [
+      {
+        "threshold": 0.0,
+        "model": {
+          "type": "minecraft:model",
+          "model_type": "item",
+          "model": "travelerscompass:item/travelerscompass_empty"
+        }
+      },
+      {
+        "threshold": 1.0,
+        "model": {
+          "type": "minecraft:model",
+          "model_type": "item",
+          "model": "travelerscompass:item/travelerscompass_searching"
+        }
+      },
+      {
+        "threshold": 2.0,
+        "model": {
+          "type": "minecraft:condition",
+          "property": "travelerscompass:priority",
+          "on_false": {
+            "type": "minecraft:range_dispatch",
+            "property": "travelerscompass:angle",
+            "scale": 32,
+            "entries": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_16"
+                },
+                "threshold": 0
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_17"
+                },
+                "threshold": 0.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_18"
+                },
+                "threshold": 1.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_19"
+                },
+                "threshold": 2.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_20"
+                },
+                "threshold": 3.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_21"
+                },
+                "threshold": 4.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_22"
+                },
+                "threshold": 5.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_23"
+                },
+                "threshold": 6.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_24"
+                },
+                "threshold": 7.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_25"
+                },
+                "threshold": 8.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_26"
+                },
+                "threshold": 9.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_27"
+                },
+                "threshold": 10.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_28"
+                },
+                "threshold": 11.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_29"
+                },
+                "threshold": 12.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_30"
+                },
+                "threshold": 13.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_31"
+                },
+                "threshold": 14.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_00"
+                },
+                "threshold": 15.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_01"
+                },
+                "threshold": 16.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_02"
+                },
+                "threshold": 17.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_03"
+                },
+                "threshold": 18.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_04"
+                },
+                "threshold": 19.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_05"
+                },
+                "threshold": 20.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_06"
+                },
+                "threshold": 21.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_07"
+                },
+                "threshold": 22.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_08"
+                },
+                "threshold": 23.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_09"
+                },
+                "threshold": 24.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_10"
+                },
+                "threshold": 25.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_11"
+                },
+                "threshold": 26.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_12"
+                },
+                "threshold": 27.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_13"
+                },
+                "threshold": 28.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_14"
+                },
+                "threshold": 29.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_15"
+                },
+                "threshold": 30.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/default/travelerscompass_16"
+                },
+                "threshold": 31.5
+              }
+            ]
+          },
+          "on_true": {
+            "type": "minecraft:range_dispatch",
+            "property": "travelerscompass:angle",
+            "scale": 32,
+            "entries": [
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_16"
+                },
+                "threshold": 0
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_17"
+                },
+                "threshold": 0.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_18"
+                },
+                "threshold": 1.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_19"
+                },
+                "threshold": 2.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_20"
+                },
+                "threshold": 3.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_21"
+                },
+                "threshold": 4.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_22"
+                },
+                "threshold": 5.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_23"
+                },
+                "threshold": 6.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_24"
+                },
+                "threshold": 7.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_25"
+                },
+                "threshold": 8.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_26"
+                },
+                "threshold": 9.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_27"
+                },
+                "threshold": 10.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_28"
+                },
+                "threshold": 11.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_29"
+                },
+                "threshold": 12.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_30"
+                },
+                "threshold": 13.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_31"
+                },
+                "threshold": 14.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_00"
+                },
+                "threshold": 15.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_01"
+                },
+                "threshold": 16.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_02"
+                },
+                "threshold": 17.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_03"
+                },
+                "threshold": 18.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_04"
+                },
+                "threshold": 19.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_05"
+                },
+                "threshold": 20.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_06"
+                },
+                "threshold": 21.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_07"
+                },
+                "threshold": 22.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_08"
+                },
+                "threshold": 23.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_09"
+                },
+                "threshold": 24.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_10"
+                },
+                "threshold": 25.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_11"
+                },
+                "threshold": 26.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_12"
+                },
+                "threshold": 27.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_13"
+                },
+                "threshold": 28.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_14"
+                },
+                "threshold": 29.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_15"
+                },
+                "threshold": 30.5
+              },
+              {
+                "model": {
+                  "type": "minecraft:model",
+                  "model_type": "item",
+                  "model": "travelerscompass:item/priority/travelerscompass_16"
+                },
+                "threshold": 31.5
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

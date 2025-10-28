@@ -2,20 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": {
-      "item": "minecraft:compass"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "L": {
-      "item": "minecraft:lodestone"
-    }
+    "C": "minecraft:compass",
+    "I": "#c:ingots/netherite",
+    "L": "minecraft:lodestone"
   },
   "pattern": [
-    "III",
-    "ICI",
-    "ILI"
+    " L ",
+    "LCL",
+    " I "
   ],
   "result": {
     "count": 1,

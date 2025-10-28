@@ -4,15 +4,16 @@ import static com.nine.travelerscompass.platform.Platform.PLATFORM_CONFIG;
 
 //NeoForge specific config values
 public class NeoForgeTCConfig {
-
-    public static final ConfigValue<Boolean> THE_ONE_PROBE_COMPATIBILITY =
-            PLATFORM_CONFIG.register(
-                    "the_one_probe_compatibility",
-                    true, ConfigValue.Section.COMPAT,
-                    ConfigType.COMMON,
-                    "Enable displaying Block/Entity search info in the TOP info panel");
-
-    public static void init(){
-
-    }
+	
+	public static final ConfigValue<Boolean> THE_ONE_PROBE_COMPATIBILITY =
+			PLATFORM_CONFIG.register(
+					"the_one_probe_compatibility",
+					true, ConfigValue.Section.COMPAT,
+					ConfigType.COMMON,
+					"Enable displaying Block/Entity search info in the TOP info panel");
+	
+	public static void init() {
+	
+	}
+	
 }

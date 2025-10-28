@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.top;
 
 import com.nine.travelerscompass.TCCommon;
@@ -67,4 +68,4 @@ public class TOPBlockComponentProvider implements IProbeInfoProvider {
     public ResourceLocation getID() {
         return ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "block_info");
     }
-}
+}*/

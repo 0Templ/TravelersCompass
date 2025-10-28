@@ -27,7 +27,8 @@ neoForge {
             clientData()
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()        }
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
         server {
             server()
         }
@@ -42,7 +43,7 @@ neoForge {
 dependencies {
 
     //JEI
-    compileOnly ("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
 
     //REI
     compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
@@ -53,10 +54,10 @@ dependencies {
 
     switch (nei) {
         case "JEI":
-            runtimeOnly ("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+            runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
             break
-       case "REI":
-            runtimeOnly ("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+        case "REI":
+            runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
             break
         case "EMI":
 //            runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
@@ -66,19 +67,19 @@ dependencies {
 
 
     implementation "curse.maven:lootr-361276:6789665"
-    if (!project.gradle.startParameter.taskNames.contains("runData")){
+    if (!project.gradle.startParameter.taskNames.contains("runData")) {
         runtimeOnly "curse.maven:lootr-361276:6789665"
     }
 
     //Jade
-    compileOnly ("maven.modrinth:jade:${jade_version}+neoforge")
+    compileOnly("maven.modrinth:jade:${jade_version}+neoforge")
 
     //The One Probe
 //    compileOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
 
     switch (waila) {
         case "JADE":
-            runtimeOnly ("maven.modrinth:jade:${jade_version}+neoforge")
+            runtimeOnly("maven.modrinth:jade:${jade_version}+neoforge")
             break
         case "TOP":
 //            runtimeOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
@@ -86,7 +87,7 @@ dependencies {
     }
 
 //    Lootr
-    if (!project.gradle.startParameter.taskNames.contains("runData")){
+    if (!project.gradle.startParameter.taskNames.contains("runData")) {
         runtimeOnly "curse.maven:lootr-361276:6789665"
     }
 }
@@ -112,7 +113,7 @@ unifiedPublishing {
             }
         }
         var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-        if (cfToken != null){
+        if (cfToken != null) {
             curseforge {
                 token = cfToken
                 id = rootProject.curseforge_project_id

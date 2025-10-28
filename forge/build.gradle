@@ -9,6 +9,7 @@ base {
     archivesName = "${mod_name}-forge-${minecraft_version}"
 }
 mixin {
+    add sourceSets.main, "travelerscompass.refmap.json"
     config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
@@ -44,6 +45,9 @@ minecraft {
         }
 
         server {
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
             workingDirectory file('runs/server')
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
@@ -55,6 +59,9 @@ minecraft {
         }
 
         data {
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
             workingDirectory file('runs/data')
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
@@ -67,6 +74,7 @@ minecraft {
         }
     }
 }
+
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
@@ -83,7 +91,6 @@ dependencies {
 }
 
 
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -97,6 +104,7 @@ sourceSets.each {
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
 }
+
 
 tasks.named('jar', Jar) {
     archiveFileName.set("${mod_id}-forge-${minecraft_version}-${project.version}.jar")
@@ -121,7 +129,7 @@ unifiedPublishing {
             }
         }
         var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-        if (cfToken != null){
+        if (cfToken != null) {
             curseforge {
                 token = cfToken
                 id = rootProject.curseforge_project_id

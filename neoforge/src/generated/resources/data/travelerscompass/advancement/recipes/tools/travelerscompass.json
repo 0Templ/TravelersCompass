@@ -1,21 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compass": {
+    "has_netherite_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:compass"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_lodestone": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:lodestone"
+            "items": "#c:ingots/netherite"
           }
         ]
       },
@@ -31,8 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lodestone",
-      "has_compass"
+      "has_netherite_ingot"
     ]
   ],
   "rewards": {

@@ -10,9 +10,9 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public interface EntityMatcher {
-
-    List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos);
-
-    boolean isAllowed(SearchOptions options);
-
+	
+	List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos);
+	
+	boolean isAllowed(SearchOptions options);
+	
 }

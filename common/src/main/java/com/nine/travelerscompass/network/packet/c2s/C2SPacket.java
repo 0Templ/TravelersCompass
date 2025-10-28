@@ -4,8 +4,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 
 public interface C2SPacket extends CustomPacketPayload {
-
-    void handle(ServerPlayer player);
-
-
+	
+	void handle(ServerPlayer player);
+	
+	
 }

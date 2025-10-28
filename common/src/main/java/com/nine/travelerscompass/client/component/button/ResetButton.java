@@ -1,40 +1,32 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ClientData;
-import com.nine.travelerscompass.client.utils.ClientUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.network.chat.Component;
+import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
+import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
+import com.nine.travelerscompass.client.utils.Icon;
+import com.nine.travelerscompass.client.utils.TextureData;
+import com.nine.travelerscompass.client.utils.TooltipBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ResetButton extends BaseButton {
-
-    public ResetButton(int x, int y, OnPress onPress) {
-        super(x, y, 14, 14, onPress);
-    }
-
-    protected void renderMainLayer(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks){
-        ClientUtils.renderTexture(graphics, ClientData.TOGGLE_BUTTON.get(false, isHovered()), this.getX(), this.getY());
-        renderIcon(graphics, mouseX, mouseY, partialTicks);
-    }
-
-    protected void renderIcon(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks){
-        ClientUtils.renderTexture(graphics, isHovered() ? ClientData.RESET_HOVERED : ClientData.RESET, this.getX() + 3, this.getY() + 3);
-    }
-
-    @Override
-    public void refreshTooltip(){
-        Component title = Component.translatable("tooltip.travelerscompass.settings.reset");
-        List<Component> components = new ArrayList<>();
-        components.add(title);
-        if (shiftPressed){
-            Component desc = ClientUtils.coloredComponent(Component.literal("▶"), ClientUtils.SOFT_GRAY)
-                    .append((Component.translatable("tooltip.travelerscompass.settings.reset.desc").withStyle(ChatFormatting.GRAY)));
-            components.add(desc);
-        }
-        this.setTooltip(Tooltip.create(ClientUtils.buildTooltip(components)));
-    }
+public class ResetButton extends BaseIconButton {
+	
+	public ResetButton(ButtonGenericSettings settings) {
+		super(settings);
+	}
+	
+	@Override
+	protected TextureData getMainLayerTexture() {
+		return buttonTexturesSet().get(false, isHovered());
+	}
+	
+	@Override
+	protected Icon getIcon() {
+		return isHovered ? CompassUI.SettingsTextures.RESET_HOVERED_ICON : CompassUI.SettingsTextures.RESET_ICON;
+	}
+	
+	@Override
+	public void refreshTooltip() {
+		String key = "tooltip.travelerscompass.settings.reset";
+		this.setTooltip(TooltipBuilder.builder().title(key).descIf(key, shiftPressed).buildAsTooltip());
+	}
+	
 }

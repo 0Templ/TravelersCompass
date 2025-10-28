@@ -7,9 +7,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 public interface BlockMatcher {
-
-    ILocationObject match(TypedCriteria criteria, BlockPos pos, BlockState state);
-
-    boolean isAllowed(SearchOptions options);
-
+	
+	ILocationObject match(TypedCriteria criteria, BlockPos pos, BlockState state);
+	
+	boolean isAllowed(SearchOptions options);
+	
 }

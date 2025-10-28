@@ -1,50 +1,52 @@
 {
-    "schemaVersion": 1,
-    "id": "travelerscompass",
-    "version": "${version}",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "${mod_author}"
+  "schemaVersion": 1,
+  "id": "travelerscompass",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "mixins": [
+    "travelerscompass.mixins.json",
+    "travelerscompass.fabric.mixins.json"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/travelers-compass",
+    "sources": "https://github.com/0Templ/TravelersCompass",
+    "issues": "https://github.com/0Templ/TravelersCompass/issues"
+  },
+  "license": "${license}",
+  "icon": "assets/travelerscompass/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.nine.travelerscompass.datagen.TCDataGenerator"
     ],
-    "mixins": [
-        "travelerscompass.mixins.json",
-        "travelerscompass.fabric.mixins.json"
+    "main": [
+      "com.nine.travelerscompass.TCFabric"
     ],
-    "contact": {
-        "homepage": "https://www.curseforge.com/minecraft/mc-mods/travelers-compass",
-        "sources": "https://github.com/0Templ/TravelersCompass",
-        "issues": "https://github.com/0Templ/TravelersCompass/issues"
-    },
-    "license": "${license}",
-    "icon": "assets/travelerscompass/icon.png",
-    "environment": "*",
-    "entrypoints": {
-        "fabric-datagen": [
-            "com.nine.travelerscompass.datagen.TCDataGenerator"
-        ],
-        "main": [
-            "com.nine.travelerscompass.TCFabric"
-        ],
-        "client": [
-            "com.nine.travelerscompass.TCFabricClient"
-        ],
-        "jei_mod_plugin": ["com.nine.travelerscompass.compat.jei.FabricJeiSetup"],
-        "rei_client": ["com.nine.travelerscompass.compat.rei.FabricReiSetup"],
-        "jade": ["com.nine.travelerscompass.compat.jade.FabricJadeSetup"],
-        "emi": [
-            "com.nine.travelerscompass.compat.emi.FabricEmiSetup"
-        ],
-        "modmenu": [ "com.nine.travelerscompass.compat.modmenu.ModMenuSetup" ]
-    },
-    "depends": {
-        "fabricloader": ">=0.14",
-        "fabric-api": "*",
-        "minecraft": "${minecraft_version}",
-        "java": ">=${java_version}"
-    },
-    "suggests": {
-        "another-mod": "*"
-    }
+    "client": [
+      "com.nine.travelerscompass.TCFabricClient"
+    ],
+    "rei_client": [
+      "com.nine.travelerscompass.compat.rei.FabricReiSetup"
+    ],
+    "jade": [
+      "com.nine.travelerscompass.compat.jade.FabricJadeSetup"
+    ],
+    "modmenu": [
+      "com.nine.travelerscompass.compat.modmenu.ModMenuSetup"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=${java_version}"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }
   

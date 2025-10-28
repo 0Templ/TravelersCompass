@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 public interface BlockEntityMatcher {
-
-    List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, BlockPos pos, BlockState state, BlockEntity be);
-
-    boolean isAllowed(SearchOptions options);
-
+	
+	List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, BlockPos pos, BlockState state, BlockEntity be);
+	
+	boolean isAllowed(SearchOptions options);
+	
 }

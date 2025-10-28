@@ -19,37 +19,36 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 public enum EntitiesComponentProvider implements IEntityComponentProvider {
-
-    INSTANCE;
-
-    @Override
-    public void appendTooltip(ITooltip tooltip, EntityAccessor entityAccessor, IPluginConfig pluginConfig) {
-        Entity entity = entityAccessor.getEntity();
-        Player player = entityAccessor.getPlayer();
-        ItemStack stack = player.getMainHandItem();
-        if (!(stack.getItem() instanceof TravelersCompassItem)) {
-            return;
-        }
-        if (entity instanceof Mob mob) {
-            var type = mob.getType();
-            FilterReason reason = FilterManager.getFilterReason(type);
-            if (reason instanceof FilterReason.Allowed) {
-                SpawnEggItem spawnEggItem = SpawnEggItem.byId(type);
-                if (spawnEggItem != null){
-                    if (CompassContainer.container(stack).getList().contains(spawnEggItem.asItem())) {
-                        return;
-                    }
-                }
-                tooltip.add(Component.translatable("waila.travelerscompass.info.entity").withStyle(ChatFormatting.GRAY));
-            }
-            else {
-                tooltip.add(Component.translatable("waila.travelerscompass.forbidden_entity").withStyle(ChatFormatting.RED));
-            }
-        }
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return ResourceLocation.parse(TCCommon.MODID);
-    }
+	
+	INSTANCE;
+	
+	@Override
+	public void appendTooltip(ITooltip tooltip, EntityAccessor entityAccessor, IPluginConfig pluginConfig) {
+		Entity entity = entityAccessor.getEntity();
+		Player player = entityAccessor.getPlayer();
+		ItemStack stack = player.getMainHandItem();
+		if (!(stack.getItem() instanceof TravelersCompassItem)) {
+			return;
+		}
+		if (entity instanceof Mob mob) {
+			var type = mob.getType();
+			FilterReason filterReason = FilterManager.getFilterReason(type);
+			if (filterReason.isAllowed()) {
+				SpawnEggItem spawnEggItem = SpawnEggItem.byId(type);
+				if (spawnEggItem != null) {
+					if (CompassContainer.container(stack).getList().contains(spawnEggItem.asItem())) {
+						return;
+					}
+				}
+				tooltip.add(Component.translatable("waila.travelerscompass.info.entity").withStyle(ChatFormatting.GRAY));
+			} else {
+				tooltip.add(Component.translatable("waila.travelerscompass.forbidden_entity").withStyle(ChatFormatting.RED));
+			}
+		}
+	}
+	
+	@Override
+	public ResourceLocation getUid() {
+		return ResourceLocation.parse(TCCommon.MODID);
+	}
 }

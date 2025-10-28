@@ -4,12 +4,13 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class TCDataGenerator implements DataGeneratorEntrypoint {
-
-    @Override
-    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-        pack.addProvider(TCItemTagProvider::new);
-        pack.addProvider(TCRecipeProvider::new);
-    }
-
+	
+	@Override
+	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+		
+		pack.addProvider(TCItemTagProvider::new);
+		pack.addProvider(TCRecipeProvider::new);
+	}
+	
 }

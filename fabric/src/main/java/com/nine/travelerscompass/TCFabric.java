@@ -13,39 +13,39 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.level.ServerPlayer;
 
 public class TCFabric implements ModInitializer {
-
-    public static final String UPDATE_JSON_URL = "https://raw.githubusercontent.com/0Templ/ModVersions/refs/heads/main/fabric/travelers-compass.json";
-
-    @Override
-    public void onInitialize() {
-        loadConfig();
-
-        MenuRegistry.init();
-        ItemRegistry.init();
-        CompassProperties.init();
-        CreativeTabRegistry.init();
-
-        FabricNetworkHandler.init();
-
-        TCCommon.updateCache();
-
-        serverEvents();
-    }
-
-    public void loadConfig(){
-        FabricPlatformConfigHelper.COMMON.load();
-        FabricPlatformConfigHelper.COST.load();
-    }
-
-    public void serverEvents(){
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            SearchManager.tick();
-        });
-
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            ServerPlayer player = handler.getPlayer();
-            TCCommon.onServerPlayerLogin(player);
-        });
-    }
-
+	
+	public static final String UPDATE_JSON_URL = "https://raw.githubusercontent.com/0Templ/ModVersions/refs/heads/main/fabric/travelers-compass.json";
+	
+	@Override
+	public void onInitialize() {
+		loadConfig();
+		
+		MenuRegistry.init();
+		ItemRegistry.init();
+		CompassProperties.init();
+		CreativeTabRegistry.init();
+		
+		FabricNetworkHandler.init();
+		
+		TCCommon.updateCache();
+		
+		serverEvents();
+	}
+	
+	public void loadConfig() {
+		FabricPlatformConfigHelper.COMMON.load();
+		FabricPlatformConfigHelper.COST.load();
+	}
+	
+	public void serverEvents() {
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			SearchManager.tick();
+		});
+		
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayer player = handler.getPlayer();
+			TCCommon.onServerPlayerLogin(player);
+		});
+	}
+	
 }

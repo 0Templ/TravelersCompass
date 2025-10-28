@@ -9,12 +9,13 @@ import snownee.jade.api.WailaPlugin;
 
 @WailaPlugin
 public class NeoForgeJadeSetup implements IWailaPlugin {
-
-    @Override
-    public void registerClient(IWailaClientRegistration registration) {
-        if (TCConfig.JADE_COMPATIBILITY.get()){
-            registration.registerBlockComponent(BlocksComponentProvider.INSTANCE, Block.class);
-            registration.registerEntityComponent(EntitiesComponentProvider.INSTANCE, Mob.class);
-        }
-    }
+	
+	@Override
+	public void registerClient(IWailaClientRegistration registration) {
+		if (TCConfig.JADE_COMPATIBILITY.get()) {
+			registration.registerBlockComponent(BlocksComponentProvider.INSTANCE, Block.class);
+			registration.registerEntityComponent(EntitiesComponentProvider.INSTANCE, Mob.class);
+		}
+	}
+	
 }

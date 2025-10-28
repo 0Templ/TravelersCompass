@@ -1,7 +1,5 @@
 package com.nine.travelerscompass.config;
 
-import static com.nine.travelerscompass.platform.Platform.PLATFORM_CONFIG;
-
 //Forge specific config values
 public class ForgeTCConfig {
 
@@ -11,7 +9,9 @@ public class ForgeTCConfig {
 //                    true, ConfigValue.Section.COMPAT,
 //                    ConfigType.COMMON,
 //                    "Enable displaying Block/Entity search info in the TOP info panel");
-
-
-    public static void init(){}
+	
+	
+	public static void init() {
+	}
+	
 }

@@ -11,12 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public class GuiMixinForge {
-
-    @Inject(method = "render", at = @At(
-            value = "INVOKE",
-            target = "Lcom/mojang/blaze3d/systems/RenderSystem;disableDepthTest()V")
-    )
-    private void travelerscompass$beforeDisableDepth(GuiGraphics guiGraphics, DeltaTracker delta, CallbackInfo ci) {
-        HudRenderer.renderTick(guiGraphics, delta);
-    }
+	
+	@Inject(method = "render", at = @At("TAIL"), remap = false)
+	private void travelerscompass$beforeDisableDepth(GuiGraphics guiGraphics, DeltaTracker delta, CallbackInfo ci) {
+	}
+	
 }

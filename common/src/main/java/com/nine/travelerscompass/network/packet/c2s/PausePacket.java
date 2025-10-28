@@ -6,8 +6,6 @@ import com.nine.travelerscompass.common.data.CompassProperties;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.common.search.SearchManager;
 import com.nine.travelerscompass.common.utils.SearchState;
-import com.nine.travelerscompass.compat.NEI;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -19,39 +17,40 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record PausePacket(UUID uuid) implements C2SPacket {
-
-    public static final Type<PausePacket> ID = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(TCCommon.MODID,"pause_packet"));
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, PausePacket> PACKET_CODEC = StreamCodec.ofMember(
-            PausePacket::encode, PausePacket::decode);
-
-    public void encode(RegistryFriendlyByteBuf buf) {
-        buf.writeUUID(uuid);
-    }
-
-    public static PausePacket decode(RegistryFriendlyByteBuf buf) {
-        return new PausePacket(buf.readUUID());
-    }
-
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return ID;
-    }
-
-    @Override
-    public void handle(ServerPlayer player) {
-        if (player.containerMenu instanceof CompassMenu menu){
-            ItemStack stack = player.getMainHandItem();
-            if (stack.getItem() instanceof TravelersCompassItem
-                    && Objects.equals(CompassProperties.COMPASS_UUID.get(stack), uuid)
-                    && player instanceof ServerPlayer serverPlayer
-            ){
-                SearchManager.stopScan(uuid);
-                SearchManager.removeWatcher(uuid, serverPlayer);
-                CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
-            }
-        }
-    }
+	
+	public static final Type<PausePacket> ID = new Type<>(
+			ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "pause_packet"));
+	
+	public static final StreamCodec<RegistryFriendlyByteBuf, PausePacket> PACKET_CODEC = StreamCodec.ofMember(
+			PausePacket::encode, PausePacket::decode);
+	
+	public void encode(RegistryFriendlyByteBuf buf) {
+		buf.writeUUID(uuid);
+	}
+	
+	public static PausePacket decode(RegistryFriendlyByteBuf buf) {
+		return new PausePacket(buf.readUUID());
+	}
+	
+	@Override
+	public Type<? extends CustomPacketPayload> type() {
+		return ID;
+	}
+	
+	@Override
+	public void handle(ServerPlayer player) {
+		if (player.containerMenu instanceof CompassMenu menu) {
+			ItemStack stack = player.getMainHandItem();
+			if (stack.getItem() instanceof TravelersCompassItem
+					&& Objects.equals(CompassProperties.COMPASS_UUID.get(stack), uuid)
+					&& player instanceof ServerPlayer serverPlayer
+			) {
+				SearchManager.stopScan(uuid);
+				SearchManager.removeWatcher(uuid, serverPlayer);
+				CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
+			}
+		}
+	}
+	
 }
 

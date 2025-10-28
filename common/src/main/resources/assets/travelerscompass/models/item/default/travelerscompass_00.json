@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "travelerscompass:item/travelerscompass/travelerscompass_main_layer",
+    "layer1": "travelerscompass:item/travelerscompass/default/travelerscompass_00"
+  }
+}
+

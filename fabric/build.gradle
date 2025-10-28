@@ -26,7 +26,7 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
     //JEI
-    if (!project.gradle.startParameter.taskNames.contains("runData")){
+    if (!project.gradle.startParameter.taskNames.contains("runData")) {
         modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
     }
     //REI
@@ -49,7 +49,7 @@ dependencies {
     }
 
     //Jade
-    modImplementation ("maven.modrinth:jade:${jade_version}+fabric")
+    modImplementation("maven.modrinth:jade:${jade_version}+fabric")
 
     //Lootr
     modImplementation "curse.maven:lootr-fabric-615106:6789666"
@@ -128,7 +128,7 @@ unifiedPublishing {
             }
         }
         var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-        if (cfToken != null){
+        if (cfToken != null) {
             curseforge {
                 token = cfToken
                 id = rootProject.curseforge_project_id

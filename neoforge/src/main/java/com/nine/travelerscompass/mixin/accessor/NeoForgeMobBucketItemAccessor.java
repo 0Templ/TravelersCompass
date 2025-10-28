@@ -6,17 +6,15 @@ import net.minecraft.world.item.MobBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.function.Supplier;
-
 @Mixin(MobBucketItem.class)
 public abstract class NeoForgeMobBucketItemAccessor implements MobBucketItemAccessor {
-
-    @Accessor("type")
-    abstract EntityType<?> travelerscompass$type();
-
-    @Override
-    public EntityType<?> travelerscompass$getType() {
-        return travelerscompass$type();
-    }
-
+	
+	@Accessor("type")
+	abstract EntityType<?> travelerscompass$type();
+	
+	@Override
+	public EntityType<?> travelerscompass$getType() {
+		return travelerscompass$type();
+	}
+	
 }

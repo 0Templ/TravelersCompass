@@ -7,12 +7,12 @@ import com.nine.travelerscompass.common.search.matcher.EntityMatcher;
 import java.util.List;
 
 public interface IPlatformMatchersHelper {
-
-    List<BlockEntityMatcher> blockEntityMatchers();
-
-    List<BlockMatcher> blockMatchers();
-
-    List<EntityMatcher> entityMatchers();
-
-
+	
+	List<BlockEntityMatcher> blockEntityMatchers();
+	
+	List<BlockMatcher> blockMatchers();
+	
+	List<EntityMatcher> entityMatchers();
+	
+	
 }

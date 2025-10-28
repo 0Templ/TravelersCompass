@@ -34,7 +34,7 @@ allprojects {
     }
 }
 
-static def getModNameForPublishing(String name){
+static def getModNameForPublishing(String name) {
     return name.replaceAll(/\s+/, '')
 }
 

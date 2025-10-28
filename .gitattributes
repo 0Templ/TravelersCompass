@@ -8,6 +8,7 @@
 *.exe binary
 *.dll binary
 *.jar binary
+*.ogg binary
 *.lzma binary
 *.zip binary
 *.pyd binary

@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.emi;
 
 import com.nine.travelerscompass.client.screen.CompassScreen;
@@ -29,3 +30,4 @@ public class EmiGhostTargetHandler extends BaseGhostTargetHandler implements Emi
                 .orElse(false);
     }
 }
+*/

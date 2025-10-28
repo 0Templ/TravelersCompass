@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.emi;
 
 import com.nine.travelerscompass.TCCommon;
@@ -28,3 +29,4 @@ public class FabricEmiSetup implements EmiPlugin {
     }
 
 }
+*/

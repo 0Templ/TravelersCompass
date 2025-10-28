@@ -6,17 +6,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public interface IPlatformCoreHelper {
-
-    void openMenu(Player player, ItemStack stack);
-
-    Item getContainerItemByIndex(int index, BlockEntity be);
-
-    boolean isModLoaded(String modId);
-
-    String getModName(String modId);
-
-    String getModVersion(String modId);
-
-    boolean isClientSide();
-
+	
+	void openMenu(Player player, ItemStack stack);
+	
+	Item getContainerItemByIndex(int index, BlockEntity be);
+	
+	boolean isModLoaded(String modId);
+	
+	String getModName(String modId);
+	
+	String getModVersion(String modId);
+	
+	boolean isClientSide();
+	
 }

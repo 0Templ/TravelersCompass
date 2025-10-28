@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.emi;
 
 import com.nine.travelerscompass.TCCommon;
@@ -30,3 +31,4 @@ public class NeoForgeEmiSetup implements EmiPlugin {
     }
 
 }
+*/

@@ -8,13 +8,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(MobBucketItem.class)
 public abstract class ForgeMobBucketItemAccessor implements MobBucketItemAccessor {
-
-    @Accessor("entityTypeSupplier")
-    abstract java.util.function.Supplier<? extends EntityType<?>> travelerscompass$type();
-
-    @Override
-    public EntityType<?> travelerscompass$getType() {
-        return travelerscompass$type().get();
-    }
-
+	
+	@Accessor("entityTypeSupplier")
+	abstract java.util.function.Supplier<? extends EntityType<?>> travelerscompass$type();
+	
+	@Override
+	public EntityType<?> travelerscompass$getType() {
+		return travelerscompass$type().get();
+	}
+	
 }

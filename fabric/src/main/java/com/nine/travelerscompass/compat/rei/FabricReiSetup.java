@@ -10,22 +10,22 @@ import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.network.chat.Component;
 
 public class FabricReiSetup implements REIClientPlugin {
-
-    @Override
-    public void registerScreens(ScreenRegistry registry) {
-        if (TCConfig.REI_COMPATIBILITY.get()){
-            registry.registerDraggableStackVisitor(new ReiGhostTargetHandler());
-        }
-    }
-
-    @Override
-    public void registerDisplays(DisplayRegistry registry) {
-        if (TCConfig.REI_COMPATIBILITY.get()) {
-            DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(EntryStacks.of(ItemRegistry.TRAVELERS_COMPASS.get()),
-                    ItemRegistry.TRAVELERS_COMPASS.get().asItem().getDescription());
-            info.lines(Component.translatable("nei.travelerscompass.info"));
-            registry.add(info);
-        }
-    }
-
+	
+	@Override
+	public void registerScreens(ScreenRegistry registry) {
+		if (TCConfig.REI_COMPATIBILITY.get()) {
+			registry.registerDraggableStackVisitor(new ReiGhostTargetHandler());
+		}
+	}
+	
+	@Override
+	public void registerDisplays(DisplayRegistry registry) {
+		if (TCConfig.REI_COMPATIBILITY.get()) {
+			DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(EntryStacks.of(ItemRegistry.TRAVELERS_COMPASS.get()),
+					ItemRegistry.TRAVELERS_COMPASS.get().asItem().getName());
+			info.lines(Component.translatable("nei.travelerscompass.info"));
+			registry.add(info);
+		}
+	}
+	
 }

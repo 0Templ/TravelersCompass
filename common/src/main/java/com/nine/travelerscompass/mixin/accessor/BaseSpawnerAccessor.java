@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(BaseSpawner.class)
 public interface BaseSpawnerAccessor {
-
-    @Accessor("nextSpawnData")
-    SpawnData travelerscompass$nextSpawnData();
-
+	
+	@Accessor("nextSpawnData")
+	SpawnData travelerscompass$nextSpawnData();
+	
 }

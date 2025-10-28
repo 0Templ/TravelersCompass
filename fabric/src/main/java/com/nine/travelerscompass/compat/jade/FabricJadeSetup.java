@@ -6,12 +6,12 @@ import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;
 
 public class FabricJadeSetup implements IWailaPlugin {
-
-    @Override
-    public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(BlocksComponentProvider.INSTANCE, Block.class);
-        registration.registerEntityComponent(EntitiesComponentProvider.INSTANCE, Mob.class);
-    }
-
-
+	
+	@Override
+	public void registerClient(IWailaClientRegistration registration) {
+		registration.registerBlockComponent(BlocksComponentProvider.INSTANCE, Block.class);
+		registration.registerEntityComponent(EntitiesComponentProvider.INSTANCE, Mob.class);
+	}
+	
+	
 }

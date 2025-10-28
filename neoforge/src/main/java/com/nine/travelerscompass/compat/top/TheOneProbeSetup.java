@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.top;
 
 import com.nine.travelerscompass.config.NeoForgeTCConfig;
@@ -16,4 +17,4 @@ public class TheOneProbeSetup implements Function<ITheOneProbe, Void> {
         return null;
     }
 
-}
+}*/

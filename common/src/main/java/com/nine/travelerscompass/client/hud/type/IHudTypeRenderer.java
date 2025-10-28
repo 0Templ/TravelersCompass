@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
 
 public interface IHudTypeRenderer {
-
-    void render(GuiGraphics graphics, Player player, Font font, HudData hudData);
-
+	
+	void render(GuiGraphics graphics, Player player, Font font, HudData hudData, int x, int y, int width, int height);
+	
 }

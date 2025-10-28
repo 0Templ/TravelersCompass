@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mixin(LootPool.class)
 public interface LootPoolAccessor {
-
-    @Accessor("entries")
-    List<LootPoolEntryContainer> travelerscompass$entries();
-
-
+	
+	@Accessor("entries")
+	List<LootPoolEntryContainer> travelerscompass$entries();
+	
+	
 }

@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 //@Mixin(MobBucketItem.class)
 //Forge changes type of the field from EntityType<?> to supplier so dividing logic to platforms
 public interface MobBucketItemAccessor {
-
-    EntityType<?> travelerscompass$getType();
-
+	
+	EntityType<?> travelerscompass$getType();
+	
 }
