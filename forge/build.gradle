@@ -2,7 +2,9 @@ plugins {
     id 'multiloader-loader'
     id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id "me.shedaniel.unified-publishing"
 }
+
 base {
     archivesName = "${mod_name}-forge-${minecraft_version}"
 }
@@ -76,13 +78,11 @@ dependencies {
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
     //JEI
-    implementation ("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+//    implementation ("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
 }
 
-tasks.named('jar', Jar) {
-    archiveFileName.set("${mod_id}-forge-${minecraft_version}-${project.version}.jar")
-}
+
 
 publishing {
     publications {
@@ -96,4 +96,36 @@ sourceSets.each {
     def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
+}
+
+tasks.named('jar', Jar) {
+    archiveFileName.set("${mod_id}-forge-${minecraft_version}-${project.version}.jar")
+}
+
+unifiedPublishing {
+    project {
+        displayName = "[Forge]${getModNameForPublishing(project.mod_name)}-${project.minecraft_version}-${project.version}"
+        releaseType = rootProject.neoforge_release_type
+        changelog = changelogForVersion(project.version)
+        gameVersions = [project.minecraft_version]
+        gameLoaders = ["forge"]
+
+        def publicationJar = tasks.named("jar").get()
+        mainPublication publicationJar
+        var mrToken = project.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
+        if (mrToken != null) {
+            modrinth {
+                token = mrToken
+                id = project.modrinth_project_id
+                version = project.version
+            }
+        }
+        var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
+        if (cfToken != null){
+            curseforge {
+                token = cfToken
+                id = rootProject.curseforge_project_id
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id "me.shedaniel.unified-publishing"
 }
 
 neoForge {
@@ -23,13 +24,10 @@ neoForge {
             client()
         }
         data {
-            data()
-
+            clientData()
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-
-        }
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()        }
         server {
             server()
         }
@@ -45,11 +43,13 @@ dependencies {
 
     //JEI
     compileOnly ("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+
     //REI
     compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     //EMI
-    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
+//    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
+
 
     switch (nei) {
         case "JEI":
@@ -59,33 +59,65 @@ dependencies {
             runtimeOnly ("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
             break
         case "EMI":
-            runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
+//            runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
             break
 
+    }
+
+
+    implementation "curse.maven:lootr-361276:6789665"
+    if (!project.gradle.startParameter.taskNames.contains("runData")){
+        runtimeOnly "curse.maven:lootr-361276:6789665"
     }
 
     //Jade
     compileOnly ("maven.modrinth:jade:${jade_version}+neoforge")
 
     //The One Probe
-    compileOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
+//    compileOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
 
     switch (waila) {
         case "JADE":
             runtimeOnly ("maven.modrinth:jade:${jade_version}+neoforge")
             break
         case "TOP":
-            runtimeOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
+//            runtimeOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
             break
     }
 
-    //Lootr
-    compileOnly "noobanidus.mods.lootr:lootr-neoforge:${lootr_version}"
+//    Lootr
     if (!project.gradle.startParameter.taskNames.contains("runData")){
-        runtimeOnly "noobanidus.mods.lootr:lootr-neoforge:${lootr_version}"
+        runtimeOnly "curse.maven:lootr-361276:6789665"
     }
-
-
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+unifiedPublishing {
+    project {
+        displayName = "[NeoForge]${getModNameForPublishing(project.mod_name)}-${project.minecraft_version}-${project.version}"
+        releaseType = rootProject.neoforge_release_type
+        changelog = changelogForVersion(project.version)
+        gameVersions = [project.minecraft_version]
+        gameLoaders = ["neoforge"]
+
+        def publicationJar = tasks.named("jar").get()
+        mainPublication publicationJar
+        var mrToken = project.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
+        if (mrToken != null) {
+            modrinth {
+                token = mrToken
+                id = project.modrinth_project_id
+                version = project.version
+            }
+        }
+        var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
+        if (cfToken != null){
+            curseforge {
+                token = cfToken
+                id = rootProject.curseforge_project_id
+            }
+        }
+    }
+}
+
