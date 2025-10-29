@@ -46,8 +46,8 @@ dependencies {
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
 
     //REI
-    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
-    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+//    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+//    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     //EMI
 //    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
 
@@ -65,10 +65,10 @@ dependencies {
 
     }
 
-
-    implementation "curse.maven:lootr-361276:6789665"
+//    Lootr
+    implementation "curse.maven:lootr-361276:7116335"
     if (!project.gradle.startParameter.taskNames.contains("runData")) {
-        runtimeOnly "curse.maven:lootr-361276:6789665"
+        runtimeOnly "curse.maven:lootr-361276:7116335"
     }
 
     //Jade
@@ -84,11 +84,6 @@ dependencies {
         case "TOP":
 //            runtimeOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
             break
-    }
-
-//    Lootr
-    if (!project.gradle.startParameter.taskNames.contains("runData")) {
-        runtimeOnly "curse.maven:lootr-361276:6789665"
     }
 }
 
