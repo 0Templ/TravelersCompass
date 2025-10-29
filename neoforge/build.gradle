@@ -85,11 +85,6 @@ dependencies {
 //            runtimeOnly "curse.maven:the-one-probe-${top_curse_project_id}:${top_curse_file_id}"
             break
     }
-
-//    Lootr
-    if (!project.gradle.startParameter.taskNames.contains("runData")) {
-        runtimeOnly "curse.maven:lootr-361276:6789665"
-    }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
