@@ -173,5 +173,9 @@
   "waila.travelerscompass.info.block": "Shift + ПКМ — начать поиск этого блока",
   "waila.travelerscompass.info.entity": "Shift + ПКМ — начать поиск этого существа",
   "nei.travelerscompass.info": "Этот компас может искать блоки, существ (по яйцам призыва, дропу или содержимому инвентаря), жителей (по товарам), спавнеры, жидкости (по ведрам), предметы на земле и контейнеры (по содержимому)",
+  "nei.travelerscompass.dragging_disabled": "Перетаскивание из панели %s отключено",
+  "nei.travelerscompass.jei": "JEI",
+  "nei.travelerscompass.rei": "REI",
+  "nei.travelerscompass.emi": "EMI",
   "config.jade.plugin_minecraft.travelerscompass": "Compass search info"
 }

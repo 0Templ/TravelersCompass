@@ -173,5 +173,9 @@
   "waila.travelerscompass.info.block": "按 Shift + 鼠标右键 以搜索此方块",
   "waila.travelerscompass.info.entity": "按 Shift + 鼠标右键 以搜索此实体",
   "nei.travelerscompass.info": "此指南针可以搜索方块、实体 (通过刷怪蛋, 掉落物或物品栏), 村民 (通过交易物), 刷怪笼, 流体 (通过桶), 掉落物以及容器 (通过内容物)",
+  "nei.travelerscompass.dragging_disabled": "Dragging from %s panel is disabled",
+  "nei.travelerscompass.jei": "JEI",
+  "nei.travelerscompass.rei": "REI",
+  "nei.travelerscompass.emi": "EMI",
   "config.jade.plugin_minecraft.travelerscompass": "指南针搜索信息"
 }
