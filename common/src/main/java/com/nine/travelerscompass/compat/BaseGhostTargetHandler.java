@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.compat;
 
 import com.nine.travelerscompass.client.screen.CompassScreen;
+import com.nine.travelerscompass.client.utils.GhostStack;
 import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.network.packet.c2s.GhostTargetPacket;
 import com.nine.travelerscompass.platform.Platform;
@@ -12,18 +13,20 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-public class BaseGhostTargetHandler {
+public abstract class BaseGhostTargetHandler {
 	
 	protected static final int COMPASS_SLOTS_COUNT = 9;
 	protected static final int SLOT_SIZE = 16;
 	
 	protected void setGhostStack(CompassScreen screen, ItemStack stack) {
 		if (stack == null || stack.isEmpty()) {
-			screen.ghostStack = ItemStack.EMPTY;
+			screen.ghostStack = GhostStack.EMPTY;
 		} else {
-			screen.ghostStack = stack.copy();
+			screen.ghostStack = new GhostStack(stack.copy(), nei());
 		}
 	}
+	
+	public abstract NEI nei();
 	
 	protected boolean isCompassSlot(Slot slot) {
 		return slot.index < COMPASS_SLOTS_COUNT;
@@ -37,11 +40,11 @@ public class BaseGhostTargetHandler {
 		);
 	}
 	
-	protected void applyGhostStack(Slot slot, ItemStack stack, NEI nei) {
+	protected void applyGhostStack(Slot slot, ItemStack stack) {
 		Player player = Minecraft.getInstance().player;
-		if (slot.container instanceof CompassContainer container) {
+		if (slot.container instanceof CompassContainer container && nei().allowed()) {
 			container.setItem(slot.index, stack, player);
-			Platform.PLATFORM_NETWORK.sendToServer(new GhostTargetPacket(slot.index, stack, nei));
+			Platform.PLATFORM_NETWORK.sendToServer(new GhostTargetPacket(slot.index, stack, nei()));
 		}
 	}
 	

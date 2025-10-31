@@ -2,7 +2,7 @@ package com.nine.travelerscompass.client.component.button.search;
 
 import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.compat.lootr.LootrSearchMode;
 import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.platform.Platform;
@@ -26,14 +26,14 @@ public class ContainersButton extends SearchModePopupButton {
 				.stackSup(stackSupplier());
 		
 		var blockContainersButton = new SearchModeButton(builder.moved(LOOTR ? -9 : -3, -15)
-				.data(CompassProperties.BLOCK_CONTAINERS)
+				.data(CompassComponents.BLOCK_CONTAINERS)
 				.icons(CompassUI.SearchModeTextures.BLOCK_CONTAINERS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.BLOCK_CONTAINERS_INACTIVE_ICON)
 				.configEnabled(TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get())
 				.build());
 		
 		var minecartsContainersButton = new SearchModeButton(builder.moved(11, 0)
-				.data(CompassProperties.ENTITY_CONTAINERS)
+				.data(CompassComponents.ENTITY_CONTAINERS)
 				.icons(CompassUI.SearchModeTextures.ENTITY_CONTAINERS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.ENTITY_CONTAINERS_INACTIVE_ICON)
 				.configEnabled(true)
@@ -51,9 +51,9 @@ public class ContainersButton extends SearchModePopupButton {
 	@Override
 	public void checkRelevancy() {
 		setRelevant(isToggled() &&
-				(CompassProperties.BLOCK_CONTAINERS.get(stack())
-						|| CompassProperties.ENTITY_CONTAINERS.get(stack())
-						|| (LOOTR && CompassProperties.LOOTR_MODE.get(stack()) != LootrSearchMode.OFF)
+				(CompassComponents.BLOCK_CONTAINERS.get(stack())
+						|| CompassComponents.ENTITY_CONTAINERS.get(stack())
+						|| (LOOTR && CompassComponents.LOOTR_MODE.get(stack()) != LootrSearchMode.OFF)
 				)
 		);
 	}

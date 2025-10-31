@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.modmenu;
 
 
@@ -41,4 +42,4 @@ public class TCUpdateInfo implements UpdateInfo {
 		return channel;
 	}
 	
-}
+}*/

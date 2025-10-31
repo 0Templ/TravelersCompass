@@ -6,7 +6,7 @@ import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.hud.HudData;
 import com.nine.travelerscompass.client.utils.*;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.utils.FoundBlockPos;
 import com.nine.travelerscompass.common.utils.SearchState;
@@ -22,7 +22,7 @@ public class InfoButton extends BaseIconButton {
 	
 	public InfoButton(ButtonGenericSettings settings) {
 		super(settings);
-		this.uuid = CompassProperties.COMPASS_UUID.get(stack());
+		this.uuid = CompassComponents.COMPASS_UUID.get(stack());
 		refreshTooltip();
 	}
 	
@@ -41,9 +41,9 @@ public class InfoButton extends BaseIconButton {
 		var builder = TooltipBuilder.builder();
 		Component title = Component.translatable("tooltip.travelerscompass.settings.info");
 		Component status;
-		FoundBlockPos pos = CompassProperties.FOUND_BLOCK_POS.get(stack());
-		SearchState state = CompassProperties.SEARCH_STATE.get(stack());
-		if (CompassProperties.PAUSE.get(stack())) {
+		FoundBlockPos pos = CompassComponents.FOUND_BLOCK_POS.get(stack());
+		SearchState state = CompassComponents.SEARCH_STATE.get(stack());
+		if (CompassComponents.PAUSE.get(stack())) {
 			status = Component.translatable("tooltip.travelerscompass.settings.info.status.paused").withStyle(ChatFormatting.GRAY);
 		} else if (state == SearchState.SEARCHING) {
 			SearchProgress searchProgress = ClientCache.PROGRESS_DATA_CACHE.get(uuid);
@@ -60,7 +60,7 @@ public class InfoButton extends BaseIconButton {
 		} else {
 			status = Component.translatable("tooltip.travelerscompass.settings.info.status.idle").withStyle(ChatFormatting.GRAY);
 		}
-		HudData data = ClientCache.HUD_DATA_CACHE.get(CompassProperties.COMPASS_UUID.get(stack()));
+		HudData data = ClientCache.HUD_DATA_CACHE.get(CompassComponents.COMPASS_UUID.get(stack()));
 		if (data != null) {
 			ILocationObject locationObject = data.getLocationObject();
 			if (pos.isValid() && locationObject != null) {

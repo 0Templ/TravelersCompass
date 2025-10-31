@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.modmenu;
 
 import com.nine.travelerscompass.TCCommon;
@@ -16,3 +17,4 @@ public class ModMenuSetup implements ModMenuApi {
 	}
 	
 }
+*/

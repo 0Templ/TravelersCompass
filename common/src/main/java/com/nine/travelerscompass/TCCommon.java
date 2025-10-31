@@ -1,6 +1,6 @@
 package com.nine.travelerscompass;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.cost.SearchCostHelper;
 import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.network.packet.s2c.CompletePacket;
@@ -24,9 +24,14 @@ public class TCCommon {
 	
 	public static final int NETWORK_PROTOCOL_VERSION = 4;
 	
+	public static void init() {
+		updateCache();
+		//
+	}
+	
 	public static void onServerPlayerLogin(ServerPlayer player) {
 		Platform.PLATFORM_NETWORK.sendToClient(player, new NetworkSyncPacket(
-				CompassProperties.NETWORK_REGISTRY.entrySet()
+				CompassComponents.NETWORK_REGISTRY.entrySet()
 						.stream()
 						.collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().id()))));
 		Platform.PLATFORM_NETWORK.sendToClient(player, new ConfigSyncPacket());

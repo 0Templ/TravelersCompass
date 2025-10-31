@@ -2,7 +2,7 @@ package com.nine.travelerscompass.client.component.button.search;
 
 import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 
 public class VillagersButton extends SearchModePopupButton {
 	
@@ -21,14 +21,14 @@ public class VillagersButton extends SearchModePopupButton {
 				.stackSup(stackSupplier());
 		
 		var villagerSellsButton = new SearchModeButton(builder.moved(-26, 2)
-				.data(CompassProperties.VILLAGERS_SELLS)
+				.data(CompassComponents.VILLAGERS_SELLS)
 				.configEnabled(true)
 				.icons(CompassUI.SearchModeTextures.VILLAGERS_SELLS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.VILLAGERS_SELLS_INACTIVE_ICON)
 				.build());
 		
 		var villagerBuysButton = new SearchModeButton(builder.moved(11, 0)
-				.data(CompassProperties.VILLAGERS_BUYS)
+				.data(CompassComponents.VILLAGERS_BUYS)
 				.configEnabled(true)
 				.icons(CompassUI.SearchModeTextures.VILLAGERS_BUYS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.VILLAGERS_BUYS_INACTIVE_ICON)
@@ -42,7 +42,7 @@ public class VillagersButton extends SearchModePopupButton {
 	@Override
 	public void checkRelevancy() {
 		setRelevant(isToggled() &&
-				(CompassProperties.VILLAGERS_SELLS.get(stack()) || CompassProperties.VILLAGERS_BUYS.get(stack()))
+				(CompassComponents.VILLAGERS_SELLS.get(stack()) || CompassComponents.VILLAGERS_BUYS.get(stack()))
 		);
 	}
 	

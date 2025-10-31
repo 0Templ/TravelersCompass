@@ -1,6 +1,6 @@
 package com.nine.travelerscompass;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchManager;
 import com.nine.travelerscompass.init.CreativeTabRegistry;
 import com.nine.travelerscompass.init.ItemRegistry;
@@ -22,14 +22,14 @@ public class TCFabric implements ModInitializer {
 		
 		MenuRegistry.init();
 		ItemRegistry.init();
-		CompassProperties.init();
+		CompassComponents.init();
 		CreativeTabRegistry.init();
 		
 		FabricNetworkHandler.init();
 		
 		TCCommon.updateCache();
 		
-		serverEvents();
+		commonEvents();
 	}
 	
 	public void loadConfig() {
@@ -37,7 +37,7 @@ public class TCFabric implements ModInitializer {
 		FabricPlatformConfigHelper.COST.load();
 	}
 	
-	public void serverEvents() {
+	public void commonEvents() {
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
 			SearchManager.tick();
 		});

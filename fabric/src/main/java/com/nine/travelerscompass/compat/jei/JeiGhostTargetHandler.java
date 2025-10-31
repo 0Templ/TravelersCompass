@@ -4,7 +4,6 @@ package com.nine.travelerscompass.compat.jei;
 import com.nine.travelerscompass.client.screen.CompassScreen;
 import com.nine.travelerscompass.compat.BaseGhostTargetHandler;
 import com.nine.travelerscompass.compat.NEI;
-import com.nine.travelerscompass.config.TCConfig;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
@@ -22,7 +21,7 @@ public class JeiGhostTargetHandler extends BaseGhostTargetHandler implements IGh
 	@SuppressWarnings("unchecked")
 	public <I> List<Target<I>> getTargetsTyped(CompassScreen screen, ITypedIngredient<I> ingredient, boolean doStart) {
 		List<Target<I>> targets = new ArrayList<>();
-		if (!TCConfig.JEI_COMPATIBILITY.get() || ingredient.getType() != VanillaTypes.ITEM_STACK) {
+		if (ingredient.getType() != VanillaTypes.ITEM_STACK) {
 			return targets;
 		}
 		var opt = ingredient.getItemStack();
@@ -50,7 +49,7 @@ public class JeiGhostTargetHandler extends BaseGhostTargetHandler implements IGh
 			
 			@Override
 			public void accept(ItemStack stack) {
-				applyGhostStack(slot, stack, NEI.JEI);
+				applyGhostStack(slot, stack);
 			}
 		};
 	}
@@ -60,6 +59,11 @@ public class JeiGhostTargetHandler extends BaseGhostTargetHandler implements IGh
 		if (Minecraft.getInstance().screen instanceof CompassScreen compassScreen) {
 			setGhostStack(compassScreen, null);
 		}
+	}
+	
+	@Override
+	public NEI nei() {
+		return NEI.JEI;
 	}
 	
 }

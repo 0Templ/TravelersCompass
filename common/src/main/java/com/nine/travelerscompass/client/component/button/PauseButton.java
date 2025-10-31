@@ -4,7 +4,7 @@ import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.utils.SearchState;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,7 @@ public class PauseButton extends ConfigButton<Boolean> {
 	
 	public PauseButton(ButtonGenericSettings settings) {
 		super(settings,
-				CompassProperties.PAUSE,
+				CompassComponents.PAUSE,
 				((value, hovered) ->
 						!value ? (hovered ? CompassUI.CommonTextures.PAUSE_HOVERED_ICON : CompassUI.CommonTextures.PAUSE_ICON)
 								: (hovered ? CompassUI.CommonTextures.RESUME_HOVERED_ICON : CompassUI.CommonTextures.RESUME_ICON))
@@ -25,7 +25,7 @@ public class PauseButton extends ConfigButton<Boolean> {
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), data, true);
+		CompassComponents.toggleToServer(stack(), data, true);
 		ClientCache.HUD_DATA_CACHE.computeIfPresent(uuid, (id, hudData) -> {
 					hudData.setPaused(cached);
 					return hudData;
@@ -39,7 +39,7 @@ public class PauseButton extends ConfigButton<Boolean> {
 	@Override
 	public void updateState() {
 		super.updateState();
-		this.cachedState = CompassProperties.SEARCH_STATE.get(stack());
+		this.cachedState = CompassComponents.SEARCH_STATE.get(stack());
 	}
 	
 	@Override

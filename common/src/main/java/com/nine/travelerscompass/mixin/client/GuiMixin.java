@@ -1,6 +1,5 @@
 package com.nine.travelerscompass.mixin.client;
 
-import com.nine.travelerscompass.client.hud.HudRenderer;
 import com.nine.travelerscompass.client.render.HeightMarkerRenderer;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
@@ -24,4 +23,5 @@ public class GuiMixin {
 		HeightMarkerRenderer.render(guiGraphics, stack, x, y);
 		
 	}
+	
 }

@@ -59,7 +59,8 @@ public record ContainerLocationObject(BlockPos blockPos, int slotIndex, boolean 
 			return true;
 		}
 		Block block = level.getBlockState(blockPos).getBlock();
-		boolean sameBlock = BuiltInRegistries.BLOCK.get(blockId).equals(block);
+		var written = BuiltInRegistries.BLOCK.get(blockId);
+		boolean sameBlock = written.isPresent() && written.get().value().equals(block);
 		if (sameBlock) {
 			BlockEntity blockEntity = level.getBlockEntity(blockPos);
 			if (blockEntity != null) {

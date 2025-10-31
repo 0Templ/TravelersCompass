@@ -1,7 +1,7 @@
 package com.nine.travelerscompass.network.packet.c2s;
 
 import com.nine.travelerscompass.TCCommon;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -25,7 +25,7 @@ public record CompassDataPacket<T>(UUID compassUUID, DataStorage<T> dataStorage,
 	
 	public void encode(RegistryFriendlyByteBuf buf) {
 		buf.writeByte(dataStorage.networkId());
-		if (CompassProperties.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
+		if (CompassComponents.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
 			buf.writeUUID(compassUUID);
 			dataStorage.dataComponent().streamCodec().encode(buf, value);
 		}
@@ -33,10 +33,10 @@ public record CompassDataPacket<T>(UUID compassUUID, DataStorage<T> dataStorage,
 	
 	public static <T> CompassDataPacket<?> decode(RegistryFriendlyByteBuf buf) {
 		byte networkId = buf.readByte();
-		DataStorage<T> dataStorage = CompassProperties.getById(networkId);
+		DataStorage<T> dataStorage = CompassComponents.getById(networkId);
 		UUID uuid = null;
 		T value = null;
-		if (CompassProperties.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
+		if (CompassComponents.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
 			uuid = buf.readUUID();
 			value = dataStorage.dataComponent().streamCodec().decode(buf);
 		}
@@ -50,7 +50,7 @@ public record CompassDataPacket<T>(UUID compassUUID, DataStorage<T> dataStorage,
 	
 	@Override
 	public void handle(ServerPlayer player) {
-		if (CompassProperties.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
+		if (CompassComponents.CLIENT_EDITABLE.containsKey(dataStorage.networkId())) {
 			ItemStack stack = player.getMainHandItem();
 			if (stack.getItem() instanceof TravelersCompassItem) {
 				dataStorage.set(stack, value);

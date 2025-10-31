@@ -6,7 +6,7 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonGenericS
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import com.nine.travelerscompass.compat.lootr.LootrSearchMode;
 import com.nine.travelerscompass.config.TCConfig;
@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 
 public class LootrSearchModeButton extends ToggleableButton {
 	
-	private final DataStorage<LootrSearchMode> data = CompassProperties.LOOTR_MODE;
+	private final DataStorage<LootrSearchMode> data = CompassComponents.LOOTR_MODE;
 	
 	private final boolean configEnabled;
 	
@@ -33,7 +33,7 @@ public class LootrSearchModeButton extends ToggleableButton {
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), data, true);
+		CompassComponents.toggleToServer(stack(), data, true);
 		return true;
 	}
 	

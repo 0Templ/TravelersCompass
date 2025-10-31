@@ -5,7 +5,7 @@ import com.nine.travelerscompass.client.hud.HudSettings;
 import com.nine.travelerscompass.client.hud.HudSize;
 import com.nine.travelerscompass.client.hud.HudType;
 import com.nine.travelerscompass.client.utils.SearchProgress;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -31,27 +31,27 @@ public class ClientCache {
 	}
 	
 	public static void updateAllHudSettings(ItemStack stack, boolean selected) {
-		UUID uuid = CompassProperties.COMPASS_UUID.get(stack);
-		HudSize hudSize = CompassProperties.HUD_SIZE.get(stack);
-		HudType hudType = CompassProperties.HUD_TYPE.get(stack);
+		UUID uuid = CompassComponents.COMPASS_UUID.get(stack);
+		HudSize hudSize = CompassComponents.HUD_SIZE.get(stack);
+		HudType hudType = CompassComponents.HUD_TYPE.get(stack);
 		ClientCache.HUD_DATA_CACHE.put(
 				uuid, new HudData(
 						new HudSettings(
-								CompassProperties.HUD_RENDER_MODE.get(stack),
+								CompassComponents.HUD_RENDER_MODE.get(stack),
 								hudType,
-								CompassProperties.HUD_ALIGNMENT.get(stack),
-								CompassProperties.HUD_X_ANCHOR.get(stack),
-								CompassProperties.HUD_Y_ANCHOR.get(stack),
-								CompassProperties.HUD_WITH_CHAT.get(stack),
-								CompassProperties.HUD_SCALE.get(stack),
+								CompassComponents.HUD_ALIGNMENT.get(stack),
+								CompassComponents.HUD_X_ANCHOR.get(stack),
+								CompassComponents.HUD_Y_ANCHOR.get(stack),
+								CompassComponents.HUD_WITH_CHAT.get(stack),
+								CompassComponents.HUD_SCALE.get(stack),
 								hudSize.getWidth(hudType),
 								hudSize.getHeight(hudType),
-								CompassProperties.HUD_X_POS.get(stack),
-								CompassProperties.HUD_Y_POS.get(stack)
+								CompassComponents.HUD_X_POS.get(stack),
+								CompassComponents.HUD_Y_POS.get(stack)
 						),
-						CompassProperties.PAUSE.get(stack),
+						CompassComponents.PAUSE.get(stack),
 						selected,
-						CompassProperties.SEARCH_STATE.get(stack)
+						CompassComponents.SEARCH_STATE.get(stack)
 				));
 	}
 	

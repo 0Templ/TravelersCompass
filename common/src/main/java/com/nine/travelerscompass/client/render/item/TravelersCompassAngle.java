@@ -3,9 +3,8 @@ package com.nine.travelerscompass.client.render.item;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemStack;
-
 
 public class TravelersCompassAngle implements RangeSelectItemModelProperty {
 	
@@ -18,8 +17,8 @@ public class TravelersCompassAngle implements RangeSelectItemModelProperty {
 	}
 	
 	@Override
-	public float get(ItemStack stack, ClientLevel level, LivingEntity living, int seed) {
-		return state.get(stack, level, living, seed);
+	public float get(ItemStack stack, ClientLevel level, ItemOwner owner, int seed) {
+		return state.get(stack, level, owner, seed);
 	}
 	
 	@Override

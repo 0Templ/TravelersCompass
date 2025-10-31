@@ -4,7 +4,7 @@ import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.network.chat.Component;
 
@@ -37,7 +37,7 @@ public class SettingsButton<T> extends ConfigButton<T> {
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), data);
+		CompassComponents.toggleToServer(stack(), data);
 		return true;
 	}
 	

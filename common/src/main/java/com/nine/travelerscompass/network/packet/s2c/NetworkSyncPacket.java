@@ -1,7 +1,7 @@
 package com.nine.travelerscompass.network.packet.s2c;
 
 import com.nine.travelerscompass.TCCommon;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -49,11 +49,11 @@ public record NetworkSyncPacket(Map<Byte, String> map) implements S2CPacket {
 	@Override
 	public void handle() {
 		for (var entry : map.entrySet()) {
-			DataStorage<?> current = CompassProperties.NETWORK_REGISTRY.get(entry.getKey());
-			DataStorage<?> correct = CompassProperties.REGISTRY.get(entry.getValue());
+			DataStorage<?> current = CompassComponents.NETWORK_REGISTRY.get(entry.getKey());
+			DataStorage<?> correct = CompassComponents.REGISTRY.get(entry.getValue());
 			
 			if (current != null && correct != null && !current.id().equals(entry.getValue())) {
-				CompassProperties.NETWORK_REGISTRY.put(entry.getKey(), correct);
+				CompassComponents.NETWORK_REGISTRY.put(entry.getKey(), correct);
 			}
 		}
 	}

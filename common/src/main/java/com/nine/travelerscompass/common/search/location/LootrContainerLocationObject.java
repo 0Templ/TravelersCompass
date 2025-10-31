@@ -55,15 +55,8 @@ public record LootrContainerLocationObject(BlockPos blockPos, int slotIndex, boo
 			return true;
 		}
 		Block block = level.getBlockState(blockPos).getBlock();
-		boolean sameBlock = BuiltInRegistries.BLOCK.get(blockId).equals(block);
-//        if (sameBlock){
-//            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-//            if (blockEntity != null){
-//                Item item = Platform.PLATFORM.getContainerItemByIndex(containerSlotIndex, blockEntity);
-//                return Objects.equals(item.getDescriptionId(), contentId);
-//            }
-//        }
-		return sameBlock;
+		var written = BuiltInRegistries.BLOCK.get(blockId);
+		return written.isPresent() && written.get().value().equals(block);
 	}
 	
 	@Override

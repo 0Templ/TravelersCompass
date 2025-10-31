@@ -173,5 +173,9 @@
   "waila.travelerscompass.info.block": "Shift + RBM to search this block",
   "waila.travelerscompass.info.entity": "Shift + RBM to search this entity",
   "nei.travelerscompass.info": "This compass can search for blocks, entities (by spawn eggs, drops, or inventory), villagers (by trades), spawners, liquids (by buckets), ground items, and containers (by contents)",
+  "nei.travelerscompass.dragging_disabled": "Dragging from %s panel is disabled",
+  "nei.travelerscompass.jei": "JEI",
+  "nei.travelerscompass.rei": "REI",
+  "nei.travelerscompass.emi": "EMI",
   "config.jade.plugin_minecraft.travelerscompass": "Compass search info"
 }

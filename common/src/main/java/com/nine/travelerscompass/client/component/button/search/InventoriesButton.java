@@ -2,7 +2,7 @@ package com.nine.travelerscompass.client.component.button.search;
 
 import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.TCConfig;
 
 public class InventoriesButton extends SearchModePopupButton {
@@ -22,14 +22,14 @@ public class InventoriesButton extends SearchModePopupButton {
 				.stackSup(stackSupplier());
 		
 		var playersInvButton = new SearchModeButton(builder.moved(-15, -4)
-				.data(CompassProperties.INVENTORIES_PLAYERS)
+				.data(CompassComponents.INVENTORIES_PLAYERS)
 				.configEnabled(TCConfig.ENABLE_PLAYERS_INVENTORIES_SEARCH.get())
 				.icons(CompassUI.SearchModeTextures.INVENTORIES_PLAYERS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.INVENTORIES_PLAYERS_INACTIVE_ICON)
 				.build());
 		
 		var mobsInvButton = new SearchModeButton(builder.moved(0, 11)
-				.data(CompassProperties.INVENTORIES_MOBS)
+				.data(CompassComponents.INVENTORIES_MOBS)
 				.configEnabled(true)
 				.icons(CompassUI.SearchModeTextures.INVENTORIES_MOBS_ACTIVE_ICON,
 						CompassUI.SearchModeTextures.INVENTORIES_MOBS_INACTIVE_ICON)
@@ -43,7 +43,7 @@ public class InventoriesButton extends SearchModePopupButton {
 	@Override
 	public void checkRelevancy() {
 		setRelevant(isToggled() &&
-				(CompassProperties.INVENTORIES_PLAYERS.get(stack()) || CompassProperties.INVENTORIES_MOBS.get(stack()))
+				(CompassComponents.INVENTORIES_PLAYERS.get(stack()) || CompassComponents.INVENTORIES_MOBS.get(stack()))
 		);
 	}
 	

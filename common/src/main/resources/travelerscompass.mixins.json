@@ -15,7 +15,9 @@
   "client": [
     "client.GuiMixin",
     "client.ItemMixin",
-    "client.ItemStackMixin"
+    "client.ItemStackMixin",
+    "client.accessor.ConditionalItemModelPropertiesAccessor",
+    "client.accessor.RangeSelectItemModelPropertiesAccessor"
   ],
   "server": [],
   "injectors": {

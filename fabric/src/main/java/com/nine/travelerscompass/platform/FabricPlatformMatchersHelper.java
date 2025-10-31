@@ -1,6 +1,6 @@
 package com.nine.travelerscompass.platform;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchOptions;
 import com.nine.travelerscompass.common.search.criterion.ISearchCriterion;
 import com.nine.travelerscompass.common.search.criterion.TypedCriteria;
@@ -37,7 +37,6 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 	@Override
 	public List<BlockMatcher> blockMatchers() {
 		return List.of();
-		
 	}
 	
 	@Override
@@ -54,7 +53,7 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return Platform.PLATFORM.isModLoaded("lootr") && options.get(CompassProperties.LOOTR_MODE) != LootrSearchMode.OFF;
+			return Platform.PLATFORM.isModLoaded("lootr") && options.get(CompassComponents.LOOTR_MODE) != LootrSearchMode.OFF;
 		}
 	};
 	
@@ -68,10 +67,10 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			if (!options.get(CompassProperties.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
+			if (!options.get(CompassComponents.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
 				return false;
 			}
-			return Platform.PLATFORM.isModLoaded("lootr") && options.get(CompassProperties.LOOTR_MODE) != LootrSearchMode.OFF;
+			return Platform.PLATFORM.isModLoaded("lootr") && options.get(CompassComponents.LOOTR_MODE) != LootrSearchMode.OFF;
 		}
 	};
 	
@@ -112,10 +111,10 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			if (!options.get(CompassProperties.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
+			if (!options.get(CompassComponents.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
 				return false;
 			}
-			return options.get(CompassProperties.BLOCK_CONTAINERS);
+			return options.get(CompassComponents.BLOCK_CONTAINERS);
 		}
 	};
 	

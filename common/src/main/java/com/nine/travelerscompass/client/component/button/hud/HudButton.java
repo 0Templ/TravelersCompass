@@ -18,7 +18,7 @@ import com.nine.travelerscompass.client.utils.ButtonGrid;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.TCConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -59,7 +59,7 @@ public class HudButton extends PopupButton {
 						.afterInteraction(b -> ClientCache.updateHudSettings(uuid,
 								modifier -> modifier.hudWithChat((Boolean) ((SettingsButton<?>) b).cached)))
 						.build(),
-				CompassProperties.HUD_WITH_CHAT,
+				CompassComponents.HUD_WITH_CHAT,
 				(cached, hovered) -> {
 					if (cached) {
 						return hovered ? CompassUI.SettingsTextures.HUD_CHAT_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.HUD_CHAT_ACTIVE_ICON;
@@ -74,7 +74,7 @@ public class HudButton extends PopupButton {
 							ClientCache.updateHudSettings(uuid, (modifier) -> modifier.alignment(alignment));
 						})
 				.build(),
-				CompassProperties.HUD_ALIGNMENT,
+				CompassComponents.HUD_ALIGNMENT,
 				(cached, hovered) -> switch (cached) {
 					case LEFT ->
 							hovered ? CompassUI.SettingsTextures.HUD_ALIGNMENT_LEFT_HOVERED_ICON : CompassUI.SettingsTextures.HUD_ALIGNMENT_LEFT_ICON;
@@ -96,8 +96,8 @@ public class HudButton extends PopupButton {
 				.build(),
 				0, Minecraft.getInstance().getWindow().getGuiScaledWidth(),
 				Component.literal("X").withColor(CompassUI.Colors.SOFT_GRAY),
-				CompassProperties.HUD_X_ANCHOR,
-				CompassProperties.HUD_X_POS);
+				CompassComponents.HUD_X_ANCHOR,
+				CompassComponents.HUD_X_POS);
 		
 		var yHudPosButton = new HudPosButton(rangeBuilder.copy().position(grid.x(1), grid.y(0))
 				.icon(CompassUI.SettingsTextures.HUD_Y_POS_ICON)
@@ -110,8 +110,8 @@ public class HudButton extends PopupButton {
 				.build(),
 				0, Minecraft.getInstance().getWindow().getGuiScaledHeight(),
 				Component.literal("Y").withColor(CompassUI.Colors.SOFT_GRAY),
-				CompassProperties.HUD_Y_ANCHOR,
-				CompassProperties.HUD_Y_POS);
+				CompassComponents.HUD_Y_ANCHOR,
+				CompassComponents.HUD_Y_POS);
 		
 		var hudWidthButton = new HudSizeButton(rangeBuilder.copy().position(grid.x(0), grid.y(1))
 				.icon(CompassUI.SettingsTextures.HUD_WIDTH_ICON)
@@ -128,19 +128,19 @@ public class HudButton extends PopupButton {
 				.afterInteraction(b -> ClientCache.updateHudSettings(uuid, (modifier) -> modifier.scale(((FloatRangeButton) b).cached)))
 				.build(),
 				0.1F, 3F, 0.01F, 0.1F,
-				CompassProperties.HUD_SCALE);
+				CompassComponents.HUD_SCALE);
 		
 		var hudTypeButton = new SettingsButton<>(builder.copy().position(grid.x(2), grid.y(0))
 				.afterInteraction(
 						b -> {
 							var type = (HudType) ((SettingsButton<?>) b).cached;
-							var size = CompassProperties.HUD_SIZE.get(stack());
+							var size = CompassComponents.HUD_SIZE.get(stack());
 							ClientCache.updateHudSettings(uuid, (modifier) -> modifier.hudType(type));
 							ClientCache.updateHudSettings(uuid, (modifier) -> modifier.width(size.getWidth(type)));
 							ClientCache.updateHudSettings(uuid, (modifier) -> modifier.height(size.getHeight(type)));
 						})
 				.build(),
-				CompassProperties.HUD_TYPE,
+				CompassComponents.HUD_TYPE,
 				(cached, hovered) -> switch (cached) {
 					case COMPACT ->
 							hovered ? CompassUI.SettingsTextures.HUD_TYPE_COMPACT_HOVERED_ICON : CompassUI.SettingsTextures.HUD_TYPE_COMPACT_ICON;
@@ -176,27 +176,27 @@ public class HudButton extends PopupButton {
 	}
 	
 	public static void resetHudSettings(ItemStack stack) {
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_X_POS);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_Y_POS);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_SIZE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_SCALE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_TYPE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_ALIGNMENT);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_WITH_CHAT);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_Y_ANCHOR);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_X_ANCHOR);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_X_POS);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_Y_POS);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_SIZE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_SCALE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_TYPE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_ALIGNMENT);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_WITH_CHAT);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_Y_ANCHOR);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_X_ANCHOR);
 	}
 	
 	@Override
 	public void updateState() {
-		cached = CompassProperties.HUD_RENDER_MODE.get(stack());
+		cached = CompassComponents.HUD_RENDER_MODE.get(stack());
 		refreshTooltip();
 		ClientCache.updateHudSettings(uuid, modifier -> modifier.renderMode(cached));
 	}
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), CompassProperties.HUD_RENDER_MODE, true);
+		CompassComponents.toggleToServer(stack(), CompassComponents.HUD_RENDER_MODE, true);
 		return true;
 	}
 	

@@ -2,7 +2,7 @@ package com.nine.travelerscompass.common.search;
 
 import com.nine.travelerscompass.client.utils.SearchProgress;
 import com.nine.travelerscompass.common.container.CompassContainer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.criterion.TypedCriteria;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.matcher.BlockEntityMatcher;
@@ -133,22 +133,22 @@ public class SearchManager {
 	
 	
 	public static void startWideSearch(ItemStack stack, ServerPlayer player, CompassContainer container) {
-		UUID uuid = CompassProperties.COMPASS_UUID.get(stack);
+		UUID uuid = CompassComponents.COMPASS_UUID.get(stack);
 		SearchManager.stopScan(uuid);
-		CompassProperties.PAUSE.set(stack, true);
-		CompassProperties.SEARCH_STATE.set(stack, SearchState.WIDE_SEARCHING);
+		CompassComponents.PAUSE.set(stack, true);
+		CompassComponents.SEARCH_STATE.set(stack, SearchState.WIDE_SEARCHING);
 		startSearch(stack, player, container, true, (result) -> {
 			validatePriority(stack);
-			saveClosest(result.get(), player.blockPosition(), uuid, TCConfig.MAX_CACHED_LOCATIONS.get(), CompassProperties.PRIORITY_MODE.get(stack));
-			CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
-			if (CompassProperties.TARGET_VALIDATION.get(stack)) {
+			saveClosest(result.get(), player.blockPosition(), uuid, TCConfig.MAX_CACHED_LOCATIONS.get(), CompassComponents.PRIORITY_MODE.get(stack));
+			CompassComponents.SEARCH_STATE.set(stack, SearchState.IDLE);
+			if (CompassComponents.TARGET_VALIDATION.get(stack)) {
 				validatePositions(player.level(), uuid);
 			}
 		});
 	}
 	
 	public static void startSearch(ItemStack stack, ServerPlayer player, CompassContainer container, boolean wideSearch, Consumer<SearchResult> onComplete) {
-		UUID uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
+		UUID uuid = CompassComponents.get(stack, CompassComponents.COMPASS_UUID);
 		Level level = player.level();
 		if (ACTIVE_SCAN_PROCESSES.containsKey(uuid)) {
 			return;
@@ -169,7 +169,7 @@ public class SearchManager {
 				.filter(m -> m.isAllowed(options))
 				.toList();
 		
-		boolean allowChunkGen = CompassProperties.FORCE_CHUNKS_LOAD.get(stack) &&
+		boolean allowChunkGen = CompassComponents.FORCE_CHUNKS_LOAD.get(stack) &&
 				TCConfig.MAX_FORCE_CHUNK_GENERATION_PER_TICK.get() > 0;
 		
 		PROCESS_QUEUE.add(uuid);
@@ -326,7 +326,7 @@ public class SearchManager {
 	}
 	
 	public static void validatePriority(ItemStack stack) {
-		UUID uuid = CompassProperties.COMPASS_UUID.get(stack);
+		UUID uuid = CompassComponents.COMPASS_UUID.get(stack);
 		if (!FOUND_DATA_CACHE.containsKey(uuid)) {
 			return;
 		}
@@ -334,7 +334,7 @@ public class SearchManager {
 		if (dataList == null) {
 			return;
 		}
-		Set<Integer> set = Set.copyOf(CompassProperties.PRIORITY_SLOTS.get(stack));
+		Set<Integer> set = Set.copyOf(CompassComponents.PRIORITY_SLOTS.get(stack));
 		for (ILocationObject object : dataList) {
 			object.withPriority(set.contains(object.slotIndex()));
 		}

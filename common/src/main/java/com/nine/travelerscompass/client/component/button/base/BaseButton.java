@@ -4,7 +4,8 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonGenericS
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
@@ -85,18 +86,20 @@ public abstract class BaseButton extends Button {
 	}
 	
 	@Override
-	public final boolean mouseClicked(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean bl) {
+		double mouseX = event.x();
+		double mouseY = event.y();
 		if (!active || !visible || !isMouseOver(mouseX, mouseY)) {
 			return false;
 		}
 		boolean handled = false;
-		if (button == 0) {
+		if (event.button() == 0) {
 			handled = onLeftClick(mouseX, mouseY);
 			if (onLeftClick != null) {
 				onLeftClick.accept(this);
 				handled = true;
 			}
-		} else if (button == 1) {
+		} else if (event.button() == 1) {
 			handled = onRightClick(mouseX, mouseY);
 			if (onRightClick != null) {
 				onRightClick.accept(this);
@@ -131,19 +134,19 @@ public abstract class BaseButton extends Button {
 	
 	
 	@Override
-	protected boolean isValidClickButton(int button) {
-		return button == 0 || button == 1;
+	protected boolean isValidClickButton(MouseButtonInfo info) {
+		return info.button() == 0 || info.button() == 1;
 	}
 	
 	@Override
-	public final void onClick(double mouseX, double mouseY) {
-		onLeftClick(mouseX, mouseY);
+	public final void onClick(MouseButtonEvent event, boolean bl) {
+		onLeftClick(event.x(), event.y());
 	}
 	
 	@Override
 	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		boolean shiftDown = Screen.hasShiftDown();
-		boolean ctrlDown = Screen.hasControlDown();
+		boolean shiftDown = Minecraft.getInstance().hasShiftDown();
+		boolean ctrlDown = Minecraft.getInstance().hasControlDown();
 		if (shiftDown != shiftPressed || ctrlDown != ctrlPressed) {
 			ctrlPressed = ctrlDown;
 			shiftPressed = shiftDown;

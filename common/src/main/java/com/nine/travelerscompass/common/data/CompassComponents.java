@@ -26,7 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 //Todo: group props
-public class CompassProperties {
+public class CompassComponents {
 	
 	public static final Map<String, DataStorage<?>> REGISTRY = new HashMap<>();
 	

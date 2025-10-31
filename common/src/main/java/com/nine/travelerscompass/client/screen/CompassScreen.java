@@ -13,10 +13,11 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonGenericS
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
 import com.nine.travelerscompass.client.utils.ButtonGrid;
+import com.nine.travelerscompass.client.utils.GhostStack;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.common.container.menu.CompassMenu;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.common.utils.TabPage;
 import com.nine.travelerscompass.config.TCConfig;
@@ -28,6 +29,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -73,7 +75,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 		
 	}
 	
-	public ItemStack ghostStack = ItemStack.EMPTY;
+	public GhostStack ghostStack = GhostStack.EMPTY;
 	
 	private final List<ButtonEntry> buttonEntries = new ArrayList<>();
 	
@@ -86,34 +88,6 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 	
 	private TabButton searchTabButton;
 	private TabButton settingsTabButton;
-	
-	private WarningButton warningButton;
-	
-	private SearchModeButton blocksSearchButton;
-	private SearchModeButton mobsSearchButton;
-	private ContainersButton containersSearchButton;
-	private FluidSearchModeButton fluidsSearchButton;
-	private SearchModeButton spawnersSearchButton;
-	private SearchModeButton dropSearchButton;
-	private SearchModeButton itemEntitiesSearchButton;
-	private InventoriesButton inventoriesSearchButton;
-	//
-	private VillagersButton villagersSearchButton;
-	
-	private PauseButton pauseButton;
-	private WideSearchButton wideSearchButton;
-	private InfoButton infoButton;
-	
-	//Settings
-	private HudButton hudButton;
-	private SettingsButton forceChunksLoadButton;
-	private SettingsButton targetValidationButton;
-	private SettingsButton soundPingButton;
-	private SettingsButton heightMarkerButton;
-	private SettingsButton priorityButton;
-	private IntRangeButton chunksSearchRangeButton;
-	private IntRangeButton entitiesSearchRangeButton;
-	private IntRangeButton wideSearchRangeButton;
 	
 	public CompassScreen(CompassMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
 		super(pMenu, pPlayerInventory, pTitle);
@@ -132,8 +106,8 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 		ItemStack stack = player.getMainHandItem();
 		this.stack = stack;
 		this.grid = new ButtonGrid(leftPos + 7, topPos + 7, 14, 14, 2, 2);
-		this.uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
-		this.tabPage = CompassProperties.get(stack, CompassProperties.TAB_PAGE);
+		this.uuid = CompassComponents.get(stack, CompassComponents.COMPASS_UUID);
+		this.tabPage = CompassComponents.get(stack, CompassComponents.TAB_PAGE);
 		initButtons();
 		revealButtons(ButtonCategory.STATIC);
 		revealButtons(tabPage == TabPage.SETTINGS ? ButtonCategory.SETTINGS : ButtonCategory.SEARCH);
@@ -159,14 +133,14 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 	}
 	
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean bl) {
 		for (var entry : buttonEntries) {
 			if (entry.button instanceof PopupButton popupButton && entry.active) {
-				popupButton.popupMouseClicked(mouseX, mouseY, button);
+				popupButton.popupMouseClicked(event, bl);
 				popupButton.afterPopupClick();
 			}
 		}
-		return super.mouseClicked(mouseX, mouseY, button);
+		return super.mouseClicked(event, bl);
 	}
 	
 	@Override
@@ -190,71 +164,71 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 				.mainLayerSet(CompassUI.ButtonTextures.TOGGLE_BUTTON)
 				.lockIcon(CompassUI.CommonTextures.LOCK_ICON);
 		
-		this.blocksSearchButton = addButton(
+		addButton(
 				new SearchModeButton(settings.copy().position(grid.x(0), grid.y(0))
-						.data(CompassProperties.BLOCKS)
+						.data(CompassComponents.BLOCKS)
 						.configEnabled(TCConfig.ENABLE_BLOCKS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.BLOCKS_ACTIVE_ICON, CompassUI.SearchModeTextures.BLOCKS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.blocksSearchButton = addButton(
+		addButton(
 				new SearchModeButton(settings.copy().position(grid.x(1), grid.y(0))
 						.descriptions(
 								Component.translatable("tooltip.travelerscompass.search_mode.mobs.desc").withStyle(ChatFormatting.GRAY),
 								Component.translatable("tooltip.travelerscompass.search_mode.mobs_shift_click.desc",
 										Component.translatable("tooltip.travelerscompass.settings.modification.shift_click")).withStyle(ChatFormatting.GRAY)
 						)
-						.data(CompassProperties.MOBS)
+						.data(CompassComponents.MOBS)
 						.configEnabled(TCConfig.ENABLE_MOBS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.MOBS_ACTIVE_ICON, CompassUI.SearchModeTextures.MOBS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.fluidsSearchButton = addButton(
+		addButton(
 				new FluidSearchModeButton(settings.copy().position(grid.x(2), grid.y(1))
-						.data(CompassProperties.FLUIDS)
+						.data(CompassComponents.FLUIDS)
 						.configEnabled(TCConfig.ENABLE_FLUIDS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.FLUIDS_ACTIVE_ICON, CompassUI.SearchModeTextures.FLUIDS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.spawnersSearchButton = addButton(
+		addButton(
 				new SearchModeButton(settings.copy().position(grid.x(1), grid.y(1))
-						.data(CompassProperties.SPAWNERS)
+						.data(CompassComponents.SPAWNERS)
 						.configEnabled(TCConfig.ENABLE_SPAWNERS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.SPAWNERS_ACTIVE_ICON, CompassUI.SearchModeTextures.SPAWNERS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
 		
-		this.dropSearchButton = addButton(
+		addButton(
 				new SearchModeButton(settings.copy().position(grid.x(2), grid.y(2))
-						.data(CompassProperties.DROP)
+						.data(CompassComponents.DROP)
 						.configEnabled(TCConfig.ENABLE_DROPS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.DROP_ACTIVE_ICON, CompassUI.SearchModeTextures.DROP_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.itemEntitiesSearchButton = addButton(
+		addButton(
 				new SearchModeButton(settings.copy().position(grid.x(1), grid.y(2))
-						.data(CompassProperties.ITEM_ENTITIES)
+						.data(CompassComponents.ITEM_ENTITIES)
 						.configEnabled(TCConfig.ENABLE_ITEM_ENTITIES_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.ITEM_ENTITIES_ACTIVE_ICON, CompassUI.SearchModeTextures.ITEM_ENTITIES_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.containersSearchButton = addButton(
+		addButton(
 				new ContainersButton(settings.copy().position(grid.x(2), grid.y(0))
-						.data(CompassProperties.CONTAINERS)
+						.data(CompassComponents.CONTAINERS)
 						.configEnabled(TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.CONTAINERS_ACTIVE_ICON, CompassUI.SearchModeTextures.CONTAINERS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.villagersSearchButton = addButton(
+		addButton(
 				new VillagersButton(settings.copy().position(grid.x(0), grid.y(1))
-						.data(CompassProperties.VILLAGERS)
+						.data(CompassComponents.VILLAGERS)
 						.configEnabled(TCConfig.ENABLE_VILLAGERS_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.VILLAGERS_ACTIVE_ICON, CompassUI.SearchModeTextures.VILLAGERS_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
 		
-		this.inventoriesSearchButton = addButton(
+		addButton(
 				new InventoriesButton(settings.copy().position(grid.x(0), grid.y(2))
-						.data(CompassProperties.INVENTORIES)
+						.data(CompassComponents.INVENTORIES)
 						.configEnabled(TCConfig.ENABLE_INVENTORIES_SEARCH.get())
 						.icons(CompassUI.SearchModeTextures.INVENTORIES_ACTIVE_ICON, CompassUI.SearchModeTextures.INVENTORIES_INACTIVE_ICON)
 						.build()), ButtonCategory.SEARCH);
@@ -270,10 +244,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 				.stackSup(() -> stack);
 		
 		
-		this.infoButton = addButton(new InfoButton(settings.copy().position(grid.x(2), grid.y(3)).build()), ButtonCategory.SEARCH);
-		this.wideSearchButton = addButton(new WideSearchButton(settings.copy().position(grid.x(1), grid.y(3)).build()), ButtonCategory.SEARCH);
-		
-		this.pauseButton = addButton(new PauseButton(settings.copy().position(grid.x(0), grid.y(3)).build()), ButtonCategory.SEARCH);
+		addButton(new InfoButton(settings.copy().position(grid.x(2), grid.y(3)).build()), ButtonCategory.SEARCH);
+		addButton(new WideSearchButton(settings.copy().position(grid.x(1), grid.y(3)).build()), ButtonCategory.SEARCH);
+		addButton(new PauseButton(settings.copy().position(grid.x(0), grid.y(3)).build()), ButtonCategory.SEARCH);
 		
 	}
 	
@@ -284,9 +257,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 				.mainLayerSet(CompassUI.ButtonTextures.TOGGLE_BUTTON)
 				.stackSup(() -> stack);
 		
-		this.heightMarkerButton = addButton(
+		addButton(
 				SettingsButton.create(settings.copy().position(grid.x(2), grid.y(2)).build(),
-						CompassProperties.HEIGHT_MARKER,
+						CompassComponents.HEIGHT_MARKER,
 						(cached, hovered) -> {
 							if (cached) {
 								return hovered ? CompassUI.SettingsTextures.HEIGHT_MARKER_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.HEIGHT_MARKER_ACTIVE_ICON;
@@ -295,9 +268,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						}),
 				ButtonCategory.SETTINGS);
 		
-		this.targetValidationButton = addButton(
+		addButton(
 				SettingsButton.create(settings.copy().position(grid.x(1), grid.y(3)).build(),
-						CompassProperties.TARGET_VALIDATION,
+						CompassComponents.TARGET_VALIDATION,
 						(cached, hovered) -> {
 							if (cached) {
 								return hovered ? CompassUI.SettingsTextures.TARGET_VALIDATION_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.TARGET_VALIDATION_ACTIVE_ICON;
@@ -306,9 +279,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						}),
 				ButtonCategory.SETTINGS);
 		
-		this.soundPingButton = addButton(
+		addButton(
 				SettingsButton.create(settings.copy().position(grid.x(0), grid.y(2)).build(),
-						CompassProperties.SOUND_PING,
+						CompassComponents.SOUND_PING,
 						(cached, hovered) -> {
 							if (cached) {
 								return hovered ? CompassUI.SettingsTextures.SOUND_PING_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.SOUND_PING_ACTIVE_ICON;
@@ -317,9 +290,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						}),
 				ButtonCategory.SETTINGS);
 		
-		this.forceChunksLoadButton = addButton(
+		addButton(
 				SettingsButton.create(settings.copy().position(grid.x(2), grid.y(1)).build(),
-						CompassProperties.FORCE_CHUNKS_LOAD,
+						CompassComponents.FORCE_CHUNKS_LOAD,
 						(cached, hovered) -> {
 							if (cached) {
 								return hovered ? CompassUI.SettingsTextures.FORCE_LOAD_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.FORCE_LOAD_ACTIVE_ICON;
@@ -328,9 +301,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						}),
 				ButtonCategory.SETTINGS);
 		
-		this.priorityButton = addButton(
+		addButton(
 				new SettingsButton<>(settings.copy().position(grid.x(1), grid.y(2)).build(),
-						CompassProperties.PRIORITY_MODE,
+						CompassComponents.PRIORITY_MODE,
 						(cached, hovered) -> switch (cached) {
 							case OFF ->
 									hovered ? CompassUI.SettingsTextures.PRIORITY_OFF_HOVERED_ICON : CompassUI.SettingsTextures.PRIORITY_OFF_ICON;
@@ -347,7 +320,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						}),
 				ButtonCategory.SETTINGS);
 		
-		ResetButton resetButton = addButton(
+		addButton(
 				new ResetButton(settings.copy().position(grid.x(2), grid.y(3))
 						.afterLeftClick((button ->
 						{
@@ -359,7 +332,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 						.build()),
 				ButtonCategory.SETTINGS);
 		
-		this.hudButton = addButton(
+		addButton(
 				new HudButton(settings.copy().position(grid.x(0), grid.y(3)).build()),
 				ButtonCategory.SETTINGS);
 		
@@ -369,28 +342,28 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 				.plusIcons(CompassUI.CommonTextures.PLUS_ICON, CompassUI.CommonTextures.PLUS_HOVERED_ICON, CompassUI.CommonTextures.PLUS_INACTIVE_ICON);
 		
 		
-		this.chunksSearchRangeButton = addButton(
+		addButton(
 				new IntRangeButton(rangeSettings.copy().position(grid.x(1), grid.y(0))
 						.icon(CompassUI.SettingsTextures.CHUNKS_RANGE_ICON).build(),
 						1, TCConfig.BLOCKS_CHUNK_SEARCH_RANGE.get(),
 						1, 5,
-						CompassProperties.BLOCK_SEARCH_CHUNK_RANGE),
+						CompassComponents.BLOCK_SEARCH_CHUNK_RANGE),
 				ButtonCategory.SETTINGS);
 		
-		this.entitiesSearchRangeButton = addButton(
+		addButton(
 				new IntRangeButton(rangeSettings.copy().position(grid.x(2), grid.y(0))
 						.icon(CompassUI.SettingsTextures.ENTITIES_RANGE_ICON).build(),
 						1, TCConfig.ENTITIES_SEARCH_RANGE.get(),
 						1, 5,
-						CompassProperties.ENTITIES_SEARCH_RANGE),
+						CompassComponents.ENTITIES_SEARCH_RANGE),
 				ButtonCategory.SETTINGS);
 		
-		this.entitiesSearchRangeButton = addButton(
+		addButton(
 				new IntRangeButton(rangeSettings.copy().position(grid.x(1), grid.y(1))
 						.icon(CompassUI.SettingsTextures.WIDE_SEARCH_RANGE_ICON).build(),
 						1, TCConfig.WIDE_SEARCH_RANGE.get(),
 						1, 5,
-						CompassProperties.WIDE_SEARCH_RANGE),
+						CompassComponents.WIDE_SEARCH_RANGE),
 				ButtonCategory.SETTINGS);
 		
 		
@@ -408,7 +381,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 							if (tabPage == TabPage.SETTINGS) {
 								searchTabButton.selected = true;
 								settingsTabButton.selected = false;
-								CompassProperties.TAB_PAGE.syncToServer(stack, TabPage.SEARCH);
+								CompassComponents.TAB_PAGE.syncToServer(stack, TabPage.SEARCH);
 								this.tabPage = TabPage.SEARCH;
 								revealButtons(ButtonCategory.SEARCH);
 								hideButtons(ButtonCategory.SETTINGS);
@@ -423,7 +396,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 							if (tabPage == TabPage.SEARCH) {
 								searchTabButton.selected = false;
 								settingsTabButton.selected = true;
-								CompassProperties.TAB_PAGE.syncToServer(stack, TabPage.SETTINGS);
+								CompassComponents.TAB_PAGE.syncToServer(stack, TabPage.SETTINGS);
 								this.tabPage = TabPage.SETTINGS;
 								revealButtons(ButtonCategory.SETTINGS);
 								hideButtons(ButtonCategory.SEARCH);
@@ -445,15 +418,15 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 	}
 	
 	public static void resetSettings(ItemStack stack) {
-		CompassProperties.putDefaultToServer(stack, CompassProperties.WIDE_SEARCH_RANGE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.ENTITIES_SEARCH_RANGE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.BLOCK_SEARCH_CHUNK_RANGE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.FORCE_CHUNKS_LOAD);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.SOUND_PING);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.PRIORITY_MODE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HEIGHT_MARKER);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.HUD_RENDER_MODE);
-		CompassProperties.putDefaultToServer(stack, CompassProperties.TARGET_VALIDATION);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.WIDE_SEARCH_RANGE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.ENTITIES_SEARCH_RANGE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.BLOCK_SEARCH_CHUNK_RANGE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.FORCE_CHUNKS_LOAD);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.SOUND_PING);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.PRIORITY_MODE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HEIGHT_MARKER);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.HUD_RENDER_MODE);
+		CompassComponents.putDefaultToServer(stack, CompassComponents.TARGET_VALIDATION);
 	}
 	
 	private void updateButtons(ButtonCategory category) {
@@ -505,16 +478,22 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 	@Override
 	protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		super.renderTooltip(guiGraphics, mouseX, mouseY);
-		if (!TCConfig.SEARCH_REQUIRES_XP.get()) return;
 		Slot slot = hoveredSlot;
 		if (slot != null && slot.container instanceof CompassContainer) {
 			ItemStack carriedStack = getMenu().getCarried();
 			if (carriedStack.isEmpty()) {
-				if (!ghostStack.isEmpty()) {
-					carriedStack = ghostStack;
+				if (ghostStack.valid()) {
+					if (!ghostStack.allowed()) {
+						guiGraphics.setTooltipForNextFrame(this.font,
+								Component.translatable("nei.travelerscompass.dragging_disabled",
+												Component.translatable("nei.travelerscompass." + ghostStack.nei().name().toLowerCase()))
+										.withStyle(ChatFormatting.RED), mouseX, mouseY, carriedStack.get(DataComponents.TOOLTIP_STYLE));
+						return;
+					}
+					carriedStack = ghostStack.stack();
 				}
 			}
-			if (carriedStack.isEmpty()) {
+			if (carriedStack.isEmpty() || !TCConfig.SEARCH_REQUIRES_XP.get()) {
 				return;
 			}
 			Item carried = carriedStack.getItem();
@@ -544,7 +523,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 			int w = (this.width - this.imageWidth) / 2;
 			int h = (this.height - this.imageHeight) / 2;
 			graphics.blit(RenderPipelines.GUI_TEXTURED, tabPage.equals(TabPage.SEARCH) ? SEARCH_SCREEN_LOCATION : SETTINGS_SCREEN_LOCATION, w, h, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-			for (int i : CompassProperties.get(stack, CompassProperties.PRIORITY_SLOTS)) {
+			for (int i : CompassComponents.get(stack, CompassComponents.PRIORITY_SLOTS)) {
 				int j = i > 2 ? 1 : 0;
 				j = i > 5 ? 2 : j;
 				int c = i > 2 ? i - 3 : i;

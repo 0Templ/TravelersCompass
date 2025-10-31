@@ -19,7 +19,6 @@ public class ClientUtils {
 		return start.withStyle(start.getStyle().withColor(color));
 	}
 	
-	
 	public static Component getDistance(BlockPos playerPos, BlockPos targetPos) {
 		return Component.literal(String.valueOf((int) Math.sqrt(playerPos.distSqr(targetPos)))).withStyle(ChatFormatting.GRAY);
 	}

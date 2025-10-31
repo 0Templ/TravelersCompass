@@ -2,7 +2,7 @@ package com.nine.travelerscompass.network.packet.c2s;
 
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.container.menu.CompassMenu;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.common.search.SearchManager;
 import com.nine.travelerscompass.common.utils.SearchState;
@@ -42,12 +42,12 @@ public record PausePacket(UUID uuid) implements C2SPacket {
 		if (player.containerMenu instanceof CompassMenu menu) {
 			ItemStack stack = player.getMainHandItem();
 			if (stack.getItem() instanceof TravelersCompassItem
-					&& Objects.equals(CompassProperties.COMPASS_UUID.get(stack), uuid)
+					&& Objects.equals(CompassComponents.COMPASS_UUID.get(stack), uuid)
 					&& player instanceof ServerPlayer serverPlayer
 			) {
 				SearchManager.stopScan(uuid);
 				SearchManager.removeWatcher(uuid, serverPlayer);
-				CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
+				CompassComponents.SEARCH_STATE.set(stack, SearchState.IDLE);
 			}
 		}
 	}

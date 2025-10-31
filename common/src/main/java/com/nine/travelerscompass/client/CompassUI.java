@@ -7,6 +7,7 @@ import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 
@@ -16,8 +17,10 @@ public final class CompassUI {
 	//COMPONENTS
 	//Indent a bit shorten then a regular one
 	//Locates in assets/travelerscompass/font
+	private static final FontDescription NEW_FONT = new FontDescription.Resource(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "space_helper"));
+	
 	public static final Component SHORT_INDENT = Component.literal("\uF820")
-			.withStyle(Style.EMPTY.withFont(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "space_helper")));
+			.withStyle(Style.EMPTY.withFont(NEW_FONT));
 	public static final Component DESC_ARROW = ClientUtils.coloredComponent(Component.literal("▶").append(SHORT_INDENT), Colors.SOFT_GRAY);
 	
 	public static final Component CONFIG_DISABLED = Component.translatable("tooltip.travelerscompass.disabled_config").withStyle(ChatFormatting.GRAY);
@@ -28,8 +31,7 @@ public final class CompassUI {
 	public static final Component HUD_ENABLED = Component.translatable("tooltip.travelerscompass.settings.hud.enabled").withStyle(ChatFormatting.GRAY);
 	public static final Component HUD_REQUIRES_HAND = Component.translatable("tooltip.travelerscompass.settings.hud.requires_hand").withStyle(ChatFormatting.GRAY);
 	
-	public static final Component RBM = ClientUtils.coloredComponent(Component.translatable("tooltip.travelerscompass.settings.modification.rbm"), Colors.SOFT_GRAY);
-	
+	public static final Component RBM = Component.translatable("tooltip.travelerscompass.settings.modification.rbm").withColor(Colors.SOFT_GRAY);
 	
 	public static final Component FILTER_BY_ITEM_ID = Component.translatable("tooltip.travelerscompass.config.filter_reason.item").withStyle(ChatFormatting.RED);
 	

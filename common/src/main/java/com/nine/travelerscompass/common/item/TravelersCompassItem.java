@@ -3,7 +3,7 @@ package com.nine.travelerscompass.common.item;
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.utils.ClientTickable;
 import com.nine.travelerscompass.common.container.CompassContainer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchManager;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.location.WithUUID;
@@ -62,7 +62,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 		Vec3 traceEnd = eyePosition.add(lookVector.x * 5.0D, lookVector.y * 5.0D, lookVector.z * 5.0D);
 		BlockHitResult hitResult = level.clip(new ClipContext(eyePosition, traceEnd, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
 		BlockPos blockPos = hitResult.getBlockPos();
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (player.isShiftKeyDown()) {
 				ItemStack clickedStack = level.getBlockState(blockPos).getBlock().asItem().getDefaultInstance();
 				if (!compassContainer.hasAny(clickedStack)) {
@@ -73,7 +73,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 					}
 				}
 			}
-			UUID uuid = CompassProperties.COMPASS_UUID.get(stack);
+			UUID uuid = CompassComponents.COMPASS_UUID.get(stack);
 			SearchManager.addWatcher(uuid, player.getUUID());
 			Platform.PLATFORM.openMenu(player, stack);
 			return InteractionResult.SUCCESS;
@@ -87,7 +87,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 			return InteractionResult.PASS;
 		}
 		ItemStack stack = player.getItemInHand(hand);
-		if (!player.level().isClientSide && player.isShiftKeyDown() && living instanceof Mob mob) {
+		if (!player.level().isClientSide() && player.isShiftKeyDown() && living instanceof Mob mob) {
 			SpawnEggItem eggItem = SpawnEggItem.byId(mob.getType());
 			CompassContainer compassContainer = CompassContainer.container(stack);
 			if (eggItem != null) {
@@ -110,8 +110,8 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 	@Override
 	public void clientInventoryTick(ItemStack stack, ClientLevel level, Entity entity, EquipmentSlot slot) {
 		if (entity instanceof Player player) {
-			var pos = CompassProperties.FOUND_BLOCK_POS.get(stack);
-			final UUID uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
+			var pos = CompassComponents.FOUND_BLOCK_POS.get(stack);
+			final UUID uuid = CompassComponents.get(stack, CompassComponents.COMPASS_UUID);
 			if (uuid.getMostSignificantBits() == 0L && uuid.getLeastSignificantBits() == 0L) {
 				return;
 			}
@@ -125,7 +125,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 				});
 				if (player.tickCount % 20 == 0) {
 					ClientCache.HUD_DATA_CACHE.computeIfPresent(uuid, (id, hudData) -> {
-						hudData.setSearchState(CompassProperties.SEARCH_STATE.get(stack));
+						hudData.setSearchState(CompassComponents.SEARCH_STATE.get(stack));
 						return hudData;
 					});
 				}
@@ -136,7 +136,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 	@Override
 	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
 		if (entity instanceof ServerPlayer player) {
-			final UUID uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
+			final UUID uuid = CompassComponents.get(stack, CompassComponents.COMPASS_UUID);
 			syncCompassUUID(player, stack, uuid);
 			final boolean searching = SearchManager.inQueue(uuid);
 			if (!searching) {
@@ -144,20 +144,20 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 					tryToScan(stack, player, uuid);
 				}
 			}
-			PriorityMode priorityMode = CompassProperties.PRIORITY_MODE.get(stack);
+			PriorityMode priorityMode = CompassComponents.PRIORITY_MODE.get(stack);
 			ILocationObject locationObject = SearchManager.getClosestLocation(player.blockPosition(), uuid, priorityMode);
 			boolean validLocation = locationObject != null;
 			if (player.tickCount % 5 == 0) {
 				CompassContainer container = CompassContainer.container(stack);
 				if (player.tickCount % 20 == 0) {
-					SearchState searchState = CompassProperties.SEARCH_STATE.get(stack);
+					SearchState searchState = CompassComponents.SEARCH_STATE.get(stack);
 					if (!searching && searchState != SearchState.IDLE) {
-						CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
+						CompassComponents.SEARCH_STATE.set(stack, SearchState.IDLE);
 					}
 					if (container.isEmpty()) {
 						SearchManager.clearFoundBlocks(uuid);
 					}
-					if (CompassProperties.TARGET_VALIDATION.get(stack)) {
+					if (CompassComponents.TARGET_VALIDATION.get(stack)) {
 						SearchManager.validatePositions(level, uuid);
 					}
 					SearchManager.validatePriority(stack);
@@ -175,11 +175,11 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 				}
 				FoundBlockPos foundBlockPos;
 				if (!validLocation) {
-					CompassProperties.PRIORITY_ITEM_FOUND.set(stack, false);
+					CompassComponents.PRIORITY_ITEM_FOUND.set(stack, false);
 					foundBlockPos = new FoundBlockPos();
 				} else {
 					foundBlockPos = new FoundBlockPos(locationObject.blockPos(), true);
-					CompassProperties.PRIORITY_ITEM_FOUND.set(stack, locationObject.priority());
+					CompassComponents.PRIORITY_ITEM_FOUND.set(stack, locationObject.priority());
 				}
 				updateState(stack, validLocation, container.isEmpty());
 				String targetID = validLocation ? locationObject.descriptionId() : "";
@@ -187,12 +187,12 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 				
 				//Sound ping
 				{
-					if (validLocation && !CompassProperties.FOUND_BLOCK_POS.get(stack).equals(foundBlockPos) && CompassProperties.SOUND_PING.get(stack)) {
+					if (validLocation && !CompassComponents.FOUND_BLOCK_POS.get(stack).equals(foundBlockPos) && CompassComponents.SOUND_PING.get(stack)) {
 						boolean shouldPing = false;
-						if (!targetUUID.equals(CompassProperties.TARGET_UUID.get(stack))) {
+						if (!targetUUID.equals(CompassComponents.TARGET_UUID.get(stack))) {
 							shouldPing = true;
 						}
-						if (!targetID.isEmpty() && !targetID.equals(CompassProperties.TARGET_ID.get(stack))) {
+						if (!targetID.isEmpty() && !targetID.equals(CompassComponents.TARGET_ID.get(stack))) {
 							shouldPing = true;
 						}
 						if (shouldPing) {
@@ -200,9 +200,9 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 						}
 					}
 				}
-				CompassProperties.TARGET_ID.set(stack, targetID);
-				CompassProperties.TARGET_UUID.set(stack, targetUUID);
-				CompassProperties.FOUND_BLOCK_POS.set(stack, foundBlockPos);
+				CompassComponents.TARGET_ID.set(stack, targetID);
+				CompassComponents.TARGET_UUID.set(stack, targetUUID);
+				CompassComponents.FOUND_BLOCK_POS.set(stack, foundBlockPos);
 			}
 			updateTargetAttitude(stack, player.blockPosition(), locationObject);
 		}
@@ -218,23 +218,23 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 	}
 	
 	private void updateState(ItemStack stack, boolean validLocation, boolean empty) {
-		int currentState = CompassProperties.COMPASS_STATE.get(stack);
+		int currentState = CompassComponents.COMPASS_STATE.get(stack);
 		int newState = STATE_EMPTY;
 		if (validLocation) {
 			newState = STATE_FOUND;
-		} else if (CompassProperties.SEARCH_STATE.get(stack) != SearchState.IDLE) {
+		} else if (CompassComponents.SEARCH_STATE.get(stack) != SearchState.IDLE) {
 			newState = STATE_SEARCHING;
 		} else if (!empty) {
 			newState = STATE_SEARCHING;
 		}
 		if (currentState != newState) {
-			CompassProperties.COMPASS_STATE.set(stack, newState);
+			CompassComponents.COMPASS_STATE.set(stack, newState);
 		}
 	}
 	
 	private void updateTargetAttitude(ItemStack stack, BlockPos playerPos, ILocationObject locationData) {
 		HeightAttitude heightAttitude;
-		HeightAttitude current = CompassProperties.TARGET_HEIGHT.get(stack);
+		HeightAttitude current = CompassComponents.TARGET_HEIGHT.get(stack);
 		if (locationData == null) {
 			heightAttitude = HeightAttitude.NONE;
 		} else {
@@ -250,30 +250,30 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 			}
 		}
 		if (current != heightAttitude) {
-			CompassProperties.TARGET_HEIGHT.set(stack, heightAttitude);
+			CompassComponents.TARGET_HEIGHT.set(stack, heightAttitude);
 		}
 	}
 	
 	private void tryToScan(ItemStack stack, ServerPlayer player, UUID uuid) {
-		if (!CompassProperties.get(stack, CompassProperties.PAUSE)) {
-			int cooldown = CompassProperties.SEARCH_COOLDOWN.get(stack);
+		if (!CompassComponents.get(stack, CompassComponents.PAUSE)) {
+			int cooldown = CompassComponents.SEARCH_COOLDOWN.get(stack);
 			if (cooldown > 0) {
-				CompassProperties.SEARCH_COOLDOWN.set(stack, cooldown - 1);
+				CompassComponents.SEARCH_COOLDOWN.set(stack, cooldown - 1);
 			}
 			if (cooldown <= 0) {
 				CompassContainer container = CompassContainer.container(stack);
 				if (container.isEmpty()) {
-					CompassProperties.SEARCH_COOLDOWN.set(stack, 20);
+					CompassComponents.SEARCH_COOLDOWN.set(stack, 20);
 					return;
 				}
-				CompassProperties.SEARCH_COOLDOWN.set(stack, TCConfig.SEARCH_INTERVAL.get());
-				CompassProperties.SEARCH_STATE.set(stack, SearchState.SEARCHING);
+				CompassComponents.SEARCH_COOLDOWN.set(stack, TCConfig.SEARCH_INTERVAL.get());
+				CompassComponents.SEARCH_STATE.set(stack, SearchState.SEARCHING);
 				SearchManager.startSearch(stack, player, container, false, (result) -> {
-					CompassProperties.SEARCH_STATE.set(stack, SearchState.IDLE);
-					PriorityMode priorityMode = CompassProperties.PRIORITY_MODE.get(stack);
-					SearchManager.validatePriority(stack);
+					CompassComponents.SEARCH_STATE.set(stack, SearchState.IDLE);
+					PriorityMode priorityMode = CompassComponents.PRIORITY_MODE.get(stack);
 					SearchManager.saveClosest(result.get(), player.blockPosition(), uuid, TCConfig.MAX_CACHED_LOCATIONS.get(), priorityMode);
-					if (CompassProperties.TARGET_VALIDATION.get(stack)) {
+					SearchManager.validatePriority(stack);
+					if (CompassComponents.TARGET_VALIDATION.get(stack)) {
 						SearchManager.validatePositions(player.level(), uuid);
 					}
 				});
@@ -283,7 +283,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 	
 	private void syncCompassUUID(Player player, ItemStack stack, UUID uuid) {
 		if (uuid.getMostSignificantBits() == 0L && uuid.getLeastSignificantBits() == 0L) {
-			CompassProperties.COMPASS_UUID.set(stack, UUID.randomUUID());
+			CompassComponents.COMPASS_UUID.set(stack, UUID.randomUUID());
 			player.containerMenu.broadcastChanges();
 		}
 	}

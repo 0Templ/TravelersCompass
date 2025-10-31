@@ -8,7 +8,7 @@ import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.IconLayer;
 import com.nine.travelerscompass.client.utils.TextureData;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -48,7 +48,7 @@ public abstract class SearchModePopupButton extends ToggleablePopupButton implem
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), data, true);
+		CompassComponents.toggleToServer(stack(), data, true);
 		setToggled(data.get(stack()));
 		checkRelevancy();
 		refreshTooltip();

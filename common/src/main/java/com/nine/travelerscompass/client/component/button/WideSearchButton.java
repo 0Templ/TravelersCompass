@@ -5,7 +5,7 @@ import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.*;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.utils.SearchState;
 import com.nine.travelerscompass.network.packet.c2s.PausePacket;
 import com.nine.travelerscompass.network.packet.c2s.WideSearchPacket;
@@ -24,12 +24,12 @@ public class WideSearchButton extends BaseIconButton {
 	
 	@Override
 	public boolean onLeftClick(double mouseX, double mouseY) {
-		if (CompassProperties.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
+		if (CompassComponents.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
 			if (shiftPressed) {
 				ClientCache.PROGRESS_DATA_CACHE.put(uuid, new SearchProgress(0, 0));
 				ClientCache.PROGRESS_DATA_CACHE.remove(uuid);
 				Platform.PLATFORM_NETWORK.sendToServer(new PausePacket(uuid));
-				CompassProperties.SEARCH_STATE.set(stack(), SearchState.IDLE);
+				CompassComponents.SEARCH_STATE.set(stack(), SearchState.IDLE);
 			}
 		} else {
 			Platform.PLATFORM_NETWORK.sendToServer(new WideSearchPacket(uuid));
@@ -58,7 +58,7 @@ public class WideSearchButton extends BaseIconButton {
 		super.renderWidget(graphics, mouseX, mouseY, partialTicks);
 		SearchProgress searchProgress = ClientCache.PROGRESS_DATA_CACHE.get(uuid);
 		if (searchProgress != null) {
-			if (CompassProperties.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
+			if (CompassComponents.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
 				float progress = (float) searchProgress.progress / searchProgress.total;
 				drawProgress(graphics, this.getX() + 1, this.getY() + 12, 13, 1, progress,
 						isHovered ? 0xFFFFFFFF : 0xA2FFFFFF);
@@ -80,7 +80,7 @@ public class WideSearchButton extends BaseIconButton {
 		String key = "tooltip.travelerscompass.wide_search";
 		builder.title(key);
 		builder.descIf(key, shiftPressed);
-		if (CompassProperties.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
+		if (CompassComponents.SEARCH_STATE.get(stack()) == SearchState.WIDE_SEARCHING) {
 			SearchProgress searchProgress = ClientCache.PROGRESS_DATA_CACHE.get(uuid);
 			int percent = 0;
 			if (searchProgress != null) {

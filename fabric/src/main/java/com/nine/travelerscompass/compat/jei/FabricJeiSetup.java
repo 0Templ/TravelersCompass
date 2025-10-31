@@ -2,10 +2,8 @@ package com.nine.travelerscompass.compat.jei;
 
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.client.screen.CompassScreen;
-import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.init.ItemRegistry;
 import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -13,14 +11,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-@JeiPlugin
 public class FabricJeiSetup implements IModPlugin {
 	
 	@Override
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-		if (TCConfig.JEI_COMPATIBILITY.get()) {
-			registration.addGhostIngredientHandler(CompassScreen.class, new JeiGhostTargetHandler());
-		}
+		registration.addGhostIngredientHandler(CompassScreen.class, new JeiGhostTargetHandler());
 	}
 	
 	@Override

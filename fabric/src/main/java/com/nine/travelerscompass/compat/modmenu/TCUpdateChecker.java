@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.modmenu;
 
 import com.google.gson.JsonObject;
@@ -133,3 +134,4 @@ public class TCUpdateChecker implements UpdateChecker {
 	}
 	
 }
+*/

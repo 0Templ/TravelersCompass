@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 - /
 
+## 4.2.0
+
+- 1.21.10 port
+- Moved Traveler’s Compass from a separate tab to the vanilla creative tab.
+
 ## 4.1.0
 
 ### Compatibility

@@ -1,7 +1,7 @@
 package com.nine.travelerscompass.common.search.matcher;
 
 import com.nine.travelerscompass.TCCommon;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchOptions;
 import com.nine.travelerscompass.common.search.criterion.*;
 import com.nine.travelerscompass.common.search.location.*;
@@ -62,7 +62,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.BLOCKS) && TCConfig.ENABLE_BLOCKS_SEARCH.get();
+			return options.get(CompassComponents.BLOCKS) && TCConfig.ENABLE_BLOCKS_SEARCH.get();
 		}
 	};
 	
@@ -90,7 +90,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.FLUIDS) && TCConfig.ENABLE_FLUIDS_SEARCH.get();
+			return options.get(CompassComponents.FLUIDS) && TCConfig.ENABLE_FLUIDS_SEARCH.get();
 		}
 	};
 	
@@ -130,7 +130,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.SPAWNERS) && TCConfig.ENABLE_SPAWNERS_SEARCH.get();
+			return options.get(CompassComponents.SPAWNERS) && TCConfig.ENABLE_SPAWNERS_SEARCH.get();
 		}
 	};
 	
@@ -166,10 +166,10 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			if (!options.get(CompassProperties.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
+			if (!options.get(CompassComponents.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
 				return false;
 			}
-			return options.get(CompassProperties.ENTITY_CONTAINERS);
+			return options.get(CompassComponents.ENTITY_CONTAINERS);
 		}
 	};
 	
@@ -194,7 +194,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.MOBS) && TCConfig.ENABLE_MOBS_SEARCH.get();
+			return options.get(CompassComponents.MOBS) && TCConfig.ENABLE_MOBS_SEARCH.get();
 		}
 	};
 	
@@ -205,8 +205,8 @@ public class PositionMatchers {
 			List<ILocationObject> ret = new ArrayList<>();
 			if (entity instanceof Villager villager) {
 				MerchantOffers offers = villager.getOffers();
-				boolean buys = options.get(CompassProperties.VILLAGERS_BUYS);
-				boolean sells = options.get(CompassProperties.VILLAGERS_SELLS);
+				boolean buys = options.get(CompassComponents.VILLAGERS_BUYS);
+				boolean sells = options.get(CompassComponents.VILLAGERS_SELLS);
 				UUID uuid = villager.getUUID();
 				String descriptionId = entity.getType().getDescriptionId();
 				for (MerchantOffer offer : offers) {
@@ -252,8 +252,8 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return (options.get(CompassProperties.VILLAGERS) &&
-					(options.get(CompassProperties.VILLAGERS_BUYS) || options.get(CompassProperties.VILLAGERS_SELLS)))
+			return (options.get(CompassComponents.VILLAGERS) &&
+					(options.get(CompassComponents.VILLAGERS_BUYS) || options.get(CompassComponents.VILLAGERS_SELLS)))
 					&& TCConfig.ENABLE_VILLAGERS_SEARCH.get();
 		}
 	};
@@ -265,8 +265,8 @@ public class PositionMatchers {
 			List<ILocationObject> ret = new ArrayList<>();
 			if (entity instanceof LivingEntity living) {
 				Set<Item> invItems = new HashSet<>();
-				boolean players = options.get(CompassProperties.INVENTORIES_PLAYERS);
-				boolean mobs = options.get(CompassProperties.INVENTORIES_MOBS);
+				boolean players = options.get(CompassComponents.INVENTORIES_PLAYERS);
+				boolean mobs = options.get(CompassComponents.INVENTORIES_MOBS);
 				String descriptionId = entity.getType().getDescriptionId();
 				UUID uuid = entity.getUUID();
 				if (uuid.equals(options.getPlayerUUID())) {
@@ -302,8 +302,8 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return (options.get(CompassProperties.INVENTORIES) &&
-					(options.get(CompassProperties.INVENTORIES_MOBS) || options.get(CompassProperties.INVENTORIES_PLAYERS)));
+			return (options.get(CompassComponents.INVENTORIES) &&
+					(options.get(CompassComponents.INVENTORIES_MOBS) || options.get(CompassComponents.INVENTORIES_PLAYERS)));
 		}
 	};
 	
@@ -340,7 +340,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.DROP);
+			return options.get(CompassComponents.DROP);
 		}
 	};
 	
@@ -371,7 +371,7 @@ public class PositionMatchers {
 		
 		@Override
 		public boolean isAllowed(SearchOptions options) {
-			return options.get(CompassProperties.ITEM_ENTITIES);
+			return options.get(CompassComponents.ITEM_ENTITIES);
 		}
 	};
 	

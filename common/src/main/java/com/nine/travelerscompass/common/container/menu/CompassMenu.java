@@ -1,7 +1,7 @@
 package com.nine.travelerscompass.common.container.menu;
 
 import com.nine.travelerscompass.common.container.CompassContainer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.common.search.SearchManager;
 import com.nine.travelerscompass.config.filter.FilterManager;
@@ -120,7 +120,7 @@ public class CompassMenu extends AbstractContainerMenu {
 			ItemStack stack = player.getMainHandItem();
 			if (stack.getItem() instanceof TravelersCompassItem && clickType == ClickType.QUICK_MOVE) {
 				{
-					List<Integer> cur = CompassProperties.PRIORITY_SLOTS.get(stack);
+					List<Integer> cur = CompassComponents.PRIORITY_SLOTS.get(stack);
 					boolean contains = cur.contains(slotIndex);
 					List<Integer> next = new ArrayList<>(cur);
 					if (contains) {
@@ -128,13 +128,13 @@ public class CompassMenu extends AbstractContainerMenu {
 					} else {
 						next.add(slotIndex);
 					}
-					if (player.level().isClientSide) {
+					if (player.level().isClientSide()) {
 						player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 1.0F);
 					}
-					CompassProperties.PRIORITY_SLOTS.set(stack, List.copyOf(next));
+					CompassComponents.PRIORITY_SLOTS.set(stack, List.copyOf(next));
 					if (!getSlot(slotIndex).getItem().is(Items.AIR)) {
 						SearchManager.updateSlotPriority(
-								CompassProperties.get(stack, CompassProperties.COMPASS_UUID),
+								CompassComponents.get(stack, CompassComponents.COMPASS_UUID),
 								slotIndex,
 								!contains
 						);
@@ -177,7 +177,7 @@ public class CompassMenu extends AbstractContainerMenu {
 		super.removed(player);
 		ItemStack stack = player.getMainHandItem();
 		if (stack.getItem() instanceof TravelersCompassItem && player instanceof ServerPlayer serverPlayer) {
-			SearchManager.removeWatcher(CompassProperties.COMPASS_UUID.get(stack), serverPlayer);
+			SearchManager.removeWatcher(CompassComponents.COMPASS_UUID.get(stack), serverPlayer);
 		}
 	}
 	

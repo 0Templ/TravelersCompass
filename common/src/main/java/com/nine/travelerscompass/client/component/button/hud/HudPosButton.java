@@ -5,7 +5,7 @@ import com.nine.travelerscompass.client.component.button.range.IntRangeButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchor;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -39,7 +39,7 @@ public class HudPosButton extends IntRangeButton {
 	
 	@Override
 	public boolean onRightClick(double mouseX, double mouseY) {
-		CompassProperties.toggleToServer(stack(), dataAnchor);
+		CompassComponents.toggleToServer(stack(), dataAnchor);
 		return true;
 	}
 	

@@ -1,6 +1,6 @@
 package com.nine.travelerscompass.compat.lootr;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchOptions;
 import com.nine.travelerscompass.common.search.criterion.ISearchCriterion;
 import com.nine.travelerscompass.common.search.criterion.TypedCriteria;
@@ -86,7 +86,7 @@ public class NeoForgeLootrHelper {
 	}
 	
 	public static boolean shouldCheckLootrContainer(ILootrInfoProvider iHasOpeners, SearchOptions options) {
-		LootrSearchMode searchMode = options.get(CompassProperties.LOOTR_MODE);
+		LootrSearchMode searchMode = options.get(CompassComponents.LOOTR_MODE);
 		if (iHasOpeners.getActualOpeners() == null) return false;
 		boolean opened = iHasOpeners.getActualOpeners().contains(options.getPlayerUUID());
 		return switch (searchMode) {

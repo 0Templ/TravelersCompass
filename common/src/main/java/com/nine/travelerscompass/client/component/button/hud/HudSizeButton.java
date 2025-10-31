@@ -6,14 +6,14 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSet
 import com.nine.travelerscompass.client.hud.HudSize;
 import com.nine.travelerscompass.client.hud.HudType;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 public class HudSizeButton extends IntRangeButton {
 	
-	private final DataStorage<HudSize> sizeData = CompassProperties.HUD_SIZE;
+	private final DataStorage<HudSize> sizeData = CompassComponents.HUD_SIZE;
 	
 	private HudSize cachedSize;
 	private HudType cachedType;
@@ -38,10 +38,10 @@ public class HudSizeButton extends IntRangeButton {
 	
 	@Override
 	public void updateCache() {
-		cachedSize = CompassProperties.HUD_SIZE.get(stack());
-		cachedType = CompassProperties.HUD_TYPE.get(stack());
-		cached = isWidth ? CompassProperties.HUD_SIZE.get(stack()).getWidth(cachedType)
-				: CompassProperties.HUD_SIZE.get(stack()).getHeight(cachedType);
+		cachedSize = CompassComponents.HUD_SIZE.get(stack());
+		cachedType = CompassComponents.HUD_TYPE.get(stack());
+		cached = isWidth ? CompassComponents.HUD_SIZE.get(stack()).getWidth(cachedType)
+				: CompassComponents.HUD_SIZE.get(stack()).getHeight(cachedType);
 	}
 	
 	@Override

@@ -41,9 +41,9 @@ public class NeoForgePlatformCoreHelper implements IPlatformCoreHelper {
 		Level level = be.getLevel();
 		if (level != null) {
 			BlockPos pos = be.getBlockPos();
-			var cap = level.getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), level.getBlockState(pos), be, null);
+			var cap = level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), level.getBlockState(pos), be, null);
 			if (cap != null) {
-				item = cap.getStackInSlot(index).getItem();
+				item = cap.getResource(index).getItem();
 			}
 		}
 		return item;
@@ -70,7 +70,7 @@ public class NeoForgePlatformCoreHelper implements IPlatformCoreHelper {
 	
 	@Override
 	public boolean isClientSide() {
-		return FMLEnvironment.dist.isClient();
+		return FMLEnvironment.getDist().isClient();
 	}
 	
 }

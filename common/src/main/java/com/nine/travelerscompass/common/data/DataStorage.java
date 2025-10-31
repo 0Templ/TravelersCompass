@@ -35,7 +35,7 @@ public record DataStorage<T>(String id, byte networkId, Supplier<T> defaultSuppl
 	
 	public void syncToServer(ItemStack stack, T value) {
 		set(stack, value);
-		UUID compassUUID = CompassProperties.COMPASS_UUID.get(stack);
+		UUID compassUUID = CompassComponents.COMPASS_UUID.get(stack);
 		Platform.PLATFORM_NETWORK.sendToServer(new CompassDataPacket<>(compassUUID, this, value));
 	}
 	

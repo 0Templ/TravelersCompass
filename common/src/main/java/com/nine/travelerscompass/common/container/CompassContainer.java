@@ -1,12 +1,13 @@
 package com.nine.travelerscompass.common.container;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.config.cost.SearchCostHelper;
 import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AirItem;
 import net.minecraft.world.item.Item;
@@ -73,14 +74,14 @@ public class CompassContainer implements Container {
 	}
 	
 	public void load() {
-		var container = CompassProperties.CONTAINER.get(containerStack);
+		var container = CompassComponents.CONTAINER.get(containerStack);
 		if (container != null) {
 			container.copyInto(inventory);
 		}
 	}
 	
 	public void save() {
-		CompassProperties.CONTAINER.set(containerStack, ItemContainerContents.fromItems(inventory));
+		CompassComponents.CONTAINER.set(containerStack, ItemContainerContents.fromItems(inventory));
 	}
 	
 	@Override
@@ -148,12 +149,13 @@ public class CompassContainer implements Container {
 	}
 	
 	@Override
-	public void startOpen(Player player) {
+	public void startOpen(ContainerUser p_435573_) {
 	}
 	
 	@Override
-	public void stopOpen(Player player) {
+	public void stopOpen(ContainerUser p_432824_) {
 	}
+	
 	
 	@Override
 	public boolean canPlaceItem(int index, ItemStack stack) {

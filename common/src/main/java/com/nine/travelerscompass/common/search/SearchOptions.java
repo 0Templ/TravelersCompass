@@ -1,6 +1,6 @@
 package com.nine.travelerscompass.common.search;
 
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -24,11 +24,11 @@ public class SearchOptions {
 	private final ServerPlayer player;
 	
 	public SearchOptions(ItemStack stack, ServerPlayer player, boolean wideSearch) {
-		for (DataStorage<?> property : CompassProperties.SEARCH_OPTIONS) {
-			options.put(property, CompassProperties.get(stack, property));
+		for (DataStorage<?> property : CompassComponents.SEARCH_OPTIONS) {
+			options.put(property, CompassComponents.get(stack, property));
 		}
-		this.entitiesSearchRange = CompassProperties.ENTITIES_SEARCH_RANGE.get(stack);
-		this.chunksSearchRange = wideSearch ? CompassProperties.WIDE_SEARCH_RANGE.get(stack) : CompassProperties.BLOCK_SEARCH_CHUNK_RANGE.get(stack);
+		this.entitiesSearchRange = CompassComponents.ENTITIES_SEARCH_RANGE.get(stack);
+		this.chunksSearchRange = wideSearch ? CompassComponents.WIDE_SEARCH_RANGE.get(stack) : CompassComponents.BLOCK_SEARCH_CHUNK_RANGE.get(stack);
 		this.playerUUID = player.getUUID();
 		this.player = player;
 		this.wideSearch = wideSearch;

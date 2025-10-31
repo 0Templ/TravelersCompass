@@ -7,6 +7,7 @@ import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.IconLayer;
 import com.nine.travelerscompass.client.utils.TextureData;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.Rect2i;
 
 import java.util.ArrayList;
@@ -54,13 +55,11 @@ public abstract class PopupButton extends BaseIconButton {
 	public void onPopupOpened() {
 	}
 	
-	public void popupMouseClicked(double mouseX, double mouseY, int button) {
-		int mX = (int) mouseX;
-		int mY = (int) mouseY;
+	public void popupMouseClicked(MouseButtonEvent event, boolean bl) {
 		if (isPopupVisible()) {
-			if (popupRect.contains(mX, mY)) {
+			if (popupRect.contains((int) event.x(), (int) event.y())) {
 				for (BaseButton popupElement : popupButtons) {
-					popupElement.mouseClicked(mX, mY, button);
+					popupElement.mouseClicked(event, bl);
 				}
 			}
 		}

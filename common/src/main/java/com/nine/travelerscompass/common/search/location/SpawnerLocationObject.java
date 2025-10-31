@@ -53,7 +53,8 @@ public record SpawnerLocationObject(BlockPos blockPos, int slotIndex, boolean pr
 			return true;
 		}
 		Block block = level.getBlockState(blockPos).getBlock();
-		return BuiltInRegistries.BLOCK.get(blockId).equals(block);
+		var written = BuiltInRegistries.BLOCK.get(blockId);
+		return written.isPresent() && written.get().value().equals(block);
 	}
 	
 	@Override

@@ -1,7 +1,7 @@
 package com.nine.travelerscompass.common.search.criterion;
 
 import com.nine.travelerscompass.common.container.CompassContainer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.mixin.accessor.BucketItemAccessor;
 import com.nine.travelerscompass.platform.accessor.MobBucketItemAccessor;
 import net.minecraft.world.entity.EntityType;
@@ -63,7 +63,7 @@ public class TypedCriteria {
 	}
 	
 	public static List<ISearchCriterion> extractCriteria(CompassContainer container, ItemStack stack, Level level) {
-		List<Integer> array = CompassProperties.get(stack, CompassProperties.PRIORITY_SLOTS);
+		List<Integer> array = CompassComponents.get(stack, CompassComponents.PRIORITY_SLOTS);
 		var ret = new ArrayList<ISearchCriterion>();
 		Set<Integer> priorSlots = new HashSet<>();
 		for (int slot : array) {
@@ -86,7 +86,7 @@ public class TypedCriteria {
 				}
 			}
 			if (item instanceof SpawnEggItem spawnEggItem) {
-				ret.add(new EntityCriterion(spawnEggItem.getType(level.registryAccess(), stack), prior, i));
+				ret.add(new EntityCriterion(spawnEggItem.getType(stack), prior, i));
 			}
 			if (item instanceof MobBucketItem mobBucketItem) {
 				EntityType<?> type = ((MobBucketItemAccessor) mobBucketItem).travelerscompass$getType();

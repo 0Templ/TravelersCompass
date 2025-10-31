@@ -7,7 +7,7 @@ import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.container.CompassContainer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.utils.SearchState;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
@@ -45,19 +45,19 @@ public class WarningButton extends BaseIconButton {
 		if (hidden) {
 			return;
 		}
-		if (CompassProperties.PAUSE.get(stack) && CompassProperties.SEARCH_STATE.get(stack) != SearchState.WIDE_SEARCHING) {
+		if (CompassComponents.PAUSE.get(stack) && CompassComponents.SEARCH_STATE.get(stack) != SearchState.WIDE_SEARCHING) {
 			this.warning = Warning.PAUSED;
 		} else if (CompassContainer.container(stack).isEmpty()) {
 			this.warning = Warning.EMPTY;
-		} else if (!CompassProperties.BLOCKS.get(stack)
-				&& !CompassProperties.MOBS.get(stack)
-				&& !CompassProperties.SPAWNERS.get(stack)
-				&& !CompassProperties.INVENTORIES.get(stack)
-				&& !CompassProperties.DROP.get(stack)
-				&& !CompassProperties.VILLAGERS.get(stack)
-				&& !CompassProperties.CONTAINERS.get(stack)
-				&& !CompassProperties.FLUIDS.get(stack)
-				&& !CompassProperties.ITEM_ENTITIES.get(stack)
+		} else if (!CompassComponents.BLOCKS.get(stack)
+				&& !CompassComponents.MOBS.get(stack)
+				&& !CompassComponents.SPAWNERS.get(stack)
+				&& !CompassComponents.INVENTORIES.get(stack)
+				&& !CompassComponents.DROP.get(stack)
+				&& !CompassComponents.VILLAGERS.get(stack)
+				&& !CompassComponents.CONTAINERS.get(stack)
+				&& !CompassComponents.FLUIDS.get(stack)
+				&& !CompassComponents.ITEM_ENTITIES.get(stack)
 		) {
 			this.warning = Warning.INACTIVE;
 		} else {

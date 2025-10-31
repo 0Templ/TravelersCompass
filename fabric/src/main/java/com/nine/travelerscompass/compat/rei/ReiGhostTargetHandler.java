@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.rei;
 
 import com.nine.travelerscompass.client.screen.CompassScreen;
@@ -37,3 +38,4 @@ public class ReiGhostTargetHandler extends BaseGhostTargetHandler implements Dra
 	
 }
 
+*/

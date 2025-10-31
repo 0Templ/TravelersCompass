@@ -29,14 +29,11 @@
     "client": [
       "com.nine.travelerscompass.TCFabricClient"
     ],
-    "rei_client": [
-      "com.nine.travelerscompass.compat.rei.FabricReiSetup"
+    "jei_mod_plugin": [
+      "com.nine.travelerscompass.compat.jei.FabricJeiSetup"
     ],
     "jade": [
       "com.nine.travelerscompass.compat.jade.FabricJadeSetup"
-    ],
-    "modmenu": [
-      "com.nine.travelerscompass.compat.modmenu.ModMenuSetup"
     ]
   },
   "depends": {

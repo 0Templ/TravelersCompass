@@ -5,7 +5,7 @@ import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchorX;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchorY;
 import com.nine.travelerscompass.client.hud.type.IHudTypeRenderer;
-import com.nine.travelerscompass.common.data.CompassProperties;
+import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.init.ItemRegistry;
 import net.minecraft.client.DeltaTracker;
@@ -49,7 +49,7 @@ public class HudRenderer {
 				Set<UUID> validUUIDs = new HashSet<>();
 				for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
 					if (stack.is(ItemRegistry.TRAVELERS_COMPASS.get())) {
-						UUID uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
+						UUID uuid = CompassComponents.get(stack, CompassComponents.COMPASS_UUID);
 						validUUIDs.add(uuid);
 					}
 				}
