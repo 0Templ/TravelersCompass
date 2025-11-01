@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id "me.shedaniel.unified-publishing"
 }
 
 neoForge {
@@ -89,3 +90,31 @@ dependencies {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+unifiedPublishing {
+    project {
+        displayName = "[NeoForge]${getModNameForPublishing(project.mod_name)}-${project.minecraft_version}-${project.version}"
+        releaseType = rootProject.neoforge_release_type
+        changelog = changelogForVersion(project.version)
+        gameVersions = [project.minecraft_version]
+        gameLoaders = ["neoforge"]
+
+        def publicationJar = tasks.named("jar").get()
+        mainPublication publicationJar
+        var mrToken = project.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
+        if (mrToken != null) {
+            modrinth {
+                token = mrToken
+                id = project.modrinth_project_id
+                version = project.version
+            }
+        }
+        var cfToken = project.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
+        if (cfToken != null){
+            curseforge {
+                token = cfToken
+                id = rootProject.curseforge_project_id
+            }
+        }
+    }
+}

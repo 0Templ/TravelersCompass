@@ -1,10 +1,12 @@
 plugins {
-    // see https://fabricmc.net/develop/ for new versions
+
     id 'fabric-loom' version '1.8-SNAPSHOT' apply false
-    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '2.0.49-beta' apply false
+    id 'me.shedaniel.unified-publishing' version '0.1.+'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply(false)
+
 }
+
 allprojects {
     repositories {
         maven {
@@ -32,4 +34,27 @@ allprojects {
             }
         }
     }
+}
+
+static def getModNameForPublishing(String name){
+    return name.replaceAll(/\s+/, '')
+}
+
+def changelogForVersion(String version) {
+    def file = file("${rootDir}/CHANGELOG.md")
+    if (!file.exists()) return ""
+
+    def text = file.text
+
+    def pattern = ~/(?ms)^##\s*\[?${version}\]?[^\n]*\n(.*?)(?=^##\s|\z)/
+    def matcher = text =~ pattern
+
+    if (matcher.find()) {
+        def entry = matcher.group(1).trim()
+        return entry ?: ""
+    }
+
+    pattern = "(?ms)^##\\s*\\[?${version}\\]?\\s*(.*)\$"
+    matcher = text =~ pattern
+    return matcher.find() ? matcher.group(1).trim() : ""
 }
