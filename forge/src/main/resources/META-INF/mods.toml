@@ -16,7 +16,7 @@ updateJSONURL= "https://raw.githubusercontent.com/0Templ/ModVersions/main/forge/
 [[dependencies.${mod_id}]]
 modId = "forge"
 mandatory = true
-versionRange = "[${forge_version},)"
+versionRange = "${forge_loader_version_range}"
 ordering = "NONE"
 side = "BOTH"
 

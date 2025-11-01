@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 - / 
+
+## 4.0.03
+- lowered forge/neoforge version range
+
 ## 4.0.02
 - fixed a bug where NEI did not deduct experience when dragging an item from its panel into the compass inventory
 
@@ -15,6 +19,3 @@ All notable changes to this project will be documented in this file.
 - Fixed quick priority switching on the compass  
   (when a target is found and the compass is paused — changing the priority now actually takes effect)
 
-## 3.9.9
-### Another
-- next!
