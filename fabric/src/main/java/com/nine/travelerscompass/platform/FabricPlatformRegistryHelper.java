@@ -3,7 +3,7 @@ package com.nine.travelerscompass.platform;
 import com.mojang.serialization.Codec;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.data.DataStorage;
-import com.nine.travelerscompass.coomon.item.FabricTravelersCompassItem;
+import com.nine.travelerscompass.common.item.FabricTravelersCompassItem;
 import com.nine.travelerscompass.init.FabricRegistryProvider;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.init.RegistryProvider;
