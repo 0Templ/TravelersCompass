@@ -4,11 +4,12 @@ import com.nine.travelerscompass.common.container.CompassContainer;
 import com.nine.travelerscompass.common.container.menu.CompassMenu;
 import com.nine.travelerscompass.init.MenuRegistry;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.mixin.menu.ServerPlayerMixin;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -27,7 +28,7 @@ public class FabricPlatformCoreHelper implements IPlatformCoreHelper {
 	
 	@Override
 	public void openMenu(Player player, ItemStack stack) {
-		player.openMenu(new ExtendedScreenHandlerFactory<>() {
+		player.openMenu(new ExtendedMenuProvider<>() {
 			
 			@Override
 			public Object getScreenOpeningData(ServerPlayer player) {

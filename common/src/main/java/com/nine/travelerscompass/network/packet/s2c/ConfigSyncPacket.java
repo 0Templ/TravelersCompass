@@ -5,7 +5,7 @@ import com.nine.travelerscompass.config.ConfigSyncManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
 public record ConfigSyncPacket(Map<String, Object> map) implements S2CPacket {
 	
 	public static final Type<ConfigSyncPacket> ID =
-			new Type<>(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "config_sync_packet"));
+			new Type<>(Identifier.fromNamespaceAndPath(TCCommon.MODID, "config_sync_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, ConfigSyncPacket> CODEC =
 			StreamCodec.ofMember(ConfigSyncPacket::encode, ConfigSyncPacket::decode);

@@ -90,8 +90,7 @@ public class SearchManager {
 			var job = ACTIVE_SCAN_PROCESSES.get(uuid);
 			if (job == null) continue;
 			if (job.shouldSyncProgress()) {
-				int progress = (job.wideSearch && job.allowChunkGen) ? job.chunksLoaded : job.chunksPassed;
-				notifyWatcher(job.level, new SearchProgress(progress, job.chunksToScan - 1), uuid);
+				notifyWatcher(job.level, new SearchProgress(job.getProgressValue(), job.chunksToScan), uuid);
 			}
 			availableChunks = calculateChunksBudget(totalChunksScanned);
 			generationLimit = calculateGenerationBudget(totalChunksGenerated);
@@ -99,7 +98,7 @@ public class SearchManager {
 				if (job.onComplete != null) {
 					job.scanEntities();
 					job.onComplete.accept(job.result);
-					notifyWatcher(job.level, new SearchProgress(0, job.chunksToScan - 1), uuid);
+					notifyWatcher(job.level, new SearchProgress(-1, -1), uuid);
 				}
 				
 				toRemove.add(uuid);

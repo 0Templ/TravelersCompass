@@ -12,7 +12,7 @@ import com.nine.travelerscompass.mixin.accessor.LiquidBlockAccessor;
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
@@ -20,7 +20,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.ContainerEntity;
 import net.minecraft.world.item.Item;
@@ -41,15 +41,15 @@ import net.minecraft.world.level.storage.ValueInput;
 import java.util.*;
 
 public class PositionMatchers {
-	
+
 	public static final BlockMatcher BLOCK_MATCHER = new BlockMatcher() {
-		
+
 		@Override
-		public ILocationObject match(TypedCriteria criteria, BlockPos pos, BlockState state) {
+		public List<ILocationObject> match(TypedCriteria criteria, BlockPos pos, BlockState state) {
 			Block block = state.getBlock();
 			for (BlockCriterion criterion : criteria.blockCriteria) {
 				if (criterion.check(block)) {
-					return (new BlockLocationObject(
+					return List.of(new BlockLocationObject(
 							pos.immutable(),
 							criterion.slot(),
 							criterion.priority(),
@@ -57,45 +57,45 @@ public class PositionMatchers {
 							BuiltInRegistries.BLOCK.getKey(block)));
 				}
 			}
-			return null;
+			return List.of();
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.BLOCKS) && TCConfig.ENABLE_BLOCKS_SEARCH.get();
 		}
 	};
-	
+
 	public static final BlockMatcher FLUID_MATCHER = new BlockMatcher() {
-		
+
 		@Override
-		public ILocationObject match(TypedCriteria criteria, BlockPos pos, BlockState state) {
+		public List<ILocationObject> match(TypedCriteria criteria, BlockPos pos, BlockState state) {
 			Block block = state.getBlock();
 			if (block instanceof LiquidBlock liquidBlock) {
 				Fluid fluid = ((LiquidBlockAccessor) liquidBlock).travelerscompass$getFluidState(state).getType();
 				for (FluidCriterion criterion : criteria.fluidCriteria) {
 					if (criterion.check(fluid)) {
-						return new BlockLocationObject(
+						return List.of(new BlockLocationObject(
 								pos.immutable(),
 								criterion.slot(),
 								criterion.priority(),
 								state.getBlock().getDescriptionId(),
 								BuiltInRegistries.BLOCK.getKey(block)
-						);
+						));
 					}
 				}
 			}
-			return null;
+			return List.of();
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.FLUIDS) && TCConfig.ENABLE_FLUIDS_SEARCH.get();
 		}
 	};
-	
+
 	public static final BlockEntityMatcher SPAWNER_MATCHER = new BlockEntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, BlockPos pos, BlockState state, BlockEntity be) {
 			Block block = state.getBlock();
@@ -110,7 +110,7 @@ public class PositionMatchers {
 							EntityType<?> entityType = optional.get();
 							for (EntityCriterion criterion : criteria.entityCriteria) {
 								if (criterion.check(entityType)) {
-									ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+									Identifier id = BuiltInRegistries.BLOCK.getKey(block);
 									return List.of(new SpawnerLocationObject(
 											pos.immutable(),
 											criterion.slot(),
@@ -125,45 +125,41 @@ public class PositionMatchers {
 					}
 				}
 			}
-			return null;
+			return List.of();
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.SPAWNERS) && TCConfig.ENABLE_SPAWNERS_SEARCH.get();
 		}
 	};
-	
-	
+
 	public static final EntityMatcher ENTITY_INVENTORY_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
+			if (!(entity instanceof ContainerEntity containerEntity)) return List.of();
+			if (criteria.itemCriteria.isEmpty()) return List.of();
 			List<ILocationObject> ret = new ArrayList<>();
-			if (entity instanceof ContainerEntity containerEntity) {
-				if (criteria.itemCriteria.isEmpty()) {
-					return List.of();
-				}
-				UUID uuid = entity.getUUID();
-				String descriptionId = entity.getType().getDescriptionId();
-				for (ItemStack stack : containerEntity.getItemStacks()) {
-					Item item = stack.getItem();
-					if (criteria.itemCriteriaMap.containsKey(item)) {
-						ISearchCriterion criterion = criteria.itemCriteriaMap.get(item);
-						ret.add(new ContainerEntityLocationObject(
-								pos.immutable(),
-								criterion.slot(),
-								criterion.priority(),
-								descriptionId,
-								item.getDescriptionId(),
-								uuid
-						));
-					}
+			UUID uuid = entity.getUUID();
+			String descriptionId = entity.getType().getDescriptionId();
+			for (ItemStack stack : containerEntity.getItemStacks()) {
+				Item item = stack.getItem();
+				if (criteria.itemCriteriaMap.containsKey(item)) {
+					ISearchCriterion criterion = criteria.itemCriteriaMap.get(item);
+					ret.add(new ContainerEntityLocationObject(
+							pos.immutable(),
+							criterion.slot(),
+							criterion.priority(),
+							descriptionId,
+							item.getDescriptionId(),
+							uuid
+					));
 				}
 			}
 			return ret;
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			if (!options.get(CompassComponents.CONTAINERS) || !TCConfig.ENABLE_BLOCK_CONTAINERS_SEARCH.get()) {
@@ -172,10 +168,9 @@ public class PositionMatchers {
 			return options.get(CompassComponents.ENTITY_CONTAINERS);
 		}
 	};
-	
-	
+
 	public static final EntityMatcher EGG_MOB_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
 			EntityType<?> type = entity.getType();
@@ -189,67 +184,50 @@ public class PositionMatchers {
 							entity.getUUID()));
 				}
 			}
-			return null;
+			return List.of();
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.MOBS) && TCConfig.ENABLE_MOBS_SEARCH.get();
 		}
 	};
-	
+
 	public static final EntityMatcher VILLAGER_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
+			if (!(entity instanceof Villager villager)) return List.of();
 			List<ILocationObject> ret = new ArrayList<>();
-			if (entity instanceof Villager villager) {
-				MerchantOffers offers = villager.getOffers();
-				boolean buys = options.get(CompassComponents.VILLAGERS_BUYS);
-				boolean sells = options.get(CompassComponents.VILLAGERS_SELLS);
-				UUID uuid = villager.getUUID();
-				String descriptionId = entity.getType().getDescriptionId();
-				for (MerchantOffer offer : offers) {
-					Item resultItem = offer.getResult().getItem();
-					Item costAItem = offer.getCostA().getItem();
-					Item costBItem = offer.getCostB().getItem();
-					for (ItemCriterion criterion : criteria.itemCriteria) {
-						if (sells && criterion.check(resultItem)) {
-							ret.add(new ContainerEntityLocationObject(
-									pos.immutable(),
-									criterion.slot(),
-									criterion.priority(),
-									descriptionId,
-									resultItem.getDescriptionId(),
-									uuid));
+			MerchantOffers offers = villager.getOffers();
+			boolean buys = options.get(CompassComponents.VILLAGERS_BUYS);
+			boolean sells = options.get(CompassComponents.VILLAGERS_SELLS);
+			UUID uuid = villager.getUUID();
+			String descriptionId = entity.getType().getDescriptionId();
+			for (MerchantOffer offer : offers) {
+				Item resultItem = offer.getResult().getItem();
+				Item costAItem = offer.getCostA().getItem();
+				Item costBItem = offer.getCostB().getItem();
+				for (ItemCriterion criterion : criteria.itemCriteria) {
+					if (sells && criterion.check(resultItem)) {
+						ret.add(new ContainerEntityLocationObject(pos.immutable(), criterion.slot(), criterion.priority(),
+								descriptionId, resultItem.getDescriptionId(), uuid));
+					}
+					if (buys) {
+						if (criterion.check(costAItem)) {
+							ret.add(new ContainerEntityLocationObject(pos.immutable(), criterion.slot(), criterion.priority(),
+									descriptionId, costAItem.getDescriptionId(), uuid));
 						}
-						if (buys) {
-							if (criterion.check(costAItem)) {
-								ret.add(new ContainerEntityLocationObject(
-										pos.immutable(),
-										criterion.slot(),
-										criterion.priority(),
-										descriptionId,
-										costAItem.getDescriptionId(),
-										uuid));
-							}
-							if (criterion.check(costBItem)) {
-								ret.add(new ContainerEntityLocationObject(
-										pos.immutable(),
-										criterion.slot(),
-										criterion.priority(),
-										descriptionId,
-										costBItem.getDescriptionId(),
-										uuid));
-							}
+						if (criterion.check(costBItem)) {
+							ret.add(new ContainerEntityLocationObject(pos.immutable(), criterion.slot(), criterion.priority(),
+									descriptionId, costBItem.getDescriptionId(), uuid));
 						}
 					}
 				}
-				return ret;
 			}
-			return null;
+			return ret;
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return (options.get(CompassComponents.VILLAGERS) &&
@@ -257,134 +235,124 @@ public class PositionMatchers {
 					&& TCConfig.ENABLE_VILLAGERS_SEARCH.get();
 		}
 	};
-	
+
 	public static final EntityMatcher INVENTORY_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
+			if (!(entity instanceof LivingEntity living)) return List.of();
 			List<ILocationObject> ret = new ArrayList<>();
-			if (entity instanceof LivingEntity living) {
-				Set<Item> invItems = new HashSet<>();
-				boolean players = options.get(CompassComponents.INVENTORIES_PLAYERS);
-				boolean mobs = options.get(CompassComponents.INVENTORIES_MOBS);
-				String descriptionId = entity.getType().getDescriptionId();
-				UUID uuid = entity.getUUID();
-				if (uuid.equals(options.getPlayerUUID())) {
-					return null;
+			Set<Item> invItems = new HashSet<>();
+			boolean players = options.get(CompassComponents.INVENTORIES_PLAYERS);
+			boolean mobs = options.get(CompassComponents.INVENTORIES_MOBS);
+			String descriptionId = entity.getType().getDescriptionId();
+			UUID uuid = entity.getUUID();
+			if (uuid.equals(options.getPlayerUUID())) return List.of();
+			if (living instanceof Player player) {
+				if (players) {
+					invItems.addAll(player.getInventory().getNonEquipmentItems().stream().map(ItemStack::getItem).toList());
+					descriptionId = player.getDisplayName().getString();
 				}
-				if (living instanceof Player player) {
-					if (players) {
-						invItems.addAll(player.getInventory().getNonEquipmentItems().stream().map(ItemStack::getItem).toList());
-						descriptionId = player.getDisplayName().getString();
-					}
-				} else if (mobs) {
-					for (EquipmentSlot slot : EquipmentSlot.values()) {
-						invItems.add(living.getItemBySlot(slot).getItem());
-					}
-				} else {
-					return null;
+			} else if (mobs) {
+				for (EquipmentSlot slot : EquipmentSlot.values()) {
+					invItems.add(living.getItemBySlot(slot).getItem());
 				}
-				for (var criterion : criteria.itemCriteria) {
-					if (invItems.contains(criterion.item())) {
-						ret.add(new ContainerEntityLocationObject(
-								pos.immutable(),
-								criterion.slot(),
-								criterion.priority(),
-								descriptionId,
-								criterion.item().getDescriptionId(),
-								uuid));
-					}
-				}
-				return ret;
+			} else {
+				return List.of();
 			}
-			return null;
+			for (var criterion : criteria.itemCriteria) {
+				if (invItems.contains(criterion.item())) {
+					ret.add(new ContainerEntityLocationObject(
+							pos.immutable(),
+							criterion.slot(),
+							criterion.priority(),
+							descriptionId,
+							criterion.item().getDescriptionId(),
+							uuid));
+				}
+			}
+			return ret;
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return (options.get(CompassComponents.INVENTORIES) &&
 					(options.get(CompassComponents.INVENTORIES_MOBS) || options.get(CompassComponents.INVENTORIES_PLAYERS)));
 		}
 	};
-	
+
 	public static final EntityMatcher DROP_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
+			if (!(entity instanceof LivingEntity living)) return List.of();
 			List<ILocationObject> ret = new ArrayList<>();
-			if (entity instanceof LivingEntity living) {
-				MinecraftServer server = level.getServer();
-				if (server != null) {
-					var opt = living.getLootTable();
-					if (opt.isPresent()) {
-						Set<Item> drops = LootUtils.getItemsFromLootTable(opt.get(), level);
-						if (drops != null) {
-							for (var criterion : criteria.itemCriteria) {
-								if (drops.contains(criterion.item())) {
-									ret.add(new ContainerEntityLocationObject(
-											pos.immutable(),
-											criterion.slot(),
-											criterion.priority(),
-											entity.getType().getDescriptionId(),
-											criterion.item().getDescriptionId(),
-											entity.getUUID()));
-								}
+			MinecraftServer server = level.getServer();
+			if (server != null) {
+				var opt = living.getLootTable();
+				if (opt.isPresent()) {
+					Set<Item> drops = LootUtils.getItemsFromLootTable(opt.get(), level);
+					if (drops != null) {
+						for (var criterion : criteria.itemCriteria) {
+							if (drops.contains(criterion.item())) {
+								ret.add(new ContainerEntityLocationObject(
+										pos.immutable(),
+										criterion.slot(),
+										criterion.priority(),
+										entity.getType().getDescriptionId(),
+										criterion.item().getDescriptionId(),
+										entity.getUUID()));
 							}
 						}
 					}
 				}
-				return ret;
 			}
-			return null;
+			return ret;
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.DROP);
 		}
 	};
-	
+
 	public static final EntityMatcher ITEM_ENTITY_MATCHER = new EntityMatcher() {
-		
+
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
+			if (!(entity instanceof ItemEntity itemEntity)) return List.of();
+			if (criteria.itemCriteria.isEmpty()) return List.of();
 			List<ILocationObject> ret = new ArrayList<>();
-			if (entity instanceof ItemEntity itemEntity) {
-				if (criteria.itemCriteria.isEmpty()) {
-					return ret;
-				}
-				Item item = itemEntity.getItem().getItem();
-				if (criteria.itemCriteriaMap.containsKey(item)) {
-					ISearchCriterion criterion = criteria.itemCriteriaMap.get(item);
-					ret.add(new EntityLocationObject(
-							pos.immutable(),
-							criterion.slot(),
-							criterion.priority(),
-							item.getDescriptionId(),
-							itemEntity.getUUID()
-					));
-				}
-				return ret;
+			Item item = itemEntity.getItem().getItem();
+			if (criteria.itemCriteriaMap.containsKey(item)) {
+				ISearchCriterion criterion = criteria.itemCriteriaMap.get(item);
+				ret.add(new EntityLocationObject(
+						pos.immutable(),
+						criterion.slot(),
+						criterion.priority(),
+						item.getDescriptionId(),
+						itemEntity.getUUID()
+				));
 			}
-			return null;
+			return ret;
 		}
-		
+
 		@Override
 		public boolean isAllowed(SearchOptions options) {
 			return options.get(CompassComponents.ITEM_ENTITIES);
 		}
 	};
-	
-	
+
+
 	public static final List<BlockMatcher> BLOCK_MATCHERS = new ArrayList<>(List.of(
 			BLOCK_MATCHER,
 			FLUID_MATCHER
 	));
-	
+
 	public static final List<BlockEntityMatcher> BLOCK_ENTITY_MATCHERS = new ArrayList<>(List.of(
 			SPAWNER_MATCHER
 	));
-	
+
 	public static final List<EntityMatcher> ENTITY_MATCHERS = new ArrayList<>(List.of(
 			EGG_MOB_MATCHER,
 			INVENTORY_MATCHER,
@@ -393,7 +361,7 @@ public class PositionMatchers {
 			DROP_MATCHER,
 			ITEM_ENTITY_MATCHER
 	));
-	
+
 	static {
 		BLOCK_MATCHERS.addAll(Platform.PLATFORM_MATCHERS.blockMatchers());
 		BLOCK_ENTITY_MATCHERS.addAll(Platform.PLATFORM_MATCHERS.blockEntityMatchers());

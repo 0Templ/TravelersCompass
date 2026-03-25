@@ -13,7 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -36,7 +36,7 @@ public class NeoForgePlatformRegistryHelper implements IPlatformRegistryHelper {
 	
 	@Override
 	public RegistryProvider<Item> registerTravelersCompassItem(String id, Item.Properties properties) {
-		ResourceKey<Item> key = ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, id));
+		ResourceKey<Item> key = ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TCCommon.MODID, id));
 		return registerItem(id, () -> new NeoForgeTravelersCompassItem(properties.setId(key)));
 	}
 	

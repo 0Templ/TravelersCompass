@@ -1,11 +1,12 @@
 package com.nine.travelerscompass.client.utils;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.location.WithContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -25,8 +26,8 @@ public class ClientUtils {
 	
 	public static Component getLocationObjectTargetName(ILocationObject object) {
 		boolean priority = object.priority();
-		final int defaultColor = priority ? CompassUI.Colors.HONEY : CompassUI.Colors.GRAY;
-		final int softColor = priority ? CompassUI.Colors.SOFT_HONEY : CompassUI.Colors.SOFT_GRAY;
+		final int defaultColor = priority ? TCColors.HONEY : TCColors.GRAY;
+		final int softColor = priority ? TCColors.SOFT_HONEY : TCColors.SOFT_GRAY;
 		if (object instanceof WithContent withContent) {
 			MutableComponent ret = Component.empty();
 			ret.append(ClientUtils.coloredComponent(
@@ -85,13 +86,13 @@ public class ClientUtils {
 		return String.valueOf(val);
 	}
 	
-	public static void renderIcon(GuiGraphics graphics, Icon icon, int x, int y) {
+	public static void renderIcon(GuiGraphicsExtractor graphics, Icon icon, int x, int y) {
 		for (var layer : icon.layers()) {
 			renderIconLayer(graphics, layer, x, y);
 		}
 	}
 	
-	public static void renderIconLayer(GuiGraphics graphics, IconLayer layer, int x, int y) {
+	public static void renderIconLayer(GuiGraphicsExtractor graphics, IconLayer layer, int x, int y) {
 		graphics.pose().pushMatrix();
 		float scale = layer.scale();
 		graphics.pose().translate((x + layer.xOffset()), (y + layer.yOffset()));
@@ -100,7 +101,7 @@ public class ClientUtils {
 		graphics.pose().popMatrix();
 	}
 	
-	public static void renderTexture(GuiGraphics graphics, TextureData data, int x, int y) {
+	public static void renderTexture(GuiGraphicsExtractor graphics, TextureData data, int x, int y) {
 		graphics.blit(
 				RenderPipelines.GUI_TEXTURED,
 				data.location(),

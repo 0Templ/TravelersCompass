@@ -7,14 +7,14 @@ import com.nine.travelerscompass.common.search.location.codec.LocationCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.UUID;
 
 public record HudDataPacket(ILocationObject object, UUID uuid) implements S2CPacket {
 	
 	public static final Type<HudDataPacket> ID =
-			new Type<>(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "hud_data_packet"));
+			new Type<>(Identifier.fromNamespaceAndPath(TCCommon.MODID, "hud_data_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, HudDataPacket> CODEC =
 			StreamCodec.ofMember(HudDataPacket::encode, HudDataPacket::decode);

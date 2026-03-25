@@ -1,7 +1,11 @@
 package com.nine.travelerscompass.client.component.button.hud;
 
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.ClientCache;
-import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.SettingsButton;
 import com.nine.travelerscompass.client.component.button.popup.PopupButton;
 import com.nine.travelerscompass.client.component.button.range.FloatRangeButton;
@@ -22,7 +26,7 @@ import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.config.TCConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -35,22 +39,22 @@ public class HudButton extends PopupButton {
 	public HudButton(ButtonGenericSettings settings) {
 		super(
 				settings,
-				CompassUI.PopupTextures.POPUP_3X3.layer(-41, -13),
-				CompassUI.PopupTextures.CONNECTOR_VERTICAL.layer(-1, 1)
+				TCTextures.Popup.POPUP_3X3.layer(-41, -13),
+				TCTextures.Popup.CONNECTOR_VERTICAL.layer(-1, 1)
 		);
 		updateState();
 		var builder = ButtonSearchModeSettings.builder()
 				.position(getX(), getY())
 				.size(10, 10)
 				.uuid(uuid)
-				.lockIcon(CompassUI.CommonTextures.SMALL_LOCK_ICON)
-				.mainLayerSet(CompassUI.ButtonTextures.SMALL_TOGGLE_BUTTON)
+				.lockIcon(TCIcons.Common.SMALL_LOCK)
+				.mainLayerSet(TCTextures.Buttons.SMALL_TOGGLE_BUTTON)
 				.stackSup(stackSupplier());
 		
 		ButtonRangeSettings.Builder rangeBuilder = ButtonRangeSettings
 				.builder(builder)
-				.minusIcons(CompassUI.CommonTextures.MINUS_SMALL_ICON, CompassUI.CommonTextures.MINUS_SMALL_HOVERED_ICON, CompassUI.CommonTextures.MINUS_SMALL_INACTIVE_ICON)
-				.plusIcons(CompassUI.CommonTextures.PLUS_SMALL_ICON, CompassUI.CommonTextures.PLUS_SMALL_HOVERED_ICON, CompassUI.CommonTextures.PLUS_SMALL_INACTIVE_ICON);
+				.minusIcons(TCIcons.Common.MINUS_SMALL, TCIcons.Common.MINUS_SMALL_HOVERED, TCIcons.Common.MINUS_SMALL_INACTIVE)
+				.plusIcons(TCIcons.Common.PLUS_SMALL, TCIcons.Common.PLUS_SMALL_HOVERED, TCIcons.Common.PLUS_SMALL_INACTIVE);
 		
 		
 		ButtonGrid grid = new ButtonGrid(getX() - 37, getY() - 9, 10, 10, 1, 1);
@@ -62,9 +66,9 @@ public class HudButton extends PopupButton {
 				CompassComponents.HUD_WITH_CHAT,
 				(cached, hovered) -> {
 					if (cached) {
-						return hovered ? CompassUI.SettingsTextures.HUD_CHAT_ACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.HUD_CHAT_ACTIVE_ICON;
+						return hovered ? TCIcons.Settings.HUD_CHAT_ACTIVE_HOVERED : TCIcons.Settings.HUD_CHAT_ACTIVE;
 					}
-					return hovered ? CompassUI.SettingsTextures.HUD_CHAT_INACTIVE_HOVERED_ICON : CompassUI.SettingsTextures.HUD_CHAT_INACTIVE_ICON;
+					return hovered ? TCIcons.Settings.HUD_CHAT_INACTIVE_HOVERED : TCIcons.Settings.HUD_CHAT_INACTIVE;
 				});
 		
 		var hudAlignmentButton = new SettingsButton<>(builder.copy().position(grid.x(2), grid.y(1))
@@ -77,16 +81,16 @@ public class HudButton extends PopupButton {
 				CompassComponents.HUD_ALIGNMENT,
 				(cached, hovered) -> switch (cached) {
 					case LEFT ->
-							hovered ? CompassUI.SettingsTextures.HUD_ALIGNMENT_LEFT_HOVERED_ICON : CompassUI.SettingsTextures.HUD_ALIGNMENT_LEFT_ICON;
+							hovered ? TCIcons.Settings.HUD_ALIGNMENT_LEFT_HOVERED : TCIcons.Settings.HUD_ALIGNMENT_LEFT;
 					case CENTER ->
-							hovered ? CompassUI.SettingsTextures.HUD_ALIGNMENT_CENTER_HOVERED_ICON : CompassUI.SettingsTextures.HUD_ALIGNMENT_CENTER_ICON;
+							hovered ? TCIcons.Settings.HUD_ALIGNMENT_CENTER_HOVERED : TCIcons.Settings.HUD_ALIGNMENT_CENTER;
 					case RIGHT ->
-							hovered ? CompassUI.SettingsTextures.HUD_ALIGNMENT_RIGHT_HOVERED_ICON : CompassUI.SettingsTextures.HUD_ALIGNMENT_RIGHT_ICON;
+							hovered ? TCIcons.Settings.HUD_ALIGNMENT_RIGHT_HOVERED : TCIcons.Settings.HUD_ALIGNMENT_RIGHT;
 				},
 				(cached) -> Component.translatable("tooltip.travelerscompass.settings.hud_alignment." + cached.name().toLowerCase()).withStyle(ChatFormatting.GRAY));
 		
 		var xHudPosButton = new HudPosButton(rangeBuilder.copy().position(grid.x(0), grid.y(0))
-				.icon(CompassUI.SettingsTextures.HUD_X_POS_ICON)
+				.icon(TCIcons.Settings.HUD_X_POS)
 				.afterInteraction(b -> {
 					ClientCache.updateHudSettings(uuid,
 							modifier -> modifier.xPos(((HudPosButton) b).cached));
@@ -95,12 +99,12 @@ public class HudButton extends PopupButton {
 				})
 				.build(),
 				0, Minecraft.getInstance().getWindow().getGuiScaledWidth(),
-				Component.literal("X").withColor(CompassUI.Colors.SOFT_GRAY),
+				Component.literal("X").withColor(TCColors.SOFT_GRAY),
 				CompassComponents.HUD_X_ANCHOR,
 				CompassComponents.HUD_X_POS);
 		
 		var yHudPosButton = new HudPosButton(rangeBuilder.copy().position(grid.x(1), grid.y(0))
-				.icon(CompassUI.SettingsTextures.HUD_Y_POS_ICON)
+				.icon(TCIcons.Settings.HUD_Y_POS)
 				.afterInteraction(b -> {
 					ClientCache.updateHudSettings(uuid,
 							modifier -> modifier.yPos(((HudPosButton) b).cached));
@@ -109,22 +113,22 @@ public class HudButton extends PopupButton {
 				})
 				.build(),
 				0, Minecraft.getInstance().getWindow().getGuiScaledHeight(),
-				Component.literal("Y").withColor(CompassUI.Colors.SOFT_GRAY),
+				Component.literal("Y").withColor(TCColors.SOFT_GRAY),
 				CompassComponents.HUD_Y_ANCHOR,
 				CompassComponents.HUD_Y_POS);
 		
 		var hudWidthButton = new HudSizeButton(rangeBuilder.copy().position(grid.x(0), grid.y(1))
-				.icon(CompassUI.SettingsTextures.HUD_WIDTH_ICON)
+				.icon(TCIcons.Settings.HUD_WIDTH)
 				.afterInteraction(b -> ClientCache.updateHudSettings(uuid, (modifier) -> modifier.width(((HudSizeButton) b).cached)))
 				.build(), true);
 		
 		var hudHeightButton = new HudSizeButton(rangeBuilder.copy().position(grid.x(1), grid.y(1))
-				.icon(CompassUI.SettingsTextures.HUD_HEIGHT_ICON)
+				.icon(TCIcons.Settings.HUD_HEIGHT)
 				.afterInteraction(b -> ClientCache.updateHudSettings(uuid, (modifier) -> modifier.height(((HudSizeButton) b).cached)))
 				.build(), false);
 		
 		var scaleRangeButton = new FloatRangeButton(rangeBuilder.copy().position(grid.x(0), grid.y(2))
-				.icon(CompassUI.SettingsTextures.HUD_SCALE_ICON)
+				.icon(TCIcons.Settings.HUD_SCALE)
 				.afterInteraction(b -> ClientCache.updateHudSettings(uuid, (modifier) -> modifier.scale(((FloatRangeButton) b).cached)))
 				.build(),
 				0.1F, 3F, 0.01F, 0.1F,
@@ -143,9 +147,9 @@ public class HudButton extends PopupButton {
 				CompassComponents.HUD_TYPE,
 				(cached, hovered) -> switch (cached) {
 					case COMPACT ->
-							hovered ? CompassUI.SettingsTextures.HUD_TYPE_COMPACT_HOVERED_ICON : CompassUI.SettingsTextures.HUD_TYPE_COMPACT_ICON;
+							hovered ? TCIcons.Settings.HUD_TYPE_COMPACT_HOVERED : TCIcons.Settings.HUD_TYPE_COMPACT;
 					case EXTENDED ->
-							hovered ? CompassUI.SettingsTextures.HUD_TYPE_EXTENDED_HOVERED_ICON : CompassUI.SettingsTextures.HUD_TYPE_EXTENDED_ICON;
+							hovered ? TCIcons.Settings.HUD_TYPE_EXTENDED_HOVERED : TCIcons.Settings.HUD_TYPE_EXTENDED;
 				},
 				(cached) -> switch (cached) {
 					case COMPACT ->
@@ -216,14 +220,14 @@ public class HudButton extends PopupButton {
 		if (configEnabled) {
 			iconTexture = switch (cached) {
 				case OFF ->
-						isHovered ? CompassUI.SettingsTextures.HUD_OFF_HOVERED_ICON : CompassUI.SettingsTextures.HUD_OFF_ICON;
+						isHovered ? TCIcons.Settings.HUD_OFF_HOVERED : TCIcons.Settings.HUD_OFF;
 				case ALWAYS ->
-						isHovered ? CompassUI.SettingsTextures.HUD_ALWAYS_HOVERED_ICON : CompassUI.SettingsTextures.HUD_ALWAYS_ICON;
+						isHovered ? TCIcons.Settings.HUD_ALWAYS_HOVERED : TCIcons.Settings.HUD_ALWAYS;
 				case HAND_ONLY ->
-						isHovered ? CompassUI.SettingsTextures.HUD_HAND_HOVERED_ICON : CompassUI.SettingsTextures.HUD_HAND_ICON;
+						isHovered ? TCIcons.Settings.HUD_HAND_HOVERED : TCIcons.Settings.HUD_HAND;
 			};
 		} else {
-			iconTexture = CompassUI.CommonTextures.LOCK_ICON;
+			iconTexture = TCIcons.Common.LOCK;
 		}
 		return iconTexture;
 	}
@@ -234,7 +238,7 @@ public class HudButton extends PopupButton {
 	}
 	
 	@Override
-	protected void renderIcon(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderIcon(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderIcon(graphics, mouseX, mouseY, partialTicks);
 		if (isPopupVisible()) {
 			HudRenderer.forceRender(graphics, partialTicks, uuid);
@@ -249,15 +253,15 @@ public class HudButton extends PopupButton {
 		Component state;
 		if (configEnabled) {
 			state = switch (cached) {
-				case OFF -> CompassUI.DISABLED;
-				case HAND_ONLY -> CompassUI.HUD_REQUIRES_HAND;
-				case ALWAYS -> CompassUI.HUD_ENABLED;
+				case OFF -> TCComponents.DISABLED;
+				case HAND_ONLY -> TCComponents.HUD_REQUIRES_HAND;
+				case ALWAYS -> TCComponents.HUD_ENABLED;
 			};
 			if (shiftPressed) {
 				builder.desc(key + ".desc");
 			}
 		} else {
-			state = CompassUI.CONFIG_DISABLED;
+			state = TCComponents.CONFIG_DISABLED;
 		}
 		builder.state(state);
 		this.setTooltip(builder.buildAsTooltip());

@@ -4,7 +4,7 @@ import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.search.location.codec.LocationCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 public record EntityLocationObject(BlockPos blockPos, int slotIndex, boolean priority, String descriptionId,
 								   UUID uuid) implements ILocationObject, WithUUID {
 	
-	public static ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "entity_location_codec");
+	public static Identifier TYPE = Identifier.fromNamespaceAndPath(TCCommon.MODID, "entity_location_codec");
 	
 	public static final LocationCodec<EntityLocationObject> CODEC = new LocationCodec<>() {
 		
@@ -39,7 +39,7 @@ public record EntityLocationObject(BlockPos blockPos, int slotIndex, boolean pri
 	};
 	
 	@Override
-	public ResourceLocation type() {
+	public Identifier type() {
 		return TYPE;
 	}
 	
@@ -49,13 +49,15 @@ public record EntityLocationObject(BlockPos blockPos, int slotIndex, boolean pri
 	}
 	
 	@Override
-	public ILocationObject copy(
-			BlockPos blockPos,
-			int slotIndex,
-			boolean priority,
-			String descriptionId
-	) {
-		return new EntityLocationObject(blockPos, slotIndex, priority, descriptionId, uuid);
+	public ILocationObject withPriority(boolean value) {
+		if (value == priority) return this;
+		return new EntityLocationObject(blockPos, slotIndex, value, descriptionId, uuid);
+	}
+
+	@Override
+	public ILocationObject withBlockPos(BlockPos pos) {
+		if (pos.equals(blockPos)) return this;
+		return new EntityLocationObject(pos, slotIndex, priority, descriptionId, uuid);
 	}
 	
 	@Override

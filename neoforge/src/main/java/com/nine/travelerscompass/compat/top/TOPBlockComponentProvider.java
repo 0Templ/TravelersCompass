@@ -11,7 +11,7 @@ import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import mcjty.theoneprobe.api.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -65,7 +65,7 @@ public class TOPBlockComponentProvider implements IProbeInfoProvider {
     }
 
     @Override
-    public ResourceLocation getID() {
-        return ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "block_info");
+    public Identifier getID() {
+        return Identifier.fromNamespaceAndPath(TCCommon.MODID, "block_info");
     }
 }*/

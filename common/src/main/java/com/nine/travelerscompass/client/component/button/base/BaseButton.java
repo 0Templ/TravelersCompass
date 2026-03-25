@@ -2,7 +2,7 @@ package com.nine.travelerscompass.client.component.button.base;
 
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.MouseButtonInfo;
@@ -144,7 +144,7 @@ public abstract class BaseButton extends Button {
 	}
 	
 	@Override
-	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		boolean shiftDown = Minecraft.getInstance().hasShiftDown();
 		boolean ctrlDown = Minecraft.getInstance().hasControlDown();
 		if (shiftDown != shiftPressed || ctrlDown != ctrlPressed) {

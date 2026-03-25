@@ -2,11 +2,11 @@ package com.nine.travelerscompass;
 
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchManager;
+import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.init.CreativeTabRegistry;
 import com.nine.travelerscompass.init.ItemRegistry;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.network.FabricNetworkHandler;
-import com.nine.travelerscompass.platform.FabricPlatformConfigHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -18,7 +18,7 @@ public class TCFabric implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
-		loadConfig();
+		TCConfig.init();
 		
 		MenuRegistry.init();
 		ItemRegistry.init();
@@ -31,11 +31,7 @@ public class TCFabric implements ModInitializer {
 		
 		commonEvents();
 	}
-	
-	public void loadConfig() {
-		FabricPlatformConfigHelper.COMMON.load();
-		FabricPlatformConfigHelper.COST.load();
-	}
+
 	
 	public void commonEvents() {
 		ServerTickEvents.END_SERVER_TICK.register(server -> {

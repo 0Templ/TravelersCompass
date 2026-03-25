@@ -2,14 +2,14 @@ package com.nine.travelerscompass.common.search.location.codec;
 
 import com.nine.travelerscompass.common.search.location.*;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LocationCodecs {
 	
-	private static final Map<ResourceLocation, LocationCodec<?>> CODECS = new HashMap<>();
+	private static final Map<Identifier, LocationCodec<?>> CODECS = new HashMap<>();
 	
 	static {
 		register(EntityLocationObject.TYPE, EntityLocationObject.CODEC);
@@ -22,20 +22,20 @@ public class LocationCodecs {
 		register(LootrMinecartLocationObject.TYPE, LootrMinecartLocationObject.CODEC);
 	}
 	
-	private static void register(ResourceLocation id, LocationCodec<?> codec) {
+	private static void register(Identifier id, LocationCodec<?> codec) {
 		CODECS.put(id, codec);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static void encode(FriendlyByteBuf buf, ILocationObject object) {
-		ResourceLocation typeId = object.type();
-		buf.writeResourceLocation(typeId);
+		Identifier typeId = object.type();
+		buf.writeIdentifier(typeId);
 		LocationCodec<ILocationObject> codec = (LocationCodec<ILocationObject>) CODECS.get(typeId);
 		codec.write(buf, object);
 	}
 	
 	public static ILocationObject read(FriendlyByteBuf buf) {
-		ResourceLocation type = buf.readResourceLocation();
+		Identifier type = buf.readIdentifier();
 		LocationCodec<?> codec = CODECS.get(type);
 		if (codec == null) {
 			throw new IllegalArgumentException("No such codec: " + type);

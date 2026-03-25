@@ -1,8 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.11-SNAPSHOT' apply false
-    id 'net.neoforged.moddev' version '2.0.115' apply false
+    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT' apply false
+    id 'net.neoforged.moddev' version '2.0.141' apply false
     id "me.shedaniel.unified-publishing" version "0.1.+" apply false
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply(false)
+    id 'com.gradleup.shadow' version '8.3.10' apply(false)
 }
 
 allprojects {
@@ -55,4 +55,48 @@ def changelogForVersion(String version) {
     pattern = "(?ms)^##\\s*\\[?${version}\\]?\\s*(.*)\$"
     matcher = text =~ pattern
     return matcher.find() ? matcher.group(1).trim() : ""
+}
+
+ext.configureUnifiedPublishing = { p, cfg ->
+    p.unifiedPublishing {
+        project {
+            displayName = "[${cfg.loaderName}]${getModNameForPublishing(p.mod_name)}-${p.minecraft_version}-${p.version}"
+            releaseType = cfg.releaseType
+            changelog = changelogForVersion(p.version.toString())
+            gameVersions = [p.minecraft_version]
+            gameLoaders = [cfg.gameLoader]
+            mainPublication p.tasks.named(cfg.publicationTask).get()
+
+            if (cfg.relations instanceof Closure) {
+                relations(cfg.relations as Closure)
+            } else if (cfg.relationsDepends instanceof Map && !cfg.relationsDepends.isEmpty()) {
+                relations {
+                    depends {
+                        cfg.relationsDepends.each { platform, dependencyId ->
+                            setProperty(platform.toString(), dependencyId)
+                        }
+                    }
+                }
+            }
+
+            def mrToken = p.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
+            def mrId = (p.findProperty("modrinth_project_id") ?: "").toString().trim()
+            if (mrToken != null && !mrId.isEmpty()) {
+                modrinth {
+                    token = mrToken
+                    id = mrId
+                    version = p.version.toString()
+                }
+            }
+
+            def cfToken = p.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
+            def cfId = (p.findProperty("curseforge_project_id") ?: "").toString().trim()
+            if (cfToken != null && !cfId.isEmpty()) {
+                curseforge {
+                    token = cfToken
+                    id = cfId
+                }
+            }
+        }
+    }
 }

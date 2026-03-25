@@ -5,8 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 - /
 
-## 4.2.0
 
+## 4.3.0
+- 26.1 port
+- fixed search-progress bar visual
+
+
+## 4.3.0
 - 1.21.10 port
 - Moved Traveler’s Compass from a separate tab to the vanilla creative tab.
 

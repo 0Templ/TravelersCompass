@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.utils;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
@@ -51,7 +52,7 @@ public class TooltipBuilder {
 	}
 	
 	public TooltipBuilder desc(Component component) {
-		return line(CompassUI.DESC_ARROW.copy().append(component.copy()));
+		return line(TCComponents.DESC_ARROW.copy().append(component.copy()));
 	}
 	
 	//Lines

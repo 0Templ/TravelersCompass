@@ -6,14 +6,14 @@ import com.nine.travelerscompass.client.utils.SearchProgress;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.UUID;
 
 public record SearchProgressSyncPacket(SearchProgress searchProgress, UUID uuid) implements S2CPacket {
 	
 	public static final Type<SearchProgressSyncPacket> ID =
-			new Type<>(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "search_progress_packet"));
+			new Type<>(Identifier.fromNamespaceAndPath(TCCommon.MODID, "search_progress_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, SearchProgressSyncPacket> CODEC =
 			StreamCodec.ofMember(SearchProgressSyncPacket::encode, SearchProgressSyncPacket::decode);

@@ -6,7 +6,7 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonGenericS
 import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.IconLayer;
 import com.nine.travelerscompass.client.utils.TextureData;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.Rect2i;
 
@@ -89,8 +89,8 @@ public abstract class PopupButton extends BaseIconButton {
 	}
 	
 	@Override
-	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		super.renderWidget(graphics, mouseX, mouseY, partialTicks);
+	public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+		super.extractContents(graphics, mouseX, mouseY, partialTicks);
 		if (isHovered) {
 			if (!popupVisible) {
 				onPopupOpened();
@@ -103,12 +103,12 @@ public abstract class PopupButton extends BaseIconButton {
 		if (isPopupVisible()) {
 			renderPopup(graphics, mouseX, mouseY, partialTicks);
 			for (BaseButton button : popupButtons) {
-				button.render(graphics, mouseX, mouseY, partialTicks);
+				button.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 			}
 		}
 	}
 	
-	protected void renderPopup(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderPopup(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		ClientUtils.renderIconLayer(graphics, popupLayer, getX(), getY());
 		ClientUtils.renderIconLayer(graphics, connectorLayer, getX(), getY());
 	}

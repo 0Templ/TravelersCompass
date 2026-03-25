@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.lootr;
 
 import com.nine.travelerscompass.common.data.CompassComponents;
@@ -9,7 +10,7 @@ import com.nine.travelerscompass.common.search.location.LootrContainerLocationOb
 import com.nine.travelerscompass.common.search.location.LootrMinecartLocationObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -65,7 +66,7 @@ public class NeoForgeLootrHelper {
 			if (!shouldCheckLootrContainer(lootEntity, options)) return ret;
 			var inventory = DataStorage.getInventory(lootEntity, options.player(), DefaultLootFiller.getInstance());
 			if (inventory != null) {
-				ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+				Identifier id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
 				for (ItemStack stack : inventory.getInventoryContents()) {
 					Item item = stack.getItem();
 					if (criteria.itemCriteriaMap.containsKey(item)) {
@@ -98,3 +99,4 @@ public class NeoForgeLootrHelper {
 	}
 	
 }
+*/

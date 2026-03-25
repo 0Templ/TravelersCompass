@@ -7,7 +7,7 @@ import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,7 +20,7 @@ public class CompactHudTypeRenderer implements IHudTypeRenderer {
 	
 	public static final int MAX_LINES = 4;
 	
-	public void render(GuiGraphics graphics, Player player, Font font, HudData hudData, int x, int y, int width, int height) {
+	public void render(GuiGraphicsExtractor graphics, Player player, Font font, HudData hudData, int x, int y, int width, int height) {
 		if (hudData.isDirty()) {
 			int prefixWidth = font.width(Component.translatable("hud.travelerscompass.compact.target", ""));
 			hudData.updateCachedData(font, prefixWidth);
@@ -63,7 +63,7 @@ public class CompactHudTypeRenderer implements IHudTypeRenderer {
 		drawCompactLines(graphics, font, xPos, yPos, width, height, settings.alignment(), MAX_LINES, components);
 	}
 	
-	public static void drawCompactLines(GuiGraphics graphics, Font font,
+	public static void drawCompactLines(GuiGraphicsExtractor graphics, Font font,
 										int xPos, int yPos,
 										int width, int height,
 										Alignment alignment,
@@ -84,7 +84,7 @@ public class CompactHudTypeRenderer implements IHudTypeRenderer {
 				case RIGHT -> currentX += width - font.width(component);
 				case CENTER -> currentX += (width - font.width(component)) / 2;
 			}
-			graphics.drawString(font, component, currentX, currentY, 0xFFAAAAAA);
+			graphics.text(font, component, currentX, currentY, 0xFFAAAAAA);
 			currentY += font.lineHeight + gap;
 		}
 	}

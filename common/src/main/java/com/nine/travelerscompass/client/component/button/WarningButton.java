@@ -1,6 +1,8 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
@@ -33,12 +35,12 @@ public class WarningButton extends BaseIconButton {
 	
 	@Override
 	protected TextureData getMainLayerTexture() {
-		return CompassUI.TabTextures.WARNING_TAB;
+		return TCTextures.Tabs.WARNING_TAB;
 	}
 	
 	@Override
 	protected Icon getIcon() {
-		return CompassUI.SettingsTextures.WARNING_SIGN_ICON;
+		return TCIcons.Settings.WARNING_SIGN;
 	}
 	
 	public void updateState(ItemStack stack) {

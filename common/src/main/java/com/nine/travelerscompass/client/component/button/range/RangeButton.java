@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button.range;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.utils.*;
@@ -83,13 +84,13 @@ public class RangeButton<T extends Number> extends BaseIconButton {
 	
 	protected Component holdToDecreaseComponent() {
 		var shift = ClientUtils.coloredComponent(
-				Component.translatable("tooltip.travelerscompass.settings.modification.shift"), shiftPressed ? CompassUI.Colors.GRAY : CompassUI.Colors.SOFT_GRAY);
+				Component.translatable("tooltip.travelerscompass.settings.modification.shift"), shiftPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
 		return Component.translatable("tooltip.travelerscompass.settings.modification.hold_to_decrease", shift).withStyle(ChatFormatting.GRAY);
 	}
 	
 	protected Component holdToChangeFaster() {
 		var ctrl = ClientUtils.coloredComponent(
-				Component.translatable("tooltip.travelerscompass.settings.modification.ctrl"), ctrlPressed ? CompassUI.Colors.GRAY : CompassUI.Colors.SOFT_GRAY);
+				Component.translatable("tooltip.travelerscompass.settings.modification.ctrl"), ctrlPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
 		return Component.translatable("tooltip.travelerscompass.settings.modification.hold_to_change_faster", ctrl).withStyle(ChatFormatting.GRAY);
 	}
 	
@@ -154,7 +155,7 @@ public class RangeButton<T extends Number> extends BaseIconButton {
 		builder.line(holdToChangeFaster());
 		builder.descIf(key, shiftPressed);
 		
-		MutableComponent value = Component.literal(String.valueOf(cachedAsString())).withColor(CompassUI.Colors.SOFT_GRAY);
+		MutableComponent value = Component.literal(String.valueOf(cachedAsString())).withColor(TCColors.SOFT_GRAY);
 		builder.state(Component.translatable(key + ".value", value).withStyle(ChatFormatting.GRAY));
 		this.setTooltip(builder.buildAsTooltip());
 	}

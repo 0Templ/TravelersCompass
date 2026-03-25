@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jade;
 
 import com.nine.travelerscompass.TCCommon;
@@ -7,7 +8,7 @@ import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +49,7 @@ public enum EntitiesComponentProvider implements IEntityComponentProvider {
 	}
 	
 	@Override
-	public ResourceLocation getUid() {
-		return ResourceLocation.parse(TCCommon.MODID);
+	public Identifier getUid() {
+		return Identifier.parse(TCCommon.MODID);
 	}
-}
+}*/

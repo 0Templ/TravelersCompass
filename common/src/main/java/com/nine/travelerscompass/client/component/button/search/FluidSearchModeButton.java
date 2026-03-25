@@ -4,7 +4,7 @@ import com.nine.travelerscompass.client.component.button.settings.ButtonSearchMo
 import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.IconLayer;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public class FluidSearchModeButton extends SearchModeButton {
 	
@@ -26,7 +26,7 @@ public class FluidSearchModeButton extends SearchModeButton {
 	}
 	
 	@Override
-	public void renderIcon(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void renderIcon(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		Icon icon = isToggled() ? iconActive : iconInactive;
 		int yOff = 8 * frameIndex;
 		var textureData = icon.layers().getFirst().textureData().toBuilder().uv(0, yOff).build();

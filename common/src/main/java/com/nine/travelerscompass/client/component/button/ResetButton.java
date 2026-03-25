@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
@@ -20,7 +21,7 @@ public class ResetButton extends BaseIconButton {
 	
 	@Override
 	protected Icon getIcon() {
-		return isHovered ? CompassUI.SettingsTextures.RESET_HOVERED_ICON : CompassUI.SettingsTextures.RESET_ICON;
+		return isHovered ? TCIcons.Settings.RESET_HOVERED : TCIcons.Settings.RESET;
 	}
 	
 	@Override

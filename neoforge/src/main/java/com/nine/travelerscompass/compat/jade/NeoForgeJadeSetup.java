@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jade;
 
 import com.nine.travelerscompass.config.TCConfig;
@@ -19,3 +20,4 @@ public class NeoForgeJadeSetup implements IWailaPlugin {
 	}
 	
 }
+*/

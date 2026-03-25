@@ -101,13 +101,8 @@ public class SearchProcess {
 			FilterReason filterReason = FilterManager.getFilterReason(entity.getType());
 			if (filterReason.isAllowed()) {
 				for (EntityMatcher matcher : entityMatchers) {
-					List<ILocationObject> data = matcher.match(criteria, options, entity, level, entity.blockPosition());
-					if (data != null) {
-						result.addAll(data);
-					}
+					result.addAll(matcher.match(criteria, options, entity, level, entity.blockPosition()));
 				}
-			} else {
-			
 			}
 		}
 	}
@@ -131,10 +126,10 @@ public class SearchProcess {
 			chunksPassed++;
 			chunksPassedLastTick++;
 			ChunkPos pos = chunkIterator.next();
-			boolean chunkLoaded = level.hasChunk(pos.x, pos.z);
+			boolean chunkLoaded = level.hasChunk(pos.x(), pos.z());
 			boolean force = allowChunkGen && !chunkLoaded && generationLimit > 0 && chunksForceLoadedLastTick <= generationLimit;
 			if (force || chunkLoaded) {
-				ChunkAccess chunkAccess = level.getChunk(pos.x, pos.z, ChunkStatus.FULL, force);
+				ChunkAccess chunkAccess = level.getChunk(pos.x(), pos.z(), ChunkStatus.FULL, force);
 				chunksLoaded++;
 				chunksLoadedLastTick++;
 				if (force) {
@@ -156,12 +151,12 @@ public class SearchProcess {
 			int lim = chunksLimit - chunkList.size();
 			while (lim > 0 && !deferredChunks.isEmpty()) {
 				ChunkPos pos = deferredChunks.peek();
-				boolean loaded = level.hasChunk(pos.x, pos.z);
+				boolean loaded = level.hasChunk(pos.x(), pos.z());
 				boolean force = generationLimit > 0 && chunksForceLoadedLastTick < generationLimit;
 				if (!loaded && force) {
 					break;
 				}
-				ChunkAccess currentChunk = level.getChunk(pos.x, pos.z, ChunkStatus.FULL, !loaded);
+				ChunkAccess currentChunk = level.getChunk(pos.x(), pos.z(), ChunkStatus.FULL, !loaded);
 				if (currentChunk == null) {
 					break;
 				}
@@ -184,8 +179,8 @@ public class SearchProcess {
 			for (ChunkAccess chunkAccess : chunkList) {
 				LevelChunkSection[] sections = chunkAccess.getSections();
 				int minSectionY = chunkAccess.getMinSectionY();
-				int baseX = chunkAccess.getPos().x << 4;
-				int baseZ = chunkAccess.getPos().z << 4;
+				int baseX = chunkAccess.getPos().x() << 4;
+				int baseZ = chunkAccess.getPos().z() << 4;
 				
 				blockEntityPositions.addAll(chunkAccess.getBlockEntitiesPos());
 				
@@ -205,10 +200,7 @@ public class SearchProcess {
 									if (state.isAir()) continue;
 									for (BlockMatcher matcher : blockMatchers) {
 										mutablePos.set(baseX + x, baseY + y, baseZ + z);
-										ILocationObject data = matcher.match(criteria, mutablePos.immutable(), state);
-										if (data != null) {
-											localDataList.add(data);
-										}
+										localDataList.addAll(matcher.match(criteria, mutablePos.immutable(), state));
 									}
 								}
 							}
@@ -232,10 +224,7 @@ public class SearchProcess {
 						final BlockEntity be = level.getBlockEntity(pos);
 						if (be != null) {
 							for (BlockEntityMatcher matcher : blockEntityMatchers) {
-								List<ILocationObject> data = matcher.match(criteria, options, pos, state, be);
-								if (data != null) {
-									result.addAll(data);
-								}
+								result.addAll(matcher.match(criteria, options, pos, state, be));
 							}
 						}
 					}
@@ -258,12 +247,16 @@ public class SearchProcess {
 	}
 	
 	public boolean shouldSyncProgress() {
-		int current = (chunksPassed * 100) / chunksToScan;
+		int current = (getProgressValue() * 100) / Math.max(chunksToScan, 1);
 		if (current != lastSyncedProgress || chunksToScan <= chunksPassed) {
 			lastSyncedProgress = current;
 			return true;
 		}
 		return false;
+	}
+
+	public int getProgressValue() {
+		return (wideSearch && allowChunkGen) ? chunksLoaded : chunksPassed;
 	}
 	
 }

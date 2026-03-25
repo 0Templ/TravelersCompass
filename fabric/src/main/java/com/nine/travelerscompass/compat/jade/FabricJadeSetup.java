@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jade;
 
 import net.minecraft.world.entity.Mob;
@@ -14,4 +15,4 @@ public class FabricJadeSetup implements IWailaPlugin {
 	}
 	
 	
-}
+}*/

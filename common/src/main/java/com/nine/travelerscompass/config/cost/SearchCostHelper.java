@@ -3,7 +3,7 @@ package com.nine.travelerscompass.config.cost;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.config.TCConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -82,7 +82,7 @@ public class SearchCostHelper {
 		TAG_COSTS.clear();
 		CACHED_ITEM_COSTS.clear();
 		for (var data : fromConfig(TCConfig.ITEM_COSTS.get()).entrySet()) {
-			ResourceLocation id = ResourceLocation.parse(data.getKey());
+			Identifier id = Identifier.parse(data.getKey());
 			var optional = BuiltInRegistries.ITEM.getOptional(id);
 			optional.ifPresent(item -> ITEM_COSTS.put(item, data.getValue()));
 		}
@@ -101,7 +101,7 @@ public class SearchCostHelper {
 			SearchCost searchCost = SearchCostHelper.getCost(item);
 			if (!searchCost.isFree()) {
 				if (searchCost.meetsAllConditions(player.experienceLevel)) {
-					player.playNotifySound(SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.MASTER, 0.25F, 1F);
+					player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.25F, 1F);
 					player.giveExperienceLevels(-searchCost.costLevel());
 					return true;
 				}

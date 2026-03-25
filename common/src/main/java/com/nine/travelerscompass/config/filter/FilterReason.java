@@ -1,10 +1,11 @@
 package com.nine.travelerscompass.config.filter;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -44,7 +45,7 @@ public sealed interface FilterReason {
 		
 	}
 	
-	record ByItemId(ResourceLocation id) implements FilterReason {
+	record ByItemId(Identifier id) implements FilterReason {
 		
 		@Override
 		public boolean isAllowed() {
@@ -53,7 +54,7 @@ public sealed interface FilterReason {
 		
 		@Override
 		public Component toComponent() {
-			return CompassUI.FILTER_BY_ITEM_ID;
+			return TCComponents.FILTER_BY_ITEM_ID;
 		}
 		
 	}

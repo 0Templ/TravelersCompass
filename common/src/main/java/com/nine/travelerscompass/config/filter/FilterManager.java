@@ -5,7 +5,7 @@ import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import com.nine.travelerscompass.config.TCConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -22,7 +22,7 @@ public class FilterManager {
 	
 	private static final Map<Item, FilterReason> FILTER_CACHE = new HashMap<>();
 	
-	private static final Map<ResourceLocation, FilterReason> FILTER_ENTITIES_CACHE = new HashMap<>();
+	private static final Map<Identifier, FilterReason> FILTER_ENTITIES_CACHE = new HashMap<>();
 	
 	public static FilterData filterData;
 	
@@ -30,7 +30,7 @@ public class FilterManager {
 		if (type == null) {
 			return new FilterReason.Allowed();
 		}
-		ResourceLocation location = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+		Identifier location = BuiltInRegistries.ENTITY_TYPE.getKey(type);
 		FilterReason answer;
 		answer = FILTER_ENTITIES_CACHE.get(location);
 		if (answer == null) {
@@ -62,7 +62,7 @@ public class FilterManager {
 	
 	
 	private static FilterReason computeItemFilterReason(Item item) {
-		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item);
+		Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
 		String modId = itemId.getNamespace();
 		
 		boolean modMatch = filterData.modsFilterSet.contains(modId);
@@ -94,9 +94,9 @@ public class FilterManager {
 		filterData = new FilterData(TCConfig.MODS_FILTER_TYPE.get(),
 				new HashSet<>(TCConfig.MODS_FILTER.get()),
 				TCConfig.ITEM_TAGS_FILTER_TYPE.get(),
-				TCConfig.ITEM_TAGS_FILTER.get().stream().map(s -> TagKey.create(Registries.ITEM, ResourceLocation.parse(s))).collect(Collectors.toSet()),
-				TCConfig.ITEMS_FILTER_TYPE.get(), TCConfig.ITEMS_FILTER.get().stream().map(ResourceLocation::parse).collect(Collectors.toSet()),
-				TCConfig.ENTITIES_FILTER_TYPE.get(), TCConfig.ENTITIES_FILTER.get().stream().map(ResourceLocation::parse).collect(Collectors.toSet()))
+				TCConfig.ITEM_TAGS_FILTER.get().stream().map(s -> TagKey.create(Registries.ITEM, Identifier.parse(s))).collect(Collectors.toSet()),
+				TCConfig.ITEMS_FILTER_TYPE.get(), TCConfig.ITEMS_FILTER.get().stream().map(Identifier::parse).collect(Collectors.toSet()),
+				TCConfig.ENTITIES_FILTER_TYPE.get(), TCConfig.ENTITIES_FILTER.get().stream().map(Identifier::parse).collect(Collectors.toSet()))
 		;
 	}
 	
@@ -108,8 +108,8 @@ public class FilterManager {
 	public record FilterData(
 			FilterType modsFilterType, Set<String> modsFilterSet,
 			FilterType tagsFilterType, Set<TagKey<Item>> tagsFilterSet,
-			FilterType itemsFilterType, Set<ResourceLocation> itemsFilterSet,
-			FilterType entitiesFilterType, Set<ResourceLocation> entitiesFilterSet
+			FilterType itemsFilterType, Set<Identifier> itemsFilterSet,
+			FilterType entitiesFilterType, Set<Identifier> entitiesFilterSet
 	) {
 	
 	}

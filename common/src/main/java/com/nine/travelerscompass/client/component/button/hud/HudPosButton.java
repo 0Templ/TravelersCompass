@@ -1,6 +1,8 @@
 package com.nine.travelerscompass.client.component.button.hud;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+
 import com.nine.travelerscompass.client.component.button.range.IntRangeButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchor;
@@ -51,16 +53,16 @@ public class HudPosButton extends IntRangeButton {
 		
 		builder.line(holdToDecreaseComponent());
 		builder.line(holdToChangeFaster());
-		builder.line(Component.translatable("tooltip.travelerscompass.settings.hud_pos.anchor", CompassUI.RBM).withStyle(ChatFormatting.GRAY));
+		builder.line(Component.translatable("tooltip.travelerscompass.settings.hud_pos.anchor", TCComponents.RBM).withStyle(ChatFormatting.GRAY));
 		
 		if (shiftPressed) {
 			builder.desc(Component.translatable(key + ".desc", axisComponent).withStyle(ChatFormatting.GRAY));
 		}
 		
-		Component anchorValue = cachedAnchor.asComponent().withColor(CompassUI.Colors.SOFT_GRAY);
+		Component anchorValue = cachedAnchor.asComponent().withColor(TCColors.SOFT_GRAY);
 		builder.state(Component.translatable("tooltip.travelerscompass.settings.hud_pos.anchor.value", anchorValue).withStyle(ChatFormatting.GRAY));
 		
-		Component value = Component.literal(String.valueOf(cached)).withColor(CompassUI.Colors.SOFT_GRAY);
+		Component value = Component.literal(String.valueOf(cached)).withColor(TCColors.SOFT_GRAY);
 		builder.state(Component.translatable(key + ".value", value).withStyle(ChatFormatting.GRAY));
 		this.setTooltip(builder.buildAsTooltip());
 	}

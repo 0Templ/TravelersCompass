@@ -12,12 +12,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -36,28 +36,28 @@ public class TCFabricClient implements ClientModInitializer {
 	
 	public void setupItemProperties() {
 		ConditionalItemModelProperties.ID_MAPPER.put(
-				ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "priority"),
+				Identifier.fromNamespaceAndPath(TCCommon.MODID, "priority"),
 				TravelersCompassPriority.MAP_CODEC);
 		
 		RangeSelectItemModelProperties.ID_MAPPER.put(
-				ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "angle"),
+				Identifier.fromNamespaceAndPath(TCCommon.MODID, "angle"),
 				TravelersCompassAngle.MAP_CODEC);
 		
 		RangeSelectItemModelProperties.ID_MAPPER.put(
-				ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "state"),
+				Identifier.fromNamespaceAndPath(TCCommon.MODID, "state"),
 				TravelersCompassState.MAP_CODEC);
 	}
 	
 	
 	public void clientEvents() {
-		HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "compass_hud"), HudRenderer::renderTick);
+		HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, Identifier.fromNamespaceAndPath(TCCommon.MODID, "compass_hud"), HudRenderer::renderTick);
 		ClientPlayConnectionEvents.DISCONNECT.register((listener, minecraft) -> {
 			LocalPlayer player = minecraft.player;
 			TCClient.onClientPlayerLogout(player);
 		});
 		
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
-			entries.addAfter(Items.COMPASS, new ItemStack(ItemRegistry.TRAVELERS_COMPASS.get()));
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+			entries.insertAfter(Items.COMPASS, new ItemStack(ItemRegistry.TRAVELERS_COMPASS.get()));
 		});
 	}
 	

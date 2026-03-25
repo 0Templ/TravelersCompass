@@ -16,13 +16,14 @@ import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import com.nine.travelerscompass.network.packet.s2c.HudDataPacket;
 import com.nine.travelerscompass.platform.Platform;
-import net.minecraft.Util;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class TravelersCompassItem extends Item implements ClientTickable {
@@ -88,10 +90,13 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 		}
 		ItemStack stack = player.getItemInHand(hand);
 		if (!player.level().isClientSide() && player.isShiftKeyDown() && living instanceof Mob mob) {
-			SpawnEggItem eggItem = SpawnEggItem.byId(mob.getType());
+			Optional<SpawnEggItem> eggItem = SpawnEggItem.byId(mob.getType())
+					.map(Holder::value)
+					.filter(SpawnEggItem.class::isInstance)
+					.map(SpawnEggItem.class::cast);
 			CompassContainer compassContainer = CompassContainer.container(stack);
-			if (eggItem != null) {
-				ItemStack eggStack = eggItem.getDefaultInstance();
+			if (eggItem.isPresent()) {
+				ItemStack eggStack = eggItem.get().getDefaultInstance();
 				if (!compassContainer.hasAny(eggStack)) {
 					FilterReason filterReason = FilterManager.getFilterReason(mob.getType());
 					if (filterReason.isAllowed()) {
@@ -213,7 +218,7 @@ public class TravelersCompassItem extends Item implements ClientTickable {
 		if (locationObject.priority()) {
 			level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.3F, 0.3F);
 		}
-		level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.1F, 0.44F + level.random.nextFloat() / 10);
+		level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.1F, 0.44F + level.getRandom().nextFloat() / 10);
 		level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.1F, 1F);
 	}
 	

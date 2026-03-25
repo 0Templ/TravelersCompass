@@ -7,13 +7,13 @@ import com.nine.travelerscompass.coomon.item.FabricTravelersCompassItem;
 import com.nine.travelerscompass.init.FabricRegistryProvider;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.init.RegistryProvider;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -31,17 +31,17 @@ public class FabricPlatformRegistryHelper implements IPlatformRegistryHelper {
 	
 	@Override
 	public RegistryProvider<Item> registerItem(String name, Supplier<Item> supplier) {
-		Item ret = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, name), supplier.get());
+		Item ret = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(TCCommon.MODID, name), supplier.get());
 		return new FabricRegistryProvider<>(ret);
 	}
 	
 	@Override
 	public <T extends AbstractContainerMenu> RegistryProvider<MenuType<T>> registerMenu(String id, MenuRegistry.CommonMenuFactory<T> menuType) {
-		var ret = new ExtendedScreenHandlerType<>((syncId, inventory, buf) ->
+		var ret = new ExtendedMenuType<>((syncId, inventory, buf) ->
 				menuType.create(syncId, inventory),
 				MenuRegistry.EmptyScreenData.PACKET_CODEC
 		);
-		Registry.register(BuiltInRegistries.MENU, ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, id), ret);
+		Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(TCCommon.MODID, id), ret);
 		return new FabricRegistryProvider<>(ret);
 	}
 	
@@ -60,7 +60,7 @@ public class FabricPlatformRegistryHelper implements IPlatformRegistryHelper {
 		};
 		DataComponentType<T> dataComponent = Registry.register(
 				BuiltInRegistries.DATA_COMPONENT_TYPE,
-				ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, id),
+				Identifier.fromNamespaceAndPath(TCCommon.MODID, id),
 				builderSupplier.get()
 		);
 		return new DataStorage<>(id, networkId, defaultSupplier, validator, () -> dataComponent);
@@ -69,7 +69,7 @@ public class FabricPlatformRegistryHelper implements IPlatformRegistryHelper {
 	@Override
 	public RegistryProvider<CreativeModeTab> registerCreativeTab(String id, CreativeModeTab.Builder builder) {
 		var tab = builder.build();
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.parse(TCCommon.MODID), tab);
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.parse(TCCommon.MODID), tab);
 		return new FabricRegistryProvider<>(tab);
 	}
 	

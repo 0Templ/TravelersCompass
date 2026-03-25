@@ -10,10 +10,11 @@ import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.init.ItemRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +26,7 @@ import java.util.UUID;
 
 public class HudRenderer {
 	
-	public static final ResourceLocation EDGES_TEXTURE = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "textures/gui/hud_edges.png");
+	public static final Identifier EDGES_TEXTURE = Identifier.fromNamespaceAndPath(TCCommon.MODID, "textures/gui/hud_edges.png");
 	
 	private static final int EDGE_PADDING = 7;
 	private static final int HEIGHT_PADDING = 2;
@@ -35,12 +36,12 @@ public class HudRenderer {
 	
 	private static int renderTicksCount = 0;
 	
-	public static void renderTick(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public static void renderTick(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		renderTick(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(false));
 	}
 	
 	public static void renderTick(
-			GuiGraphics graphics,
+			GuiGraphicsExtractor graphics,
 			float partialTicks
 	) {
 		Player player = minecraft.player;
@@ -73,13 +74,13 @@ public class HudRenderer {
 		}
 	}
 	
-	public static void forceRender(GuiGraphics graphics, float partialTicks, UUID uuid) {
+	public static void forceRender(GuiGraphicsExtractor graphics, float partialTicks, UUID uuid) {
 		if (ClientCache.HUD_DATA_CACHE.containsKey(uuid)) {
 			renderHud(graphics, ClientCache.HUD_DATA_CACHE.get(uuid), true, partialTicks);
 		}
 	}
 	
-	private static void renderHud(GuiGraphics graphics, HudData hudData, boolean drawEdges, float partialTicks) {
+	private static void renderHud(GuiGraphicsExtractor graphics, HudData hudData, boolean drawEdges, float partialTicks) {
 		HudSettings settings = hudData.getSettings();
 		IHudTypeRenderer renderer = settings.hudType().renderer;
 		
@@ -124,7 +125,7 @@ public class HudRenderer {
 				&& !minecraft.options.hideGui;
 	}
 	
-	protected static void drawEdges(GuiGraphics graphics,
+	protected static void drawEdges(GuiGraphicsExtractor graphics,
 									int xPos, int yPos,
 									int width, int height,
 									float partialTicks) {

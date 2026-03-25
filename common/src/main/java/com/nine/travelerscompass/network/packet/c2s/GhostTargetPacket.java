@@ -7,14 +7,14 @@ import com.nine.travelerscompass.compat.NEI;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public record GhostTargetPacket(int slotIndex, ItemStack stack, NEI nei) implements C2SPacket {
 	
 	public static final Type<GhostTargetPacket> ID = new Type<>(
-			ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "ghost_target_packet"));
+			Identifier.fromNamespaceAndPath(TCCommon.MODID, "ghost_target_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, GhostTargetPacket> PACKET_CODEC = StreamCodec.ofMember(
 			GhostTargetPacket::encode, GhostTargetPacket::decode);

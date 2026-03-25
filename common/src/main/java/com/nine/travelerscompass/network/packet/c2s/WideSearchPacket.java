@@ -8,7 +8,7 @@ import com.nine.travelerscompass.common.search.SearchManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
 public record WideSearchPacket(UUID uuid) implements C2SPacket {
 	
 	public static final Type<WideSearchPacket> ID = new Type<>(
-			ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "wide_search_packet"));
+			Identifier.fromNamespaceAndPath(TCCommon.MODID, "wide_search_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, WideSearchPacket> PACKET_CODEC = StreamCodec.ofMember(
 			WideSearchPacket::encode, WideSearchPacket::decode);

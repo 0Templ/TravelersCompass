@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
+
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
@@ -22,7 +23,7 @@ public class TabButton extends BaseIconButton {
 	
 	@Override
 	protected TextureData getMainLayerTexture() {
-		return selected ? CompassUI.TabTextures.PAGE_TAB_ACTIVE : CompassUI.TabTextures.PAGE_TAB_INACTIVE;
+		return selected ? TCTextures.Tabs.PAGE_TAB_ACTIVE : TCTextures.Tabs.PAGE_TAB_INACTIVE;
 	}
 	
 	@Override

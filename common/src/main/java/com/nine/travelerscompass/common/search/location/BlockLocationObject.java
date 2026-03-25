@@ -6,16 +6,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Optional;
 
 public record BlockLocationObject(BlockPos blockPos, int slotIndex, boolean priority, String descriptionId,
-								  ResourceLocation blockId) implements ILocationObject {
+								  Identifier blockId) implements ILocationObject {
 	
-	public static ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "block_location_codec");
+	public static Identifier TYPE = Identifier.fromNamespaceAndPath(TCCommon.MODID, "block_location_codec");
 	
 	public static final LocationCodec<BlockLocationObject> CODEC = new LocationCodec<>() {
 		
@@ -25,7 +25,7 @@ public record BlockLocationObject(BlockPos blockPos, int slotIndex, boolean prio
 			buf.writeInt(obj.slotIndex);
 			buf.writeBoolean(obj.priority);
 			buf.writeUtf(obj.descriptionId);
-			buf.writeResourceLocation(obj.blockId);
+			buf.writeIdentifier(obj.blockId);
 		}
 		
 		@Override
@@ -34,24 +34,26 @@ public record BlockLocationObject(BlockPos blockPos, int slotIndex, boolean prio
 			int slotIndex = buf.readInt();
 			boolean priority = buf.readBoolean();
 			String descriptionId = buf.readUtf();
-			ResourceLocation blockId = buf.readResourceLocation();
+			Identifier blockId = buf.readIdentifier();
 			return new BlockLocationObject(blockPos, slotIndex, priority, descriptionId, blockId);
 		}
 	};
 	
 	@Override
-	public ResourceLocation type() {
+	public Identifier type() {
 		return TYPE;
 	}
 	
 	@Override
-	public ILocationObject copy(
-			BlockPos blockPos,
-			int slotIndex,
-			boolean priority,
-			String descriptionId
-	) {
-		return new BlockLocationObject(blockPos, slotIndex, priority, descriptionId, blockId);
+	public ILocationObject withPriority(boolean value) {
+		if (value == priority) return this;
+		return new BlockLocationObject(blockPos, slotIndex, value, descriptionId, blockId);
+	}
+
+	@Override
+	public ILocationObject withBlockPos(BlockPos pos) {
+		if (pos.equals(blockPos)) return this;
+		return new BlockLocationObject(pos, slotIndex, priority, descriptionId, blockId);
 	}
 	
 	@Override

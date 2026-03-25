@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jei;
 
 import com.nine.travelerscompass.TCCommon;
@@ -8,7 +9,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public class FabricJeiSetup implements IModPlugin {
@@ -25,8 +26,9 @@ public class FabricJeiSetup implements IModPlugin {
 	}
 	
 	@Override
-	public ResourceLocation getPluginUid() {
-		return ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "jei_compat_plugin");
+	public Identifier getPluginUid() {
+		return Identifier.fromNamespaceAndPath(TCCommon.MODID, "jei_compat_plugin");
 	}
 	
 }
+*/

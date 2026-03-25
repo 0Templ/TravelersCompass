@@ -5,12 +5,12 @@ import com.nine.travelerscompass.client.hud.HudRenderer;
 import com.nine.travelerscompass.client.screen.CompassScreen;
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.SearchManager;
+import com.nine.travelerscompass.config.TCConfig;
 import com.nine.travelerscompass.init.CreativeTabRegistry;
 import com.nine.travelerscompass.init.ItemPropertyRegistry;
 import com.nine.travelerscompass.init.ItemRegistry;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.network.NeoForgeNetworkHandler;
-import com.nine.travelerscompass.platform.NeoForgePlatformConfigHelper;
 import com.nine.travelerscompass.platform.NeoForgePlatformRegistryHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
@@ -39,7 +39,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 public class TCNeoForge {
 	
 	public TCNeoForge(IEventBus eventBus) {
-		loadConfig(ModLoadingContext.get().getActiveContainer());
+		TCConfig.init();
 		
 		eventBus.addListener(this::setupNetwork);
 		eventBus.addListener(this::setupClientEvents);
@@ -68,11 +68,6 @@ public class TCNeoForge {
 					new ItemStack(ItemRegistry.TRAVELERS_COMPASS.get()),
 					CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
-	}
-	
-	public void loadConfig(ModContainer container) {
-		container.registerConfig(ModConfig.Type.COMMON, NeoForgePlatformConfigHelper.COMMON_CONFIG);
-		container.registerConfig(ModConfig.Type.COMMON, NeoForgePlatformConfigHelper.COST_CONFIG, "travelerscompass-cost.toml");
 	}
 	
 	// Register early to ensure it happens before model baking (FMLClientSetupEvent timing is not guaranteed)

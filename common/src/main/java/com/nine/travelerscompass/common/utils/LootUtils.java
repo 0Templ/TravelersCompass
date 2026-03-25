@@ -4,7 +4,7 @@ import com.nine.travelerscompass.mixin.accessor.LootItemAccessor;
 import com.nine.travelerscompass.mixin.accessor.LootPoolAccessor;
 import com.nine.travelerscompass.mixin.accessor.LootTableAccessor;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -17,7 +17,7 @@ import java.util.*;
 
 public class LootUtils {
 	
-	private static final Map<ResourceLocation, Set<Item>> LOOT_CACHE = new HashMap<>();
+	private static final Map<Identifier, Set<Item>> LOOT_CACHE = new HashMap<>();
 	
 	public static List<LootPool> getPools(LootTable lootTable) {
 		return ((LootTableAccessor) lootTable).travelerscompass$pools();
@@ -41,7 +41,7 @@ public class LootUtils {
 	}
 	
 	public static Set<Item> getItemsFromLootTable(ResourceKey<LootTable> resourceKey, Level level) {
-		ResourceLocation location = resourceKey.location();
+		Identifier location = resourceKey.identifier();
 		if (LOOT_CACHE.containsKey(location)) {
 			return LOOT_CACHE.get(location);
 		} else {

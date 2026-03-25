@@ -7,7 +7,7 @@ import com.nine.travelerscompass.common.item.TravelersCompassItem;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -17,7 +17,7 @@ public record CompassDataPacket<T>(UUID compassUUID, DataStorage<T> dataStorage,
 	
 	@SuppressWarnings("rawtypes")
 	public static final Type<CompassDataPacket> ID = new Type<>(
-			ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "compass_data_packet"));
+			Identifier.fromNamespaceAndPath(TCCommon.MODID, "compass_data_packet"));
 	
 	@SuppressWarnings("rawtypes")
 	public static final StreamCodec<RegistryFriendlyByteBuf, CompassDataPacket> PACKET_CODEC = StreamCodec.ofMember(

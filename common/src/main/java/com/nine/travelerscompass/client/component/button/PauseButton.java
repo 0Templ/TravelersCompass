@@ -1,7 +1,8 @@
 package com.nine.travelerscompass.client.component.button;
 
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.ClientCache;
-import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;
@@ -17,8 +18,8 @@ public class PauseButton extends ConfigButton<Boolean> {
 		super(settings,
 				CompassComponents.PAUSE,
 				((value, hovered) ->
-						!value ? (hovered ? CompassUI.CommonTextures.PAUSE_HOVERED_ICON : CompassUI.CommonTextures.PAUSE_ICON)
-								: (hovered ? CompassUI.CommonTextures.RESUME_HOVERED_ICON : CompassUI.CommonTextures.RESUME_ICON))
+						!value ? (hovered ? TCIcons.Common.PAUSE_HOVERED : TCIcons.Common.PAUSE)
+								: (hovered ? TCIcons.Common.RESUME_HOVERED : TCIcons.Common.RESUME))
 		);
 		updateState();
 	}

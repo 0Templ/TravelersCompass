@@ -5,7 +5,8 @@ import com.nine.travelerscompass.client.utils.ButtonTexturesSet;
 import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public abstract class BaseIconButton extends BaseButton {
 	
@@ -22,19 +23,19 @@ public abstract class BaseIconButton extends BaseButton {
 	
 	protected abstract TextureData getMainLayerTexture();
 	
-	protected void renderMainLayer(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderMainLayer(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		ClientUtils.renderTexture(graphics, getMainLayerTexture(), this.getX(), this.getY());
 	}
 	
 	protected abstract Icon getIcon();
 	
-	protected void renderIcon(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderIcon(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		ClientUtils.renderIcon(graphics, getIcon(), this.getX(), this.getY());
 	}
 	
 	@Override
-	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		super.renderWidget(graphics, mouseX, mouseY, partialTicks);
+	public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+		super.extractContents(graphics, mouseX, mouseY, partialTicks);
 		renderMainLayer(graphics, mouseX, mouseY, partialTicks);
 		renderIcon(graphics, mouseX, mouseY, partialTicks);
 	}

@@ -10,7 +10,6 @@ import com.nine.travelerscompass.common.search.matcher.BlockEntityMatcher;
 import com.nine.travelerscompass.common.search.matcher.BlockMatcher;
 import com.nine.travelerscompass.common.search.matcher.EntityMatcher;
 import com.nine.travelerscompass.compat.lootr.LootrSearchMode;
-import com.nine.travelerscompass.compat.lootr.NeoForgeLootrHelper;
 import com.nine.travelerscompass.config.TCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,7 +27,7 @@ public class NeoForgePlatformMatchersHelper implements IPlatformMatchersHelper {
 	
 	@Override
 	public List<BlockEntityMatcher> blockEntityMatchers() {
-		return List.of(CONTAINER_MATCHER, LOOTR_CONTAINER_MATCHER);
+		return List.of(CONTAINER_MATCHER/*, LOOTR_CONTAINER_MATCHER*/);
 	}
 	
 	@Override
@@ -39,7 +38,7 @@ public class NeoForgePlatformMatchersHelper implements IPlatformMatchersHelper {
 	
 	@Override
 	public List<EntityMatcher> entityMatchers() {
-		return List.of(LOOTR_MINECART_MATCHER);
+		return List.of(/*LOOTR_MINECART_MATCHER*/);
 	}
 	
 	
@@ -47,7 +46,8 @@ public class NeoForgePlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
-			return NeoForgeLootrHelper.minecartMatch(criteria, options, entity, level, pos);
+			return null;
+//			return NeoForgeLootrHelper.minecartMatch(criteria, options, entity, level, pos);
 		}
 		
 		@Override
@@ -61,7 +61,8 @@ public class NeoForgePlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, BlockPos pos, BlockState state, BlockEntity be) {
-			return NeoForgeLootrHelper.matchLootrContainer(criteria, options, pos, state, be);
+			return null;
+//			return NeoForgeLootrHelper.matchLootrContainer(criteria, options, pos, state, be);
 		}
 		
 		@Override

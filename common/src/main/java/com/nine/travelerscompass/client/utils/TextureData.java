@@ -1,10 +1,10 @@
 package com.nine.travelerscompass.client.utils;
 
 import com.nine.travelerscompass.TCCommon;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record TextureData(
-		ResourceLocation location,
+		Identifier location,
 		int u, int v,
 		int width, int height,
 		int sourceWidth, int sourceHeight) {
@@ -31,7 +31,7 @@ public record TextureData(
 	
 	public static class Builder {
 		
-		private ResourceLocation location;
+		private Identifier location;
 		
 		private int u = 0;
 		private int v = 0;
@@ -42,7 +42,7 @@ public record TextureData(
 		private static final String GUI_TEXTURES_PATH = "textures/gui/";
 		
 		public Builder location(String path) {
-			this.location = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, GUI_TEXTURES_PATH + path + ".png");
+			this.location = Identifier.fromNamespaceAndPath(TCCommon.MODID, GUI_TEXTURES_PATH + path + ".png");
 			return this;
 		}
 		

@@ -10,7 +10,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class FabricEmiSetup implements EmiPlugin {
             registry.addRecipe(new EmiInfoRecipe(
                     List.of(EmiStack.of(ItemRegistry.TRAVELERS_COMPASS.get())),
                     List.of(Component.translatable("nei.travelerscompass.info")),
-                    ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "/info/travelerscompass")
+                    Identifier.fromNamespaceAndPath(TCCommon.MODID, "/info/travelerscompass")
             ));
         }
     }

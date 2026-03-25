@@ -4,12 +4,12 @@ import com.nine.travelerscompass.TCCommon;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record CompletePacket() implements S2CPacket {
 	
 	public static final Type<CompletePacket> ID =
-			new Type<>(ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "complete_packet"));
+			new Type<>(Identifier.fromNamespaceAndPath(TCCommon.MODID, "complete_packet"));
 	
 	public static final StreamCodec<RegistryFriendlyByteBuf, CompletePacket> CODEC =
 			StreamCodec.ofMember(CompletePacket::encode, CompletePacket::decode);

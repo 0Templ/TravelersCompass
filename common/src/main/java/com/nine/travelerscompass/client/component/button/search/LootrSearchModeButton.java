@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button.search;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.component.button.base.ToggleableButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
@@ -53,13 +54,13 @@ public class LootrSearchModeButton extends ToggleableButton {
 		Icon ret;
 		if (configEnabled) {
 			ret = switch (cached) {
-				case ALL -> CompassUI.SearchModeTextures.LOOTR_ALL_ICON;
-				case CLOSED -> CompassUI.SearchModeTextures.LOOTR_CLOSED_ICON;
-				case OPENED -> CompassUI.SearchModeTextures.LOOTR_OPENED_ICON;
-				case OFF -> CompassUI.SearchModeTextures.LOOTR_INACTIVE_ICON;
+				case ALL -> TCIcons.SearchMode.LOOTR_ALL;
+				case CLOSED -> TCIcons.SearchMode.LOOTR_CLOSED;
+				case OPENED -> TCIcons.SearchMode.LOOTR_OPENED;
+				case OFF -> TCIcons.SearchMode.LOOTR_INACTIVE;
 			};
 		} else {
-			ret = CompassUI.CommonTextures.LOCK_ICON;
+			ret = TCIcons.Common.LOCK;
 		}
 		return ret;
 	}

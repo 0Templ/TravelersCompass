@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button.search;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+
 import com.nine.travelerscompass.client.component.button.Toggleable;
 import com.nine.travelerscompass.client.component.button.popup.ToggleablePopupButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
@@ -68,7 +69,7 @@ public abstract class SearchModePopupButton extends ToggleablePopupButton implem
 		this.setTooltip(TooltipBuilder.builder()
 				.title(key)
 				.descIf(desc, configEnabled && shiftPressed)
-				.state(configEnabled ? (isToggled() ? (isRelevant() ? CompassUI.ENABLED : CompassUI.INACTIVE) : CompassUI.DISABLED) : CompassUI.CONFIG_DISABLED)
+				.state(configEnabled ? (isToggled() ? (isRelevant() ? TCComponents.ENABLED : TCComponents.INACTIVE) : TCComponents.DISABLED) : TCComponents.CONFIG_DISABLED)
 				.buildAsTooltip());
 	}
 	

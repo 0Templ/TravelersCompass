@@ -5,7 +5,7 @@ import com.nine.travelerscompass.common.search.location.codec.LocationCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 
@@ -13,9 +13,9 @@ import java.util.Optional;
 
 public record SpawnerLocationObject(BlockPos blockPos, int slotIndex, boolean priority, String descriptionId,
 									String contentId,
-									ResourceLocation blockId) implements ILocationObject, WithContent {
+									Identifier blockId) implements ILocationObject, WithContent {
 	
-	public static ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "spawner_location_codec");
+	public static Identifier TYPE = Identifier.fromNamespaceAndPath(TCCommon.MODID, "spawner_location_codec");
 	
 	public static final LocationCodec<SpawnerLocationObject> CODEC = new LocationCodec<>() {
 		
@@ -26,7 +26,7 @@ public record SpawnerLocationObject(BlockPos blockPos, int slotIndex, boolean pr
 			buf.writeBoolean(obj.priority);
 			buf.writeUtf(obj.descriptionId);
 			buf.writeUtf(obj.contentId);
-			buf.writeResourceLocation(obj.blockId);
+			buf.writeIdentifier(obj.blockId);
 		}
 		
 		@Override
@@ -36,13 +36,13 @@ public record SpawnerLocationObject(BlockPos blockPos, int slotIndex, boolean pr
 			boolean priority = buf.readBoolean();
 			String descriptionId = buf.readUtf();
 			String containerId = buf.readUtf();
-			ResourceLocation blockId = buf.readResourceLocation();
+			Identifier blockId = buf.readIdentifier();
 			return new SpawnerLocationObject(blockPos, slotIndex, priority, descriptionId, containerId, blockId);
 		}
 	};
 	
 	@Override
-	public ResourceLocation type() {
+	public Identifier type() {
 		return TYPE;
 	}
 	
@@ -58,13 +58,15 @@ public record SpawnerLocationObject(BlockPos blockPos, int slotIndex, boolean pr
 	}
 	
 	@Override
-	public ILocationObject copy(
-			BlockPos blockPos,
-			int slotIndex,
-			boolean priority,
-			String descriptionId
-	) {
-		return new SpawnerLocationObject(blockPos, slotIndex, priority, descriptionId, contentId, blockId);
+	public ILocationObject withPriority(boolean value) {
+		if (value == priority) return this;
+		return new SpawnerLocationObject(blockPos, slotIndex, value, descriptionId, contentId, blockId);
+	}
+
+	@Override
+	public ILocationObject withBlockPos(BlockPos pos) {
+		if (pos.equals(blockPos)) return this;
+		return new SpawnerLocationObject(pos, slotIndex, priority, descriptionId, contentId, blockId);
 	}
 	
 	@Override

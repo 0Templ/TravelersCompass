@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jei;
 
 
@@ -69,3 +70,4 @@ public class JeiGhostTargetHandler extends BaseGhostTargetHandler implements IGh
 }
 
 
+*/

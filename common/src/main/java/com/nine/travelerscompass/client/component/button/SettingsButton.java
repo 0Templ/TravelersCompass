@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.CompassUI;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
@@ -21,7 +22,7 @@ public class SettingsButton<T> extends ConfigButton<T> {
 	
 	//Todo: remove
 	public static SettingsButton<Boolean> create(ButtonGenericSettings settings, DataStorage<Boolean> data, BiFunction<Boolean, Boolean, Icon> iconProvider) {
-		return new SettingsButton<>(settings, data, iconProvider, (v -> (boolean) v ? CompassUI.ENABLED : CompassUI.DISABLED));
+		return new SettingsButton<>(settings, data, iconProvider, (v -> (boolean) v ? TCComponents.ENABLED : TCComponents.DISABLED));
 	}
 	
 	public SettingsButton(ButtonGenericSettings settings, DataStorage<T> data, BiFunction<T, Boolean, Icon> iconProvider, Function<T, Component> stateComponentProvider) {

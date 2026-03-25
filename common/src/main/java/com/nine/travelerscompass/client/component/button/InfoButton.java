@@ -1,7 +1,9 @@
 package com.nine.travelerscompass.client.component.button;
 
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+
 import com.nine.travelerscompass.client.ClientCache;
-import com.nine.travelerscompass.client.CompassUI;
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.hud.HudData;
@@ -33,7 +35,7 @@ public class InfoButton extends BaseIconButton {
 	
 	@Override
 	protected Icon getIcon() {
-		return isHovered ? CompassUI.CommonTextures.INFO_HOVERED_ICON : CompassUI.CommonTextures.INFO_ICON;
+		return isHovered ? TCIcons.Common.INFO_HOVERED : TCIcons.Common.INFO;
 	}
 	
 	@Override
@@ -49,9 +51,9 @@ public class InfoButton extends BaseIconButton {
 			SearchProgress searchProgress = ClientCache.PROGRESS_DATA_CACHE.get(uuid);
 			int percent = 0;
 			if (searchProgress != null) {
-				percent = (searchProgress.progress * 100) / searchProgress.total;
+				percent = searchProgress.percent();
 			}
-			Component progress = ClientUtils.coloredComponent(Component.literal(percent + "%"), CompassUI.Colors.SOFT_GRAY);
+			Component progress = ClientUtils.coloredComponent(Component.literal(percent + "%"), TCColors.SOFT_GRAY);
 			if (pos.isValid()) {
 				status = Component.translatable("tooltip.travelerscompass.settings.info.status.scanning", progress).withStyle(ChatFormatting.GRAY);
 			} else {

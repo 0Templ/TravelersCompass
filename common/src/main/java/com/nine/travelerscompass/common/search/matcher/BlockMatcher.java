@@ -6,10 +6,12 @@ import com.nine.travelerscompass.common.search.location.ILocationObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.List;
+
 public interface BlockMatcher {
-	
-	ILocationObject match(TypedCriteria criteria, BlockPos pos, BlockState state);
-	
+
+	List<ILocationObject> match(TypedCriteria criteria, BlockPos pos, BlockState state);
+
 	boolean isAllowed(SearchOptions options);
-	
+
 }

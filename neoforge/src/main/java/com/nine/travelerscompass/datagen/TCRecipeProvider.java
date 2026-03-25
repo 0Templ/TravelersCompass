@@ -8,7 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -41,7 +41,7 @@ public class TCRecipeProvider extends RecipeProvider {
 	
 	@Override
 	protected void buildRecipes() {
-		TagKey<Item> netheriteIngots = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "ingots/netherite"));
+		TagKey<Item> netheriteIngots = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/netherite"));
 		shaped(RecipeCategory.TOOLS, ItemRegistry.TRAVELERS_COMPASS.get())
 				.define('I', netheriteIngots)
 				.define('L', Items.LODESTONE)

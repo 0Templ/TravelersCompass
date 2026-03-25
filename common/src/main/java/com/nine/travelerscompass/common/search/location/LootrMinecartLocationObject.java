@@ -4,7 +4,7 @@ import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.search.location.codec.LocationCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
@@ -15,7 +15,7 @@ public record LootrMinecartLocationObject(BlockPos blockPos, int slotIndex, bool
 										  String contentId,
 										  UUID uuid) implements ILocationObject, WithContent, WithUUID {
 	
-	public static ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "lootr_minecart_location_codec");
+	public static Identifier TYPE = Identifier.fromNamespaceAndPath(TCCommon.MODID, "lootr_minecart_location_codec");
 	
 	public static final LocationCodec<LootrMinecartLocationObject> CODEC = new LocationCodec<>() {
 		
@@ -42,7 +42,7 @@ public record LootrMinecartLocationObject(BlockPos blockPos, int slotIndex, bool
 	};
 	
 	@Override
-	public ResourceLocation type() {
+	public Identifier type() {
 		return TYPE;
 	}
 	
@@ -53,13 +53,15 @@ public record LootrMinecartLocationObject(BlockPos blockPos, int slotIndex, bool
 	}
 	
 	@Override
-	public ILocationObject copy(
-			BlockPos blockPos,
-			int slotIndex,
-			boolean priority,
-			String descriptionId
-	) {
-		return new LootrMinecartLocationObject(blockPos, slotIndex, priority, descriptionId, contentId, uuid);
+	public ILocationObject withPriority(boolean value) {
+		if (value == priority) return this;
+		return new LootrMinecartLocationObject(blockPos, slotIndex, value, descriptionId, contentId, uuid);
+	}
+
+	@Override
+	public ILocationObject withBlockPos(BlockPos pos) {
+		if (pos.equals(blockPos)) return this;
+		return new LootrMinecartLocationObject(pos, slotIndex, priority, descriptionId, contentId, uuid);
 	}
 	
 	@Override

@@ -1,3 +1,4 @@
+/*
 package com.nine.travelerscompass.compat.jade;
 
 import com.nine.travelerscompass.TCCommon;
@@ -10,7 +11,7 @@ import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -55,7 +56,7 @@ public enum BlocksComponentProvider implements IBlockComponentProvider {
 	}
 	
 	@Override
-	public ResourceLocation getUid() {
-		return ResourceLocation.parse(TCCommon.MODID);
+	public Identifier getUid() {
+		return Identifier.parse(TCCommon.MODID);
 	}
-}
+}*/

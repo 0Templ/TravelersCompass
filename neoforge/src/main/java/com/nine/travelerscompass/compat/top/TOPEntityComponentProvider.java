@@ -8,7 +8,7 @@ import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
 import mcjty.theoneprobe.api.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -49,6 +49,6 @@ public class TOPEntityComponentProvider implements IProbeInfoEntityProvider {
 
     @Override
     public String getID() {
-        return ResourceLocation.fromNamespaceAndPath(TCCommon.MODID, "mob_info").toString();
+        return Identifier.fromNamespaceAndPath(TCCommon.MODID, "mob_info").toString();
     }
 }*/

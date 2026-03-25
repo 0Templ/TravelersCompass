@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.AirItem;
 import net.minecraft.world.item.Item;
@@ -115,10 +115,10 @@ public class CompassMenu extends AbstractContainerMenu {
 	
 	
 	@Override
-	public void clicked(int slotIndex, int dragType, ClickType clickType, Player player) {
+	public void clicked(int slotIndex, int buttonNum, ContainerInput containerInput, Player player) {
 		if (slotIndex >= 0 && slotIndex < COMPASS_SLOTS && !(getSlot(slotIndex).getItem().getItem() instanceof TravelersCompassItem)) {
 			ItemStack stack = player.getMainHandItem();
-			if (stack.getItem() instanceof TravelersCompassItem && clickType == ClickType.QUICK_MOVE) {
+			if (stack.getItem() instanceof TravelersCompassItem && containerInput.equals(ContainerInput.QUICK_MOVE)) {
 				{
 					List<Integer> cur = CompassComponents.PRIORITY_SLOTS.get(stack);
 					boolean contains = cur.contains(slotIndex);
@@ -155,7 +155,7 @@ public class CompassMenu extends AbstractContainerMenu {
 				return;
 			}
 		}
-		super.clicked(slotIndex, dragType, clickType, player);
+		super.clicked(slotIndex, buttonNum, containerInput, player);
 	}
 	
 	public boolean mayPlaceToSlot(Player player, ItemStack stack) {

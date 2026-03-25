@@ -2,14 +2,14 @@ package com.nine.travelerscompass.datagen;
 
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.init.ItemRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TCRecipeProvider extends FabricRecipeProvider {
 	
-	public TCRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+	public TCRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
 		super(output, provider);
 	}
 	
@@ -28,7 +28,7 @@ public class TCRecipeProvider extends FabricRecipeProvider {
 		return new RecipeProvider(registryLookup, exporter) {
 			@Override
 			public void buildRecipes() {
-				TagKey<Item> netheriteIngots = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "ingots/netherite"));
+				TagKey<Item> netheriteIngots = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/netherite"));
 				shaped(RecipeCategory.TOOLS, ItemRegistry.TRAVELERS_COMPASS.get())
 						.define('I', netheriteIngots)
 						.define('L', Items.LODESTONE)

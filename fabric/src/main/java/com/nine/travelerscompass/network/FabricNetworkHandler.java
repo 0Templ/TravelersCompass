@@ -26,7 +26,7 @@ public class FabricNetworkHandler {
 	}
 	
 	public static <T extends C2SPacket> void registerC2SPacket(PacketHolder<T> holder) {
-		PayloadTypeRegistry.playC2S().register(holder.id(), holder.codec());
+		PayloadTypeRegistry.serverboundPlay().register(holder.id(), holder.codec());
 		ServerPlayNetworking.registerGlobalReceiver(holder.id(), (packet, ctx) ->
 				ctx.server().execute(() -> {
 					if (ctx.player() != null) packet.handle(ctx.player());
@@ -35,7 +35,7 @@ public class FabricNetworkHandler {
 	}
 	
 	public static <T extends S2CPacket> void registerS2CPacket(PacketHolder<T> holder) {
-		PayloadTypeRegistry.playS2C().register(holder.id(), holder.codec());
+		PayloadTypeRegistry.clientboundPlay().register(holder.id(), holder.codec());
 	}
 	
 	public static <T extends S2CPacket> void registerS2CPacketReceiver(PacketHolder<T> holder) {
