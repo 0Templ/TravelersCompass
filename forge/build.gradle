@@ -11,11 +11,6 @@ mixin {
     config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
-jar {
-    manifest {
-        attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
-    }
-}
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
@@ -81,9 +76,7 @@ dependencies {
 
 }
 
-tasks.named('jar', Jar) {
-    archiveFileName.set("${mod_id}-forge-${minecraft_version}-${project.version}.jar")
-}
+
 
 publishing {
     publications {
@@ -97,6 +90,16 @@ sourceSets.each {
     def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
+}
+
+tasks.named('jar', Jar) {
+    archiveFileName.set("${mod_id}-forge-${minecraft_version}-${project.version}.jar")
+}
+
+jar {
+    manifest {
+        attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+    }
 }
 
 unifiedPublishing {

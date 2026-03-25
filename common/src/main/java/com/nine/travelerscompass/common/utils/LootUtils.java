@@ -41,21 +41,25 @@ public class LootUtils {
     }
 
     public static Set<Item> getItemsFromLootTable(ResourceKey<LootTable> resourceKey, Level level) {
+        if (resourceKey == null) {
+            return Set.of();
+        }
+
+        MinecraftServer server = level.getServer();
+        if (server == null) {
+            return Set.of();
+        }
+
         ResourceLocation location = resourceKey.location();
         if (LOOT_CACHE.containsKey(location)){
             return LOOT_CACHE.get(location);
         }
-        else {
-            MinecraftServer server = level.getServer();
-            if (server != null){
-                LootTable lootTable = server.reloadableRegistries().getLootTable(resourceKey);
-                Set<Item> dropStackList = new HashSet<>();
-                getLootItems(lootTable).stream()
-                        .map(lootItem -> ((LootItemAccessor) lootItem).travelerscompass$item())
-                        .forEach((itemHolder -> dropStackList.add(itemHolder.value())));
-                LOOT_CACHE.put(location, dropStackList);
-            }
-        }
+        LootTable lootTable = server.reloadableRegistries().getLootTable(resourceKey);
+        Set<Item> dropStackList = new HashSet<>();
+        getLootItems(lootTable).stream()
+                .map(lootItem -> ((LootItemAccessor) lootItem).travelerscompass$item())
+                .forEach((itemHolder -> dropStackList.add(itemHolder.value())));
+        LOOT_CACHE.put(location, dropStackList);
         return LOOT_CACHE.getOrDefault(location, Set.of());
     }
 

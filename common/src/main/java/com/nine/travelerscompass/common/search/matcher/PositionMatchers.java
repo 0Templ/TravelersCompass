@@ -290,7 +290,11 @@ public class PositionMatchers {
             if (entity instanceof LivingEntity living) {
                 MinecraftServer server = level.getServer();
                 if (server != null){
-                    Set<Item> drops = LootUtils.getItemsFromLootTable(living.getLootTable(), level);
+                    var lootTableKey = living.getLootTable();
+                    if (lootTableKey == null) {
+                        return ret;
+                    }
+                    Set<Item> drops = LootUtils.getItemsFromLootTable(lootTableKey, level);
                     if (drops != null){
                         for (var criterion : criteria.itemCriteria){
                             if (drops.contains(criterion.item())) {
