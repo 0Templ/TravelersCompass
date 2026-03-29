@@ -1,9 +1,8 @@
 package com.nine.travelerscompass.client.component.button.search;
 
-import com.nine.travelerscompass.client.ui.constant.TCTextures;
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
 import com.nine.travelerscompass.common.data.CompassComponents;
 
 public class VillagersButton extends SearchModePopupButton {

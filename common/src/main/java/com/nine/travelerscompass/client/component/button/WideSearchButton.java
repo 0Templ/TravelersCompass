@@ -1,13 +1,15 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ui.constant.TCColors;
-import com.nine.travelerscompass.client.ui.constant.TCTextures;
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
-import com.nine.travelerscompass.client.utils.*;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
+import com.nine.travelerscompass.client.utils.Icon;
+import com.nine.travelerscompass.client.utils.SearchProgress;
+import com.nine.travelerscompass.client.utils.TextureData;
+import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.utils.SearchState;
 import com.nine.travelerscompass.network.packet.c2s.PausePacket;
@@ -117,9 +119,8 @@ public class WideSearchButton extends BaseIconButton {
 			if (searchProgress != null) {
 				percent = searchProgress.percent();
 			}
-			Component progress = ClientUtils.coloredComponent(Component.literal(percent + "%"), TCColors.SOFT_GRAY);
-			Component shiftRBM = ClientUtils.coloredComponent(
-					Component.translatable("tooltip.travelerscompass.settings.modification.shift_click"), TCColors.SOFT_GRAY);
+			Component progress = Component.literal(percent + "%").withColor(TCColors.SOFT_GRAY);
+			Component shiftRBM = Component.translatable("tooltip.travelerscompass.settings.modification.shift_click").withColor(TCColors.SOFT_GRAY);
 			
 			builder.line(Component.translatable("tooltip.travelerscompass.settings.info.status.progress", progress).withStyle(ChatFormatting.GRAY));
 			builder.line(Component.translatable("tooltip.travelerscompass.wide_search.cancel", shiftRBM).withStyle(ChatFormatting.GRAY));

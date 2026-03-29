@@ -5,9 +5,7 @@ import com.nine.travelerscompass.client.utils.TextureData;
 
 public final class TCTextures {
 
-	// -------------------------------------------------------------------------
 	// Common icons atlas  (128x128)
-	// -------------------------------------------------------------------------
 	public static final class Common {
 
 		private static final TextureData ATLAS = new TextureData.Builder()
@@ -50,9 +48,8 @@ public final class TCTextures {
 		private Common() {}
 	}
 
-	// -------------------------------------------------------------------------
+
 	// Settings icons atlas  (256x256)
-	// -------------------------------------------------------------------------
 	public static final class Settings {
 
 		private static final TextureData ATLAS = new TextureData.Builder()
@@ -132,9 +129,8 @@ public final class TCTextures {
 		private Settings() {}
 	}
 
-	// -------------------------------------------------------------------------
+
 	// Button backgrounds
-	// -------------------------------------------------------------------------
 	public static final class Buttons {
 
 		public static final TextureData BUTTON               = new TextureData.Builder().location("button/button").size(14, 14).uv( 0,  0).sourceSize(14, 70).build();
@@ -158,9 +154,8 @@ public final class TCTextures {
 		private Buttons() {}
 	}
 
-	// -------------------------------------------------------------------------
+
 	// Search mode icons atlas  (128x128)
-	// -------------------------------------------------------------------------
 	public static final class SearchMode {
 
 		private static final TextureData ATLAS = new TextureData.Builder()
@@ -219,9 +214,9 @@ public final class TCTextures {
 		private SearchMode() {}
 	}
 
-	// -------------------------------------------------------------------------
+
 	// Popup backgrounds
-	// -------------------------------------------------------------------------
+
 	public static final class Popup {
 
 		public static final TextureData POPUP_1X2 = new TextureData.Builder()
@@ -241,9 +236,8 @@ public final class TCTextures {
 		private Popup() {}
 	}
 
-	// -------------------------------------------------------------------------
+
 	// Tab textures
-	// -------------------------------------------------------------------------
 	public static final class Tabs {
 
 		public static final TextureData PAGE_TAB_ACTIVE = new TextureData.Builder()

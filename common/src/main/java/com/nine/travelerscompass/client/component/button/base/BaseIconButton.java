@@ -6,7 +6,6 @@ import com.nine.travelerscompass.client.utils.ClientUtils;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public abstract class BaseIconButton extends BaseButton {
 	

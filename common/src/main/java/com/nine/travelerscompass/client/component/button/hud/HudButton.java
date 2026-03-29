@@ -1,10 +1,5 @@
 package com.nine.travelerscompass.client.component.button.hud;
 
-import com.nine.travelerscompass.client.ui.constant.TCColors;
-import com.nine.travelerscompass.client.ui.constant.TCComponents;
-import com.nine.travelerscompass.client.ui.constant.TCTextures;
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.component.button.SettingsButton;
 import com.nine.travelerscompass.client.component.button.popup.PopupButton;
@@ -18,6 +13,10 @@ import com.nine.travelerscompass.client.hud.HudRenderer;
 import com.nine.travelerscompass.client.hud.HudType;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchorX;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchorY;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
 import com.nine.travelerscompass.client.utils.ButtonGrid;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;

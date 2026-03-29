@@ -1,8 +1,7 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ui.constant.TCComponents;
-
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;

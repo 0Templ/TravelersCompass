@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.Objects;
 
+
 public class HudData {
 	
 	private ILocationObject locationObject;

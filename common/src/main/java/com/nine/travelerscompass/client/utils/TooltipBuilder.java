@@ -1,7 +1,6 @@
 package com.nine.travelerscompass.client.utils;
 
 import com.nine.travelerscompass.client.ui.constant.TCComponents;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;

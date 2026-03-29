@@ -1,7 +1,6 @@
 package com.nine.travelerscompass.config.filter;
 
 import com.nine.travelerscompass.client.ui.constant.TCComponents;
-
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

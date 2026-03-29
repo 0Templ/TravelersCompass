@@ -1,11 +1,10 @@
 package com.nine.travelerscompass.client.component.button.hud;
 
-import com.nine.travelerscompass.client.ui.constant.TCColors;
-import com.nine.travelerscompass.client.ui.constant.TCComponents;
-
 import com.nine.travelerscompass.client.component.button.range.IntRangeButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.hud.anchor.HudAnchor;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.data.DataStorage;

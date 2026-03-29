@@ -1,13 +1,15 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ui.constant.TCColors;
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.hud.HudData;
-import com.nine.travelerscompass.client.utils.*;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+import com.nine.travelerscompass.client.utils.Icon;
+import com.nine.travelerscompass.client.utils.SearchProgress;
+import com.nine.travelerscompass.client.utils.TextureData;
+import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.utils.FoundBlockPos;
@@ -53,7 +55,7 @@ public class InfoButton extends BaseIconButton {
 			if (searchProgress != null) {
 				percent = searchProgress.percent();
 			}
-			Component progress = ClientUtils.coloredComponent(Component.literal(percent + "%"), TCColors.SOFT_GRAY);
+			Component progress = Component.literal(percent + "%").withColor(TCColors.SOFT_GRAY) ;
 			if (pos.isValid()) {
 				status = Component.translatable("tooltip.travelerscompass.settings.info.status.scanning", progress).withStyle(ChatFormatting.GRAY);
 			} else {

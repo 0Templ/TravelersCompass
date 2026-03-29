@@ -1,9 +1,8 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ui.constant.TCTextures;
-
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import net.minecraft.client.gui.components.Tooltip;

@@ -1,9 +1,5 @@
 package com.nine.travelerscompass.client.screen;
 
-import com.nine.travelerscompass.client.ui.constant.TCComponents;
-import com.nine.travelerscompass.client.ui.constant.TCTextures;
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.component.button.*;
@@ -15,6 +11,9 @@ import com.nine.travelerscompass.client.component.button.search.*;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
+import com.nine.travelerscompass.client.ui.constant.TCTextures;
 import com.nine.travelerscompass.client.utils.ButtonGrid;
 import com.nine.travelerscompass.client.utils.GhostStack;
 import com.nine.travelerscompass.client.utils.Icon;

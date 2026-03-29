@@ -3,8 +3,8 @@ package com.nine.travelerscompass.init;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 
 public class ItemRegistry {

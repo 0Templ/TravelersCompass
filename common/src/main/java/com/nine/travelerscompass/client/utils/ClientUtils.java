@@ -1,7 +1,6 @@
 package com.nine.travelerscompass.client.utils;
 
 import com.nine.travelerscompass.client.ui.constant.TCColors;
-
 import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.location.WithContent;
 import net.minecraft.ChatFormatting;
@@ -14,12 +13,6 @@ import net.minecraft.network.chat.MutableComponent;
 
 public class ClientUtils {
 	
-	
-	//todo: remove
-	public static MutableComponent coloredComponent(MutableComponent start, int color) {
-		return start.withStyle(start.getStyle().withColor(color));
-	}
-	
 	public static Component getDistance(BlockPos playerPos, BlockPos targetPos) {
 		return Component.literal(String.valueOf((int) Math.sqrt(playerPos.distSqr(targetPos)))).withStyle(ChatFormatting.GRAY);
 	}
@@ -30,16 +23,13 @@ public class ClientUtils {
 		final int softColor = priority ? TCColors.SOFT_HONEY : TCColors.SOFT_GRAY;
 		if (object instanceof WithContent withContent) {
 			MutableComponent ret = Component.empty();
-			ret.append(ClientUtils.coloredComponent(
-					Component.translatable(object.descriptionId()), defaultColor));
-			ret.append(ClientUtils.coloredComponent(Component.literal(" ["), defaultColor));
-			ret.append(ClientUtils.coloredComponent(
-					Component.translatable(withContent.contentId()), softColor));
-			ret.append(ClientUtils.coloredComponent(Component.literal("]"), defaultColor));
+			ret.append(Component.translatable(object.descriptionId()).withColor(defaultColor));
+			ret.append(Component.literal(" [").withColor(defaultColor));
+			ret.append(Component.translatable(withContent.contentId()).withColor(softColor));
+			ret.append(Component.literal("]").withColor(defaultColor));
 			return ret;
 		}
-		return ClientUtils.coloredComponent(
-				Component.translatable(object.descriptionId()), defaultColor);
+		return Component.translatable(object.descriptionId()).withColor(defaultColor);
 	}
 	
 	public static Component cutComponent(Font font, Component component, int availableWidth) {

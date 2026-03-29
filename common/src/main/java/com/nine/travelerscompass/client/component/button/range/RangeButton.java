@@ -1,10 +1,12 @@
 package com.nine.travelerscompass.client.component.button.range;
 
-import com.nine.travelerscompass.client.ui.constant.TCColors;
-
 import com.nine.travelerscompass.client.component.button.base.BaseIconButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonRangeSettings;
-import com.nine.travelerscompass.client.utils.*;
+import com.nine.travelerscompass.client.ui.constant.TCColors;
+import com.nine.travelerscompass.client.utils.Icon;
+import com.nine.travelerscompass.client.utils.RangeIconVariants;
+import com.nine.travelerscompass.client.utils.TextureData;
+import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.DataStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -83,14 +85,14 @@ public class RangeButton<T extends Number> extends BaseIconButton {
 	}
 	
 	protected Component holdToDecreaseComponent() {
-		var shift = ClientUtils.coloredComponent(
-				Component.translatable("tooltip.travelerscompass.settings.modification.shift"), shiftPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
+		var shift = Component.translatable("tooltip.travelerscompass.settings.modification.shift")
+				.withColor(shiftPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
 		return Component.translatable("tooltip.travelerscompass.settings.modification.hold_to_decrease", shift).withStyle(ChatFormatting.GRAY);
 	}
 	
 	protected Component holdToChangeFaster() {
-		var ctrl = ClientUtils.coloredComponent(
-				Component.translatable("tooltip.travelerscompass.settings.modification.ctrl"), ctrlPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
+		var ctrl = Component.translatable("tooltip.travelerscompass.settings.modification.ctrl")
+				.withColor(ctrlPressed ? TCColors.GRAY : TCColors.SOFT_GRAY);
 		return Component.translatable("tooltip.travelerscompass.settings.modification.hold_to_change_faster", ctrl).withStyle(ChatFormatting.GRAY);
 	}
 	

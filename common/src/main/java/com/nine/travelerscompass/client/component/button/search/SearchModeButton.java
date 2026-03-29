@@ -1,9 +1,8 @@
 package com.nine.travelerscompass.client.component.button.search;
 
-import com.nine.travelerscompass.client.ui.constant.TCComponents;
-
 import com.nine.travelerscompass.client.component.button.base.ToggleableButton;
 import com.nine.travelerscompass.client.component.button.settings.ButtonSearchModeSettings;
+import com.nine.travelerscompass.client.ui.constant.TCComponents;
 import com.nine.travelerscompass.client.utils.Icon;
 import com.nine.travelerscompass.client.utils.TextureData;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;

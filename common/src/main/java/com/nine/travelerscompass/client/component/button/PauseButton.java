@@ -1,9 +1,8 @@
 package com.nine.travelerscompass.client.component.button;
 
-import com.nine.travelerscompass.client.ui.constant.TCIcons;
-
 import com.nine.travelerscompass.client.ClientCache;
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
+import com.nine.travelerscompass.client.ui.constant.TCIcons;
 import com.nine.travelerscompass.client.utils.TooltipBuilder;
 import com.nine.travelerscompass.common.data.CompassComponents;
 import com.nine.travelerscompass.common.utils.SearchState;
