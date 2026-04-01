@@ -1,77 +1,67 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id "me.shedaniel.unified-publishing"
+    id 'me.shedaniel.unified-publishing'
 }
+
 
 neoForge {
     version = neoforge_version
-    // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
+
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+            ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
         }
+
         client {
             client()
-            gameDirectory = this.mkdir(this.file("runs/client"))
+            gameDirectory = mkdir(file("runs/client"))
         }
-        data {
-            clientData()
-            gameDirectory = this.mkdir(this.file("runs/data"))
-            // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
+
         server {
             server()
-            this.file("runs/server").createParentDirectories()
-            gameDirectory = this.mkdir(this.file("runs/server"))
+            gameDirectory = mkdir(file("runs/server"))
         }
     }
+
     mods {
-        "${mod_id}" {
-            sourceSet sourceSets.main
-        }
+        "${mod_id}" { sourceSet sourceSets.main }
     }
 }
+
 
 dependencies {
 
+    // Jei
+    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    // Jade
+    implementation "maven.modrinth:jade:${jade_version}+neoforge"
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-// Implement mcgradleconventions loader attribute
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
-    configurations.named("$variant") {
+def markNeoForge = { String configName ->
+    configurations.named(configName) {
         attributes {
             attribute(loaderAttribute, 'neoforge')
         }
     }
 }
+
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each(markNeoForge)
+
 sourceSets.configureEach {
-    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName, it.getTaskName(null, 'jarJar')].each { variant ->
-        configurations.named("$variant") {
-            attributes {
-                attribute(loaderAttribute, 'neoforge')
-            }
-        }
-    }
+    [compileClasspathConfigurationName, runtimeClasspathConfigurationName, getTaskName(null, 'jarJar')]
+            .each(markNeoForge)
 }
 
 configureUnifiedPublishing(project, [
-        loaderName: "NeoForge",
-        gameLoader: "neoforge",
-        releaseType: rootProject.neoforge_release_type,
+        loaderName     : "NeoForge",
+        gameLoader     : "neoforge",
+        releaseType    : rootProject.neoforge_release_type,
         publicationTask: "jar"
 ])

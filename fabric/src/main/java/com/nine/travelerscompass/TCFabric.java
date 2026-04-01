@@ -14,8 +14,6 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class TCFabric implements ModInitializer {
 	
-	public static final String UPDATE_JSON_URL = "https://raw.githubusercontent.com/0Templ/ModVersions/refs/heads/main/fabric/travelers-compass.json";
-	
 	@Override
 	public void onInitialize() {
 		TCConfig.init();

@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 - /
 
 
+## 4.3.01
+- Allow 26.1.1 version
+- Return JEI, JADE compatibility
+
+
 ## 4.3.0
 - 26.1 port
 - fixed search-progress bar visual

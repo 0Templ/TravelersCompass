@@ -60,10 +60,21 @@ def changelogForVersion(String version) {
 ext.configureUnifiedPublishing = { p, cfg ->
     p.unifiedPublishing {
         project {
-            displayName = "[${cfg.loaderName}]${getModNameForPublishing(p.mod_name)}-${p.minecraft_version}-${p.version}"
+            displayName = "[${cfg.loaderName}]${getModNameForPublishing(p.mod_name)}-${p.display_minecraft_version}-${p.version}"
             releaseType = cfg.releaseType
             changelog = changelogForVersion(p.version.toString())
-            gameVersions = [p.minecraft_version]
+
+
+            def publishGameVersions = (
+                    p.findProperty("publish_game_versions")
+                            ?: p.minecraft_version.toString()
+            ).toString()
+                    .split(',')
+                    .collect { it.trim() }
+                    .findAll { !it.isEmpty() }
+
+            gameVersions = publishGameVersions
+
             gameLoaders = [cfg.gameLoader]
             mainPublication p.tasks.named(cfg.publicationTask).get()
 

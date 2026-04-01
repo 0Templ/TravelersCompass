@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${project.name}-${display_minecraft_version}"
 }
 
 java {
@@ -85,8 +85,10 @@ processResources {
     var expandProps = [
             'version'                      : version,
             'group'                        : project.group,
+            'display_minecraft_version'              : display_minecraft_version,
             'minecraft_version'            : minecraft_version,
             'minecraft_version_range'      : minecraft_version_range,
+            'minecraft_version_constraint' : minecraft_version_constraint,
             'fabric_version'               : fabric_version,
             'fabric_loader_version'        : fabric_loader_version,
             'mod_name'                     : mod_name,

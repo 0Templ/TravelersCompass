@@ -30,16 +30,16 @@
       "com.nine.travelerscompass.TCFabricClient"
     ],
     "jei_mod_plugin": [
-      "com.nine.travelerscompass.compat.jei.FabricJeiSetup"
+      "com.nine.travelerscompass.compat.jei.JeiSetup"
     ],
     "jade": [
-      "com.nine.travelerscompass.compat.jade.FabricJadeSetup"
+      "com.nine.travelerscompass.compat.jade.JadeSetup"
     ]
   },
   "depends": {
     "fabricloader": ">=0.14",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
+    "minecraft": "${minecraft_version_constraint}",
     "java": ">=${java_version}"
   },
   "suggests": {

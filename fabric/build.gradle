@@ -1,7 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'com.gradleup.shadow'
-    id "me.shedaniel.unified-publishing"
+    id 'me.shedaniel.unified-publishing'
     id 'net.fabricmc.fabric-loom'
 }
 
@@ -9,70 +9,74 @@ fabricApi {
     configureDataGeneration()
 }
 
+def nightConfigVersion = '3.6.6'
+def shadowedDeps = [
+        "com.electronwill.night-config:core:$nightConfigVersion",
+        "com.electronwill.night-config:toml:$nightConfigVersion"
+]
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
+    //Mod Menu
+    implementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    implementation 'com.electronwill.night-config:core:3.6.6'
-    implementation 'com.electronwill.night-config:toml:3.6.6'
-    shadow 'com.electronwill.night-config:core:3.6.6'
-    shadow 'com.electronwill.night-config:toml:3.6.6'
+    // Jei
+    implementation"mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
+    // Jade
+    implementation "maven.modrinth:jade:${jade_version}+fabric"
+
+    shadowedDeps.each {
+        implementation it
+        shadow it
+    }
 }
 
 shadowJar {
     configurations = [project.configurations.shadow]
-    destinationDirectory.set(file("${project.layout.buildDirectory.get()}/libs"))
-    archiveClassifier.set("")
-    relocate "com.electronwill.nightconfig", "${project.group}.shadow.nightconfig"
+    destinationDirectory = layout.buildDirectory.dir("libs").get().asFile
+    archiveClassifier = ''
+    relocate 'com.electronwill.nightconfig', "${project.group}.shadow.nightconfig"
 }
 
-tasks.named("jar", Jar) {
-    archiveClassifier.set("slim")
-}
-
-tasks.named("assemble") {
-    dependsOn(tasks.named("shadowJar"))
-}
+assemble.dependsOn shadowJar
 
 loom {
     def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
-        accessWidenerPath.set(aw)
+        accessWidenerPath = aw
     }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
+
+    mixin.defaultRefmapName = "${mod_id}.refmap.json"
+
     runs {
         client {
             client()
-            setConfigName('Fabric Client')
-            ideConfigGenerated(true)
-            runDir('runs/client')
+            configName = 'Fabric Client'
+            ideConfigGenerated = true
+            runDir = 'runs/client'
         }
         server {
             server()
-            setConfigName('Fabric Server')
-            ideConfigGenerated(true)
-            runDir('runs/server')
+            configName = 'Fabric Server'
+            ideConfigGenerated = true
+            runDir = 'runs/server'
         }
     }
-
-
 }
 
 configureUnifiedPublishing(project, [
-        loaderName: "Fabric",
-        gameLoader: "fabric",
+        loaderName: 'Fabric',
+        gameLoader: 'fabric',
         releaseType: rootProject.fabric_release_type,
-        publicationTask: "shadowJar",
+        publicationTask: 'shadowJar',
         relations: {
             depends {
-                modrinth = "fabric-api"
-                curseforge = "fabric-api"
+                modrinth = 'fabric-api'
+                curseforge = 'fabric-api'
             }
         }
 ])

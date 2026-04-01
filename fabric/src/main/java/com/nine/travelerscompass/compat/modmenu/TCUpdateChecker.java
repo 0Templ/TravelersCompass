@@ -1,4 +1,3 @@
-/*
 package com.nine.travelerscompass.compat.modmenu;
 
 import com.google.gson.JsonObject;
@@ -8,6 +7,7 @@ import com.nine.travelerscompass.TCFabric;
 import com.terraformersmc.modmenu.api.UpdateChannel;
 import com.terraformersmc.modmenu.api.UpdateChecker;
 import com.terraformersmc.modmenu.api.UpdateInfo;
+import com.terraformersmc.modmenu.util.mod.Mod;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 
@@ -49,7 +49,7 @@ public class TCUpdateChecker implements UpdateChecker {
 	public static JsonObject tryGetUrlInfo() {
 		try {
 			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create(TCFabric.UPDATE_JSON_URL))
+					.uri(URI.create(ModMenuSetup.UPDATE_JSON_URL))
 					.timeout(Duration.ofSeconds(10))
 					.GET()
 					.build();
@@ -134,4 +134,3 @@ public class TCUpdateChecker implements UpdateChecker {
 	}
 	
 }
-*/
