@@ -34,6 +34,9 @@
     ],
     "jade": [
       "com.nine.travelerscompass.compat.jade.JadeSetup"
+    ],
+    "modmenu": [
+      "com.nine.travelerscompass.compat.modmenu.ModMenuSetup"
     ]
   },
   "depends": {
