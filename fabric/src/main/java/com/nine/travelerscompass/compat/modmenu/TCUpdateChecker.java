@@ -3,11 +3,9 @@ package com.nine.travelerscompass.compat.modmenu;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nine.travelerscompass.TCCommon;
-import com.nine.travelerscompass.TCFabric;
 import com.terraformersmc.modmenu.api.UpdateChannel;
 import com.terraformersmc.modmenu.api.UpdateChecker;
 import com.terraformersmc.modmenu.api.UpdateInfo;
-import com.terraformersmc.modmenu.util.mod.Mod;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 
