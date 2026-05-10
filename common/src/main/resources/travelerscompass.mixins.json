@@ -10,7 +10,8 @@
     "accessor.LiquidBlockAccessor",
     "accessor.LootItemAccessor",
     "accessor.LootPoolAccessor",
-    "accessor.LootTableAccessor"
+    "accessor.LootTableAccessor",
+    "accessor.PlayerAccessor"
   ],
   "client": [
     "client.GuiMixin",

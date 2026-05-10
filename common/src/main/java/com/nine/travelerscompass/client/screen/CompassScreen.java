@@ -21,6 +21,7 @@ import com.nine.travelerscompass.config.cost.SearchCost;
 import com.nine.travelerscompass.config.cost.SearchCostHelper;
 import com.nine.travelerscompass.config.filter.FilterManager;
 import com.nine.travelerscompass.config.filter.FilterReason;
+import com.nine.travelerscompass.mixin.accessor.PlayerAccessor;
 import com.nine.travelerscompass.network.packet.c2s.PausePacket;
 import com.nine.travelerscompass.platform.Platform;
 import net.minecraft.ChatFormatting;
@@ -101,7 +102,10 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 
         ItemStack stack = player.getMainHandItem();
 
-        if (!(stack.getItem() instanceof TravelersCompassItem)) return;
+        if (!(stack.getItem() instanceof TravelersCompassItem)) {
+            ((PlayerAccessor) player).tc$closeContainer();
+            return;
+        }
 
         this.stack = stack;
         this.uuid = CompassProperties.get(stack, CompassProperties.COMPASS_UUID);
@@ -115,7 +119,7 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
         }
     }
 
-    //Popups extend beyond widget bounds — handle scroll manually since default dispatch won't catch them.
+    //Popups extend beyond widget bounds — handle scroll manually since default dispatch won't catch them
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (tabPage == TabPage.SETTINGS){
@@ -126,6 +130,9 @@ public class CompassScreen extends AbstractContainerScreen<CompassMenu> {
 
     @Override
     protected void containerTick() {
+        if (fluidsSearchButton == null || warningButton == null) {
+            return;
+        }
         this.fluidsSearchButton.tick();
         updateTicks++;
         if (updateTicks % 2 == 0){

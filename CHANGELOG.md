@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 - / 
 
 ## 4.0.04
+- fixed screen crash.
+
+## 4.0.04
 - fixed crash on null-loot table entities scan
 
 ## 4.0.03
