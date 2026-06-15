@@ -11,6 +11,7 @@ import com.nine.travelerscompass.init.ItemRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -59,11 +60,12 @@ public class HudRenderer {
 				return;
 			}
 			for (HudData hudData : ClientCache.HUD_DATA_CACHE.values()) {
+				var screen = minecraft.gui.screen();
 				HudSettings settings = hudData.getSettings();
 				if (settings.renderMode() == HudRenderMode.OFF) continue;
 				if (settings.renderMode() == HudRenderMode.HAND_ONLY && !hudData.isSelected()) continue;
-				if (minecraft.screen instanceof ChatScreen && !settings.hudWithChat()) continue;
-				if (minecraft.screen == null || minecraft.screen instanceof ChatScreen) {
+				if (screen instanceof ChatScreen && !settings.hudWithChat()) continue;
+				if (screen == null || screen instanceof ChatScreen) {
 					renderHud(graphics, hudData, false, partialTicks);
 				}
 			}
@@ -121,7 +123,7 @@ public class HudRenderer {
 	
 	private static boolean shouldShow() {
 		return TCConfig.ENABLE_HUD.get() && minecraft.level != null
-				&& !minecraft.options.hideGui;
+				&& !minecraft.gui.hud.isHidden();
 	}
 	
 	protected static void drawEdges(GuiGraphicsExtractor graphics,

@@ -6,6 +6,8 @@ import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.init.RegistryProvider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.references.ItemIds;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,9 +18,9 @@ import java.util.function.Supplier;
 
 public interface IPlatformRegistryHelper {
 	
-	RegistryProvider<Item> registerTravelersCompassItem(String id, Item.Properties properties);
+	RegistryProvider<Item> registerTravelersCompassItem(ResourceKey<Item> id, Item.Properties properties);
 	
-	RegistryProvider<Item> registerItem(String id, Supplier<Item> itemSupplier);
+	RegistryProvider<Item> registerItem(ResourceKey<Item> id, Supplier<Item> supplier);
 	
 	<T extends AbstractContainerMenu> RegistryProvider<MenuType<T>> registerMenu(String id, MenuRegistry.CommonMenuFactory<T> menuType);
 	

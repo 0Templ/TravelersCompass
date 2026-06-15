@@ -7,6 +7,18 @@ neoForge {
     neoFormVersion = neo_form_version
 }
 
+def enabledNei = (findProperty('nei') ?: '').toString()
+def enabledWaila = (findProperty('waila') ?: '').toString()
+
+sourceSets.main.java {
+    if (enabledNei != 'JEI') {
+        exclude 'com/nine/travelerscompass/compat/jei/**'
+    }
+    if (enabledWaila != 'JADE') {
+        exclude 'com/nine/travelerscompass/compat/jade/**'
+    }
+}
+
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 
@@ -15,10 +27,14 @@ dependencies {
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
 
     // Jei
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    if (enabledNei == 'JEI') {
+        compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    }
 
     // Jade
-    compileOnly "maven.modrinth:jade:${jade_version}+fabric"
+    if (enabledWaila == 'JADE') {
+        compileOnly "maven.modrinth:jade:${jade_version}+fabric"
+    }
 
     // Night Config
     compileOnly 'com.electronwill.night-config:core:3.6.6'

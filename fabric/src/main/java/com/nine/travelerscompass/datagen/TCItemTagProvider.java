@@ -1,24 +1,28 @@
 package com.nine.travelerscompass.datagen;
 
 import com.nine.travelerscompass.init.ItemRegistry;
+import com.nine.travelerscompass.init.TCItemIds;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TCItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+public class TCItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 	
-	public TCItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-		super(output, Registries.ITEM, registriesFuture, (item) -> item.builtInRegistryHolder().key());
+	public TCItemTagProvider(
+			FabricPackOutput output,
+			CompletableFuture<HolderLookup.Provider> registryLookupFuture
+	) {
+		super(output, registryLookupFuture);
 	}
 	
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		tag(ItemTags.COMPASSES).add(ItemRegistry.TRAVELERS_COMPASS.get());
+		this.tag(ItemTags.COMPASSES).add(TCItemIds.TRAVELERS_COMPASS_ID);
+		
 	}
-	
+
+
 }

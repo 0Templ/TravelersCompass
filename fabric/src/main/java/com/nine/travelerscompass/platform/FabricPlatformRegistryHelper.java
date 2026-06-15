@@ -3,7 +3,7 @@ package com.nine.travelerscompass.platform;
 import com.mojang.serialization.Codec;
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.common.data.DataStorage;
-import com.nine.travelerscompass.coomon.item.FabricTravelersCompassItem;
+import com.nine.travelerscompass.common.item.FabricTravelersCompassItem;
 import com.nine.travelerscompass.init.FabricRegistryProvider;
 import com.nine.travelerscompass.init.MenuRegistry;
 import com.nine.travelerscompass.init.RegistryProvider;
@@ -14,6 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,13 +26,13 @@ import java.util.function.Supplier;
 public class FabricPlatformRegistryHelper implements IPlatformRegistryHelper {
 	
 	@Override
-	public RegistryProvider<Item> registerTravelersCompassItem(String id, Item.Properties properties) {
-		return registerItem(id, () -> new FabricTravelersCompassItem(properties));
+	public RegistryProvider<Item> registerTravelersCompassItem(ResourceKey<Item> id, Item.Properties properties) {
+		return registerItem(id, () -> new FabricTravelersCompassItem(properties.setId(id)));
 	}
 	
 	@Override
-	public RegistryProvider<Item> registerItem(String name, Supplier<Item> supplier) {
-		Item ret = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(TCCommon.MODID, name), supplier.get());
+	public RegistryProvider<Item> registerItem(ResourceKey<Item> id, Supplier<Item> supplier) {
+		Item ret = Registry.register(BuiltInRegistries.ITEM, id, supplier.get());
 		return new FabricRegistryProvider<>(ret);
 	}
 	

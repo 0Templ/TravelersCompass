@@ -10,6 +10,9 @@ fabricApi {
 }
 
 def nightConfigVersion = '3.6.6'
+def enabledNei = (findProperty('nei') ?: '').toString()
+def enabledWaila = (findProperty('waila') ?: '').toString()
+
 def shadowedDeps = [
         "com.electronwill.night-config:core:$nightConfigVersion",
         "com.electronwill.night-config:toml:$nightConfigVersion"
@@ -24,10 +27,14 @@ dependencies {
     implementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
     // Jei
-    implementation"mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    if (enabledNei == 'JEI') {
+        implementation"mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    }
 
     // Jade
-    implementation "maven.modrinth:jade:${jade_version}+fabric"
+    if (enabledWaila == 'JADE') {
+        implementation "maven.modrinth:jade:${jade_version}+fabric"
+    }
 
     shadowedDeps.each {
         implementation it

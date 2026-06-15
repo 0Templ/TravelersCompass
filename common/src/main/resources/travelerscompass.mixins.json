@@ -13,7 +13,7 @@
     "accessor.LootTableAccessor"
   ],
   "client": [
-    "client.GuiMixin",
+    "client.HudMixin",
     "client.ItemMixin",
     "client.ItemStackMixin",
     "client.accessor.ConditionalItemModelPropertiesAccessor",
