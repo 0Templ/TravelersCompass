@@ -2,6 +2,7 @@ package com.nine.travelerscompass.datagen;
 
 import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.init.ItemRegistry;
+import com.nine.travelerscompass.init.TCItemIds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
@@ -17,7 +18,7 @@ public class TCItemTagProvider extends ItemTagsProvider {
 	
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(ItemTags.COMPASSES).add(ItemRegistry.TRAVELERS_COMPASS.get());
+		this.tag(ItemTags.COMPASSES).add(TCItemIds.TRAVELERS_COMPASS_ID);
 	}
 	
 	

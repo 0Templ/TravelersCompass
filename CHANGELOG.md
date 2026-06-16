@@ -6,9 +6,8 @@ All notable changes to this project will be documented in this file.
 - /
 
 
-## 4.3.01
-- Allow 26.1.1 version
-- Return JEI, JADE compatibility
+## 4.3.02
+- 26.2 port
 
 
 ## 4.3.0

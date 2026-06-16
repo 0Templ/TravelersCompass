@@ -34,10 +34,10 @@ neoForge {
 dependencies {
 
     // Jei
-    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+//    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Jade
-    implementation "maven.modrinth:jade:${jade_version}+neoforge"
+//    implementation "maven.modrinth:jade:${jade_version}+neoforge"
 }
 
 

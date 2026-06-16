@@ -28,12 +28,12 @@ dependencies {
 
     // Jei
     if (enabledNei == 'JEI') {
-        implementation"mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+//        implementation"mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
     }
 
     // Jade
     if (enabledWaila == 'JADE') {
-        implementation "maven.modrinth:jade:${jade_version}+fabric"
+//        implementation "maven.modrinth:jade:${jade_version}+fabric"
     }
 
     shadowedDeps.each {

@@ -35,14 +35,13 @@ public class NeoForgePlatformRegistryHelper implements IPlatformRegistryHelper {
 	public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, TCCommon.MODID);
 	
 	@Override
-	public RegistryProvider<Item> registerTravelersCompassItem(String id, Item.Properties properties) {
-		ResourceKey<Item> key = ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(TCCommon.MODID, id));
-		return registerItem(id, () -> new NeoForgeTravelersCompassItem(properties.setId(key)));
+	public RegistryProvider<Item> registerTravelersCompassItem(ResourceKey<Item> id, Item.Properties properties) {
+		return registerItem(id, () -> new NeoForgeTravelersCompassItem(properties.setId(id)));
 	}
 	
 	@Override
-	public RegistryProvider<Item> registerItem(String name, Supplier<Item> itemSupplier) {
-		return new NeoForgeRegistryObject<>(ITEMS.register(name, itemSupplier));
+	public RegistryProvider<Item> registerItem(ResourceKey<Item> id, Supplier<Item> itemSupplier) {
+		return new NeoForgeRegistryObject<>(ITEMS.register(id.identifier().getPath(), itemSupplier));
 	}
 	
 	@Override
