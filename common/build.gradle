@@ -18,7 +18,7 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
     // Jade
-    compileOnly "maven.modrinth:jade:${jade_version}+fabric"
+    compileOnly "maven.modrinth:jade:${jade_fabric_version}+fabric"
 
     // Night Config
     compileOnly 'com.electronwill.night-config:core:3.6.6'

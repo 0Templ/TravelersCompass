@@ -32,6 +32,9 @@
     "jei_mod_plugin": [
       "com.nine.travelerscompass.compat.jei.JeiSetup"
     ],
+    "rei_client": [
+      "com.nine.travelerscompass.compat.rei.FabricReiSetup"
+    ],
     "jade": [
       "com.nine.travelerscompass.compat.jade.JadeSetup"
     ],

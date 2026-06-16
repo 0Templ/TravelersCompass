@@ -13,7 +13,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 
 public class ReiGhostTargetHandler extends BaseGhostTargetHandler implements DraggableStackVisitor<CompassScreen> {
-	
+
 	@Override
 	public DraggedAcceptorResult acceptDraggedStack(DraggingContext<CompassScreen> context, DraggableStack draggableStack) {
 		CompassScreen screen = context.getScreen();
@@ -29,10 +29,9 @@ public class ReiGhostTargetHandler extends BaseGhostTargetHandler implements Dra
 				})
 				.orElse(DraggedAcceptorResult.PASS);
 	}
-	
+
 	@Override
 	public <R extends Screen> boolean isHandingScreen(R r) {
 		return r instanceof CompassScreen;
 	}
-	
 }

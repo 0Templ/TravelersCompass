@@ -34,10 +34,43 @@ neoForge {
 dependencies {
 
     // Jei
-    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+
+    // REI
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    compileOnly "dev.architectury:architectury-neoforge:${architectury_neoforge_version}"
 
     // Jade
-    implementation "maven.modrinth:jade:${jade_version}+neoforge"
+    compileOnly "maven.modrinth:jade:${jade_neoforge_version}+neoforge"
+
+    // Lootr
+    compileOnly "maven.modrinth:lootr:${lootr_version}"
+
+    switch (nei) {
+        case "JEI":
+            runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+            break
+        case "REI":
+            runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+            runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+            runtimeOnly "dev.architectury:architectury-neoforge:${architectury_neoforge_version}"
+            break
+        case "EMI":
+            break
+    }
+
+    switch (waila) {
+        case "JADE":
+            runtimeOnly "maven.modrinth:jade:${jade_neoforge_version}+neoforge"
+            break
+        case "TOP":
+
+            break
+    }
+
+    runtimeOnly "maven.modrinth:lootr:${lootr_version}"
 }
 
 

@@ -1,4 +1,3 @@
-/*
 package com.nine.travelerscompass.compat.lootr;
 
 import com.nine.travelerscompass.common.data.CompassComponents;
@@ -17,9 +16,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import noobanidus.mods.lootr.common.api.data.DefaultLootFiller;
-import noobanidus.mods.lootr.common.api.data.ILootrInfoProvider;
 import noobanidus.mods.lootr.common.api.data.blockentity.ILootrBlockEntity;
+import noobanidus.mods.lootr.common.api.filler.DefaultLootFiller;
+import noobanidus.mods.lootr.common.api.interfaces.IHasOpeners;
 import noobanidus.mods.lootr.common.data.DataStorage;
 import noobanidus.mods.lootr.common.entity.LootrChestMinecartEntity;
 
@@ -86,7 +85,7 @@ public class FabricLootrHelper {
 		return ret;
 	}
 	
-	public static boolean shouldCheckLootrContainer(ILootrInfoProvider iHasOpeners, SearchOptions options) {
+	public static boolean shouldCheckLootrContainer(IHasOpeners iHasOpeners, SearchOptions options) {
 		LootrSearchMode searchMode = options.get(CompassComponents.LOOTR_MODE);
 		if (iHasOpeners.getActualOpeners() == null) return false;
 		boolean opened = iHasOpeners.getActualOpeners().contains(options.getPlayerUUID());
@@ -99,4 +98,3 @@ public class FabricLootrHelper {
 	}
 	
 }
-*/

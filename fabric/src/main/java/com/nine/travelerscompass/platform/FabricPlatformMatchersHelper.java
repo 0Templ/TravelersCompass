@@ -9,6 +9,7 @@ import com.nine.travelerscompass.common.search.location.ILocationObject;
 import com.nine.travelerscompass.common.search.matcher.BlockEntityMatcher;
 import com.nine.travelerscompass.common.search.matcher.BlockMatcher;
 import com.nine.travelerscompass.common.search.matcher.EntityMatcher;
+import com.nine.travelerscompass.compat.lootr.FabricLootrHelper;
 import com.nine.travelerscompass.compat.lootr.LootrSearchMode;
 import com.nine.travelerscompass.config.TCConfig;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -30,7 +31,7 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 	
 	@Override
 	public List<BlockEntityMatcher> blockEntityMatchers() {
-		return List.of(CONTAINER_MATCHER/*, LOOTR_CONTAINER_MATCHER*/);
+		return List.of(CONTAINER_MATCHER, LOOTR_CONTAINER_MATCHER);
 	}
 	
 	@Override
@@ -40,15 +41,14 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 	
 	@Override
 	public List<EntityMatcher> entityMatchers() {
-		return List.of(/*LOOTR_MINECART_MATCHER*/);
+		return List.of(LOOTR_MINECART_MATCHER);
 	}
 	
 	public static final EntityMatcher LOOTR_MINECART_MATCHER = new EntityMatcher() {
 		
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, Entity entity, Level level, BlockPos pos) {
-			return null;
-//			return FabricLootrHelper.minecartMatch(criteria, options, entity, level, pos);
+			return FabricLootrHelper.minecartMatch(criteria, options, entity, level, pos);
 		}
 		
 		@Override
@@ -62,8 +62,7 @@ public class FabricPlatformMatchersHelper implements IPlatformMatchersHelper {
 		
 		@Override
 		public List<ILocationObject> match(TypedCriteria criteria, SearchOptions options, BlockPos pos, BlockState state, BlockEntity be) {
-			return null;
-//			return FabricLootrHelper.matchLootrContainer(criteria, options, pos, state, be);
+			return FabricLootrHelper.matchLootrContainer(criteria, options, pos, state, be);
 		}
 		
 		@Override
