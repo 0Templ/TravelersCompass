@@ -1,0 +1,203 @@
+{
+  "item.travelerscompass.travelerscompass": "여행자의 나침반",
+  "itemgroup.travelerscompass": "여행자의 나침반",
+
+  "tooltip.travelerscompass.search_mode.blocks": "블록 검색",
+  "tooltip.travelerscompass.search_mode.blocks.desc": "월드에 배치 가능한 블록을 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.mobs": "몹 검색",
+  "tooltip.travelerscompass.search_mode.mobs.desc": "생성 알에 해당되는 몹을 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.drop": "드롭 검색",
+  "tooltip.travelerscompass.search_mode.drop.desc": "몹이 드롭할 수 있는 아이템을 기준으로 몹을 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.spawners": "몬스터 생성기 검색",
+  "tooltip.travelerscompass.search_mode.spawners.desc": "생성하는 몹을 기준으로 몬스터 생성기를 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.item_entities": "아이템 엔티티 검색",
+  "tooltip.travelerscompass.search_mode.item_entities.desc": "땅에 떨어진 아이템을 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.inventories": "엔티티 인벤토리 검색",
+  "tooltip.travelerscompass.search_mode.inventories.desc": "인벤토리에 있는 아이템을 기준으로 엔티티를 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.fluids": "액체 검색",
+  "tooltip.travelerscompass.search_mode.fluids.desc": "양동이 아이템을 사용하여 액체를 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.containers": "보관함 검색",
+  "tooltip.travelerscompass.search_mode.containers.desc": "저장된 아이템을 기준으로 보관함을 검색합니다",
+
+  "tooltip.travelerscompass.search_mode.villagers": "주민 검색",
+  "tooltip.travelerscompass.search_mode.villagers.desc": "거래 품목을 기준으로 주민을 검색합니다",
+
+  "tooltip.travelerscompass.wide_search": "광역 검색",
+  "tooltip.travelerscompass.wide_search.desc": "범위 내의 모든 청크를 검사합니다. 자동 검색을 일시 정지합니다",
+  "tooltip.travelerscompass.wide_search.cancel": "취소하려면 %s를 누르세요",
+
+  "tooltip.travelerscompass.toggle_element.disabled": "비활성화됨",
+  "tooltip.travelerscompass.toggle_element.enabled": "활성화됨",
+  "tooltip.travelerscompass.toggle_element.villagers_buys": "주민 구매",
+  "tooltip.travelerscompass.toggle_element.villagers_buys.desc": "특정 아이템을 구매하는 주민을 검색합니다s",
+  "tooltip.travelerscompass.toggle_element.villagers_sells": "주민 판매",
+  "tooltip.travelerscompass.toggle_element.villagers_sells.desc": "특정 아이템을 판매하는 주민을 검색합니다",
+  "tooltip.travelerscompass.toggle_element.minecarts": "광산 수레",
+  "tooltip.travelerscompass.toggle_element.minecarts.desc": "상자가 실린 광산 수레 내부의 아이템을 검색합니다",
+  "tooltip.travelerscompass.toggle_element.containers_chests": "보관함 블록",
+  "tooltip.travelerscompass.toggle_element.containers_chests.desc": "상자, 통, 셜커 상자 등 저장소 블록을 포함합니다",
+  "tooltip.travelerscompass.toggle_element.lootr": "전리품 검색",
+  "tooltip.travelerscompass.toggle_element.lootr.both": "모두",
+  "tooltip.travelerscompass.toggle_element.lootr.closed": "열어보지 않은 것만 검색",
+  "tooltip.travelerscompass.toggle_element.lootr.opened": "열어본 것만 검색",
+  "tooltip.travelerscompass.toggle_element.lootr.off": "비활성화",
+  "tooltip.travelerscompass.toggle_element.lootr.both.desc": "모든 전리품 보관함을 검색합니다",
+  "tooltip.travelerscompass.toggle_element.lootr.closed.desc": "열어보지 않은 전리품 보관함만 검색합니다",
+  "tooltip.travelerscompass.toggle_element.lootr.opened.desc": "열어본 전리품 보관함만 검색합니다",
+  "tooltip.travelerscompass.toggle_element.lootr.off.desc": "전리품 보관함을 검색에서 제외합니다",
+  "tooltip.travelerscompass.toggle_element.inv_players": "플레이어 인벤토리",
+  "tooltip.travelerscompass.toggle_element.inv_players.desc": "검색 시 다른 플레이어의 인벤토리를 포함합니다",
+  "tooltip.travelerscompass.toggle_element.inv_mobs": "몹 인벤토리",
+  "tooltip.travelerscompass.toggle_element.inv_mobs.desc": "검색 시 몹 인벤토리를 포함합니다",
+
+  "tooltip.travelerscompass.disabled_config": "컨피그에서 비활성화됨",
+  "tooltip.travelerscompass.disabled": "비활성화됨",
+  "tooltip.travelerscompass.enabled": "활성화됨",
+  "tooltip.travelerscompass.inverted": "반전됨",
+  "tooltip.travelerscompass.inactive": "비활성",
+
+  "tooltip.travelerscompass.warning.empty": "나침반이 비어있습니다",
+  "tooltip.travelerscompass.warning.empty.desc": "검색을 시작하려면 나침반 인벤토리에 아이템을 추가하세요",
+  "tooltip.travelerscompass.warning.inactive": "활성화된 검색 모드가 없습니다",
+  "tooltip.travelerscompass.warning.inactive.desc": "검색을 시작하려면 최소 하나의 검색 모드를 활성화하세요",
+  "tooltip.travelerscompass.warning.paused": "나침반이 일시 정지 되었습니다.",
+  "tooltip.travelerscompass.warning.paused.desc": "자동 검색을 계속하려면 재개하세요",
+
+  "tooltip.travelerscompass.settings": "설정",
+  "tooltip.travelerscompass.search": "검색",
+
+  "tooltip.travelerscompass.settings.priority_mode": "우선순위 모드",
+  "tooltip.travelerscompass.settings.priority_mode.desc.off": "우선순위를 무시하고, 거리순으로 정렬합니다",
+  "tooltip.travelerscompass.settings.priority_mode.desc.normal": "우선순위 아이템을 먼저 검색한 후, 나머지를 검색합니다",
+  "tooltip.travelerscompass.settings.priority_mode.desc.inverted": "우선순위가 아닌 아이템을 먼저 검색합니다",
+
+  "tooltip.travelerscompass.settings.reset": "설정 초기화",
+  "tooltip.travelerscompass.settings.reset.desc": "모든 나침반 설정을 기본값으로 되돌립니다",
+
+  "tooltip.travelerscompass.settings.attitude_marker": "높이 표시기",
+  "tooltip.travelerscompass.settings.attitude_marker.desc": "대상의 수직 방향을 표시합니다 (위/아래)",
+  "tooltip.travelerscompass.settings.sound_ping": "알림음",
+  "tooltip.travelerscompass.settings.sound_ping.desc": "새로운 대상을 발견하면 알림음을 재생합니다",
+  "tooltip.travelerscompass.settings.pause": "일시 정지",
+  "tooltip.travelerscompass.settings.pause.desc": "자동 검색을 중지합니다",
+  "tooltip.travelerscompass.settings.resume": "재개",
+  "tooltip.travelerscompass.settings.resume.desc": "자동 검색을 재개합니다",
+  "tooltip.travelerscompass.settings.resume.warning": "검색을 재개하면 광역 검색이 취소됩니다",
+
+  "tooltip.travelerscompass.settings.force_chunks_load": "강제 청크 로드",
+  "tooltip.travelerscompass.settings.force_chunks_load.desc": "가능하다면 로드되지 않은 청크를 로드합니다",
+
+  "tooltip.travelerscompass.settings.target_validation": "대상 검증",
+  "tooltip.travelerscompass.settings.target_validation.desc": "나침반이 대상을 가리키기 전에 대상의 존재 여부를 확인합니다",
+
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range": "블록 검색 범위",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.desc": "블록 검색 반경입니다 (청크 단위)",
+  "tooltip.travelerscompass.settings.blocks_chunk_search_range.value": "%s 청크",
+
+  "tooltip.travelerscompass.settings.wide_search_range": "광역 검색 범위",
+  "tooltip.travelerscompass.settings.wide_search_range.desc": "광역 검색 반경입니다",
+  "tooltip.travelerscompass.settings.wide_search_range.value": "%s 청크",
+
+  "tooltip.travelerscompass.settings.entities_search_range": "엔티티 검색 범위",
+  "tooltip.travelerscompass.settings.entities_search_range.desc": "엔티티 검색의 최대 반경입니다 (블록 단위)",
+  "tooltip.travelerscompass.settings.entities_search_range.value": "%s 블록",
+
+  "tooltip.travelerscompass.settings.modification.hold_to_decrease": "[%s]을(를) 누르고 있으면 값을 감소시킵니다",
+  "tooltip.travelerscompass.settings.modification.hold_to_change_faster": "[%s]을(를) 누르고 있으면 값이 더 빠르게 조절됩니다",
+
+  "tooltip.travelerscompass.settings.modification.shift": "Shift",
+  "tooltip.travelerscompass.settings.modification.ctrl": "Ctrl",
+  "tooltip.travelerscompass.settings.modification.shift_click": "Shift-클릭",
+
+  "tooltip.travelerscompass.settings.info": "정보",
+  "tooltip.travelerscompass.settings.info.status": "상태: %s",
+  "tooltip.travelerscompass.settings.info.status.searching": "검색 중 (%s)",
+  "tooltip.travelerscompass.settings.info.status.scanning": "탐색 중 (%s)",
+  "tooltip.travelerscompass.settings.info.status.progress": "진행도: %s",
+  "tooltip.travelerscompass.settings.info.status.paused": "일시 정지됨",
+  "tooltip.travelerscompass.settings.info.status.idle": "대기 중",
+  "tooltip.travelerscompass.settings.info.target": "대상: %s",
+  "tooltip.travelerscompass.settings.info.position": "위치: %s",
+  "tooltip.travelerscompass.settings.info.progress": "진행도: %s",
+
+  "tooltip.travelerscompass.settings.hud": "HUD 표시",
+  "tooltip.travelerscompass.settings.hud.desc": "검색 대상의 정보 오버레이를 설정합니다",
+  "tooltip.travelerscompass.settings.hud.enabled": "항상 표시",
+  "tooltip.travelerscompass.settings.hud.requires_hand": "들고 있을 때만 표시",
+
+  "tooltip.travelerscompass.settings.hud.alignment": "텍스트 정렬",
+  "tooltip.travelerscompass.settings.hud.alignment.desc": "텍스트의 정렬 기준입니다",
+  "tooltip.travelerscompass.settings.hud.alignment.center": "가운데 정렬",
+  "tooltip.travelerscompass.settings.hud.alignment.right": "오른쪽 정렬",
+  "tooltip.travelerscompass.settings.hud.alignment.left": "왼쪽 정렬",
+
+  "tooltip.travelerscompass.settings.hud.type": "표시 스타일",
+  "tooltip.travelerscompass.settings.hud.type.desc": "HUD 레이아웃 스타일을 선택합니다",
+  "tooltip.travelerscompass.settings.hud.type.compact": "축소형",
+  "tooltip.travelerscompass.settings.hud.type.extended": "확장형",
+
+  "tooltip.travelerscompass.settings.hud.position.x": "가로 오프셋",
+  "tooltip.travelerscompass.settings.hud.position.y": "세로 오프셋",
+  "tooltip.travelerscompass.settings.hud.position.value": "오프셋: %s px",
+  "tooltip.travelerscompass.settings.hud.position.desc": "%2$s을(를) 기준으로 %1$s축 방향의 오프셋을 설정합니다",
+  "tooltip.travelerscompass.settings.hud.position.alignment.center": "가운데",
+  "tooltip.travelerscompass.settings.hud.position.alignment.right": "오른쪽 가장자리",
+  "tooltip.travelerscompass.settings.hud.position.alignment.left": "왼쪽 가장자리",
+
+  "tooltip.travelerscompass.settings.hud_scale": "HUD 크기",
+  "tooltip.travelerscompass.settings.hud_scale.desc": "표시 크기를 조절합니다",
+  "tooltip.travelerscompass.settings.hud_scale.value": "배율: %s",
+
+  "tooltip.travelerscompass.settings.hud_height": "표시 높이",
+  "tooltip.travelerscompass.settings.hud_height.desc": "HUD의 세로 높이입니다",
+  "tooltip.travelerscompass.settings.hud_width": "표시 너비",
+  "tooltip.travelerscompass.settings.hud_width.desc": "텍스트가 잘리기 전까지의 최대 너비입니다",
+  "tooltip.travelerscompass.settings.hud_width.value": "너비: %s px",
+  "tooltip.travelerscompass.settings.hud_height.value": "높이: %s px",
+
+  "tooltip.travelerscompass.settings.hud_with_chat": "채팅 중에도 표시",
+  "tooltip.travelerscompass.settings.hud_with_chat.desc": "채팅창이 열려있을 때도 HUD를 표시합니다",
+
+  "tooltip.travelerscompass.settings.hud.reset": "HUD 초기화",
+  "tooltip.travelerscompass.settings.hud.reset.desc": "HUD 설정을 기본값으로 되돌립니다",
+
+  "hud.travelerscompass.compact.state": "상태: %s",
+  "hud.travelerscompass.compact.state.idle": "대기 중",
+  "hud.travelerscompass.compact.state.found": "발견됨",
+  "hud.travelerscompass.compact.state.pause": "일시 정지 됨",
+  "hud.travelerscompass.compact.state.searching": "검색 중",
+  "hud.travelerscompass.compact.target": "대상: %s",
+  "hud.travelerscompass.compact.position": "위치: %s",
+  "hud.travelerscompass.compact.position_short": "위치: %s",
+  "hud.travelerscompass.compact.distance": "거리: %s",
+  "hud.travelerscompass.number.kilo": "k",
+  "hud.travelerscompass.number.mega": "M",
+  "hud.travelerscompass.extended.state": "상태",
+  "hud.travelerscompass.extended.target": "대상",
+  "hud.travelerscompass.extended.position": "위치",
+  "hud.travelerscompass.extended.distance": "거리",
+
+  "tooltip.travelerscompass.config.filter_reason.mod": "%s 모드의 아이템은 검색할 수 없습니다",
+  "tooltip.travelerscompass.config.filter_reason.item": "이 아이템은 검색할 수 없습니다",
+  "tooltip.travelerscompass.config.filter_reason.tag": "'%s' 태그를 가진 아이템은 검색할 수 없습니다",
+  "tooltip.travelerscompass.config.filter_reason.entity": "이 엔티티는 검색할 수 없습니다",
+  "tooltip.travelerscompass.config.search_cost.requirement_level": "요구 레벨: %s",
+  "tooltip.travelerscompass.config.search_cost.cost": "검색 비용: %s 레벨",
+  "tooltip.travelerscompass.config.search_cost.cost_plural": "검색 비용: %s 레벨",
+
+  "waila.travelerscompass.forbidden_block": "이 블록은 검색할 수 없습니다",
+  "waila.travelerscompass.forbidden_entity": "이 엔티티는 검색할 수 없습니다",
+  "waila.travelerscompass.info.block": "이 블록을 검색하려면 Shift + 마우스 우클릭 하세요",
+  "waila.travelerscompass.info.entity": "이 엔티티를 검색하려면 Shift + 마우스 우클릭 하세요",
+
+  "nei.travelerscompass.info": "이 나침반은 블록, 엔티티 (생성 알, 드롭 아이템, 혹은 인벤토리 기준), 주민 (거래 품목 기준), 몬스터 생성기, 액체 (양동이로 검색), 바닥의 아이템, 보관함 (내용물 기준)을 검색할 수 있습니다.",
+
+  "config.jade.plugin_minecraft.travelerscompass": "나침반 검색 정보"
+}
