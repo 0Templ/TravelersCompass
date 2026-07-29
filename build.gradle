@@ -1,7 +1,7 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT' apply false
     id 'net.neoforged.moddev' version '2.0.141' apply false
-    id "me.shedaniel.unified-publishing" version "0.1.+" apply false
+    id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2" apply false
     id 'com.gradleup.shadow' version '8.3.10' apply(false)
 }
 
@@ -57,56 +57,59 @@ def changelogForVersion(String version) {
     return matcher.find() ? matcher.group(1).trim() : ""
 }
 
-ext.configureUnifiedPublishing = { p, cfg ->
-    p.unifiedPublishing {
-        project {
-            displayName = "[${cfg.loaderName}]${getModNameForPublishing(p.mod_name)}-${p.display_minecraft_version}-${p.version}"
-            releaseType = cfg.releaseType
-            changelog = changelogForVersion(p.version.toString())
+static def toReleaseType(Object value) {
+    def v = (value ?: "stable").toString().trim().toLowerCase()
+    return v == "release" ? "stable" : v
+}
 
+static def csv(Object value) {
+    if (value == null) return []
+    return value.toString()
+            .split(',')
+            .collect { it.trim() }
+            .findAll { !it.isEmpty() }
+}
 
-            def publishGameVersions = (
-                    p.findProperty("publish_game_versions")
-                            ?: p.minecraft_version.toString()
-            ).toString()
-                    .split(',')
-                    .collect { it.trim() }
-                    .findAll { !it.isEmpty() }
+ext.configurePublishing = { p, cfg ->
+    p.publishMods {
+        file = p.tasks.named(cfg.publicationTask, Zip).flatMap { it.archiveFile }
+        changelog = changelogForVersion(p.version.toString())
+        type = toReleaseType(cfg.releaseType)
+        displayName = "[${cfg.loaderName}]${getModNameForPublishing(p.mod_name)}-${p.display_minecraft_version}-${p.version}"
 
-            gameVersions = publishGameVersions
+        modLoaders.add(cfg.gameLoader)
 
-            gameLoaders = [cfg.gameLoader]
-            mainPublication p.tasks.named(cfg.publicationTask).get()
+        def gameVersions = csv(
+                p.findProperty("publish_game_versions") ?: p.minecraft_version
+        )
 
-            if (cfg.relations instanceof Closure) {
-                relations(cfg.relations as Closure)
-            } else if (cfg.relationsDepends instanceof Map && !cfg.relationsDepends.isEmpty()) {
-                relations {
-                    depends {
-                        cfg.relationsDepends.each { platform, dependencyId ->
-                            setProperty(platform.toString(), dependencyId)
-                        }
-                    }
-                }
+        def cfToken = System.getenv("CURSEFORGE_TOKEN") ?: p.findProperty("CURSEFORGE_TOKEN")
+        def cfId = (p.findProperty("curseforge_project_id") ?: "").toString().trim()
+        if (cfToken != null && !cfId.isEmpty()) {
+            curseforge {
+                accessToken = cfToken
+                projectId = cfId
+                client = true
+                server = true
+
+                csv(p.findProperty("publish_game_versions_curseforge") ?: gameVersions.join(','))
+                        .each { minecraftVersions.add(it) }
+
+                cfg.requiredMods?.each { requires(it) }
             }
+        }
 
-            def mrToken = p.findProperty("MODRINTH_TOKEN") ?: System.getenv("MODRINTH_TOKEN")
-            def mrId = (p.findProperty("modrinth_project_id") ?: "").toString().trim()
-            if (mrToken != null && !mrId.isEmpty()) {
-                modrinth {
-                    token = mrToken
-                    id = mrId
-                    version = p.version.toString()
-                }
-            }
+        def mrToken = System.getenv("MODRINTH_TOKEN") ?: p.findProperty("MODRINTH_TOKEN")
+        def mrId = (p.findProperty("modrinth_project_id") ?: "").toString().trim()
+        if (mrToken != null && !mrId.isEmpty()) {
+            modrinth {
+                accessToken = mrToken
+                projectId = mrId
 
-            def cfToken = p.findProperty("CURSEFORGE_TOKEN") ?: System.getenv("CURSEFORGE_TOKEN")
-            def cfId = (p.findProperty("curseforge_project_id") ?: "").toString().trim()
-            if (cfToken != null && !cfId.isEmpty()) {
-                curseforge {
-                    token = cfToken
-                    id = cfId
-                }
+                csv(p.findProperty("publish_game_versions_modrinth") ?: gameVersions.join(','))
+                        .each { minecraftVersions.add(it) }
+
+                cfg.requiredMods?.each { requires(it) }
             }
         }
     }

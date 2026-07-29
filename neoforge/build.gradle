@@ -1,7 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'me.shedaniel.unified-publishing'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 
@@ -59,7 +59,7 @@ sourceSets.configureEach {
             .each(markNeoForge)
 }
 
-configureUnifiedPublishing(project, [
+configurePublishing(project, [
         loaderName     : "NeoForge",
         gameLoader     : "neoforge",
         releaseType    : rootProject.neoforge_release_type,
