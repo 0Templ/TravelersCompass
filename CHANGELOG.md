@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 - /
 
 
+## 4.3.03
+- Korean translation (ko_kr) — [jeffjks](https://github.com/jeffjks)
+
+
 ## 4.3.02
 - 26.2 port
 
