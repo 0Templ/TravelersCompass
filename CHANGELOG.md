@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 - / 
 
+## 4.0.06
+- Korean translation (ko_kr) — [jeffjks](https://github.com/jeffjks)
+
 ## 4.0.05
 - fixed screen crash.
 
