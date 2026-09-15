@@ -1,14 +1,13 @@
 package com.nine.travelerscompass.datagen;
 
 import com.nine.travelerscompass.TCCommon;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
 @EventBusSubscriber(modid = TCCommon.MODID)
 public class TCDataGenerator {
@@ -24,11 +23,11 @@ public class TCDataGenerator {
 	}
 	
 	public static void gatherData(GatherDataEvent event) {
-		DataGenerator generator = event.getGenerator();
-		PackOutput packOutput = generator.getPackOutput();
-		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		generator.addProvider(true, new TCItemTagProvider(packOutput, lookupProvider));
-		generator.addProvider(true, new TCRecipeProvider.Runner(packOutput, lookupProvider));
+		event.createReloadableRegistryObjects(new RegistrySetBuilder()
+				.add(RecipeProvider.asBootstrap(TCRecipeProvider::new)),
+				Set.of(TCCommon.MODID),
+				"reloadable_" + TCCommon.MODID);
+		event.createProvider(TCItemTagProvider::new);
 	}
 	
 }

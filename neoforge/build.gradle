@@ -4,6 +4,16 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin'
 }
 
+// TODO 26.3: drop prmaven once official NeoForge 26.3 is out!!!
+repositories {
+    maven {
+        url = "https://prmaven.neoforged.net/NeoForge/pr3403"
+        content {
+            includeGroup("net.neoforged")
+        }
+    }
+}
+
 
 neoForge {
     version = neoforge_version
@@ -22,6 +32,14 @@ neoForge {
         server {
             server()
             gameDirectory = mkdir(file("runs/server"))
+        }
+
+        data {
+            serverData()
+            gameDirectory = mkdir(file("runs/data"))
+            programArguments.addAll('--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', file('src/main/resources/').absolutePath)
         }
     }
 

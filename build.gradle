@@ -1,6 +1,6 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT' apply false
-    id 'net.neoforged.moddev' version '2.0.141' apply false
+    id 'net.neoforged.moddev' version '2.0.147' apply false
     id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2" apply false
     id 'com.gradleup.shadow' version '8.3.10' apply(false)
 }
@@ -72,6 +72,9 @@ static def csv(Object value) {
 
 ext.configurePublishing = { p, cfg ->
     p.publishMods {
+        // -PdryRun=true validates and writes artifacts locally without uploading.
+        dryRun = p.providers.gradleProperty("dryRun").map { it.toBoolean() }.getOrElse(false)
+
         file = p.tasks.named(cfg.publicationTask, Zip).flatMap { it.archiveFile }
         changelog = changelogForVersion(p.version.toString())
         type = toReleaseType(cfg.releaseType)

@@ -4,15 +4,17 @@ import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.init.ItemRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,9 +25,9 @@ public class TCRecipeProvider extends FabricRecipeProvider {
 	}
 	
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, BootstrapContext<Recipe<?>> recipeContext, BootstrapContext<Advancement> advancementContext) {
 		
-		return new RecipeProvider(registryLookup, exporter) {
+		return new RecipeProvider(recipeContext, advancementContext) {
 			@Override
 			public void buildRecipes() {
 				TagKey<Item> netheriteIngots = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/netherite"));
@@ -37,7 +39,7 @@ public class TCRecipeProvider extends FabricRecipeProvider {
 						.pattern("LCL")
 						.pattern(" I ")
 						.unlockedBy("has_netherite_ingot", has(netheriteIngots))
-						.save(exporter);
+						.save(output);
 			}
 		};
 	}

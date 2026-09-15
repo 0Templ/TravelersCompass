@@ -1,42 +1,21 @@
 package com.nine.travelerscompass.datagen;
 
-import com.nine.travelerscompass.TCCommon;
 import com.nine.travelerscompass.init.ItemRegistry;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-
-import java.util.concurrent.CompletableFuture;
+import net.minecraft.world.item.crafting.Recipe;
 
 public class TCRecipeProvider extends RecipeProvider {
 	
-	public TCRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-		super(registries, output);
-	}
-	
-	public static class Runner extends RecipeProvider.Runner {
-		
-		public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider) {
-			super(packOutput, provider);
-		}
-		
-		@Override
-		protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
-			return new TCRecipeProvider(provider, recipeOutput);
-		}
-		
-		@Override
-		public String getName() {
-			return TCCommon.MODID;
-		}
-		
+	public TCRecipeProvider(BootstrapContext<Recipe<?>> recipeContext, BootstrapContext<Advancement> advancementContext) {
+		super(recipeContext, advancementContext);
 	}
 	
 	@Override
