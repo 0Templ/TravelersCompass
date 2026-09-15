@@ -1,6 +1,7 @@
 package com.nine.travelerscompass.client.component.button.base;
 
 import com.nine.travelerscompass.client.component.button.settings.ButtonGenericSettings;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -93,13 +94,13 @@ public abstract class BaseButton extends Button {
 			return false;
 		}
 		boolean handled = false;
-		if (event.button() == 0) {
+		if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
 			handled = onLeftClick(mouseX, mouseY);
 			if (onLeftClick != null) {
 				onLeftClick.accept(this);
 				handled = true;
 			}
-		} else if (event.button() == 1) {
+		} else if (event.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
 			handled = onRightClick(mouseX, mouseY);
 			if (onRightClick != null) {
 				onRightClick.accept(this);
@@ -135,7 +136,7 @@ public abstract class BaseButton extends Button {
 	
 	@Override
 	protected boolean isValidClickButton(MouseButtonInfo info) {
-		return info.button() == 0 || info.button() == 1;
+		return info.button() == InputConstants.MOUSE_BUTTON_LEFT || info.button() == InputConstants.MOUSE_BUTTON_RIGHT;
 	}
 	
 	@Override

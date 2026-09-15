@@ -18,6 +18,11 @@ public class TravelersCompassAngle implements RangeSelectItemModelProperty {
 	
 	@Override
 	public float get(ItemStack stack, ClientLevel level, ItemOwner owner, int seed) {
+		if (CompassRenderContext.isActive()) {
+			return CompassRenderContext.isHovered()
+					? state.getRandomlySpinningRotation(seed, level != null ? level.getGameTime() : System.currentTimeMillis() / 50L)
+					: CompassRenderContext.angle();
+		}
 		return state.get(stack, level, owner, seed);
 	}
 	

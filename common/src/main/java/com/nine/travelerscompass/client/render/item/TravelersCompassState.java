@@ -14,6 +14,9 @@ public class TravelersCompassState implements RangeSelectItemModelProperty {
 	
 	@Override
 	public float get(ItemStack stack, ClientLevel level, ItemOwner entity, int seed) {
+		if (CompassRenderContext.isActive()) {
+			return 2.0F;
+		}
 		return CompassComponents.COMPASS_STATE.get(stack);
 	}
 	

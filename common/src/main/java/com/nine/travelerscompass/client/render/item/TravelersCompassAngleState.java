@@ -31,7 +31,7 @@ public class TravelersCompassAngleState extends NeedleDirectionHelper {
 				: getRotationTowardsCompassTarget(seed, owner, time, pos);
 	}
 	
-	private float getRandomlySpinningRotation(int seed, long time) {
+	public float getRandomlySpinningRotation(int seed, long time) {
 		if (this.noTargetWobbler.shouldUpdate(time)) {
 			this.noTargetWobbler.update(time, this.random.nextFloat());
 		}

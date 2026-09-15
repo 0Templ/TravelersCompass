@@ -13,10 +13,14 @@
     "accessor.LootTableAccessor"
   ],
   "client": [
+    "client.AbstractContainerScreenCatalogMixin",
     "client.HudMixin",
     "client.ItemMixin",
     "client.ItemStackMixin",
+    "client.GuiGraphicsExtractorMixin",
     "client.accessor.ConditionalItemModelPropertiesAccessor",
+    "client.accessor.CreativeModeInventoryScreenAccessor",
+    "client.accessor.GuiGraphicsExtractorAccessor",
     "client.accessor.RangeSelectItemModelPropertiesAccessor"
   ],
   "server": [],
@@ -24,4 +28,3 @@
     "defaultRequire": 1
   }
 }
-
