@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 - /
 
 
+## 4.3.05
+- crash fix
+
 ## 4.3.04
 - Now compass tracks the cursor in menus
 - 26.3 port

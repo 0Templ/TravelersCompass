@@ -109,7 +109,7 @@ public final class CompassRenderContext {
 	}
 
 	private static boolean isCatalogueRender() {
-		if (CREATIVE_SLOT.get()) {
+		if (Boolean.TRUE.equals(CREATIVE_SLOT.get())) {
 			return true;
 		}
 
