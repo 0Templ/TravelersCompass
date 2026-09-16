@@ -4,17 +4,6 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin'
 }
 
-// TODO 26.3: drop prmaven once official NeoForge 26.3 is out!!!
-repositories {
-    maven {
-        url = "https://prmaven.neoforged.net/NeoForge/pr3403"
-        content {
-            includeGroup("net.neoforged")
-        }
-    }
-}
-
-
 neoForge {
     version = neoforge_version
 

@@ -3,8 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- /
 
+## 4.3.06
+- Rebuilt the NeoForge release against the official NeoForge 26.3 version
+- Updated NeoForge mod-menu icon metadata
 
 ## 4.3.05
 - crash fix
@@ -60,5 +62,3 @@ All notable changes to this project will be documented in this file.
 
 - Fixed quick priority switching on the compass  
   (when a target is found and the compass is paused — changing the priority now actually takes effect)
-
-
